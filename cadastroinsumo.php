@@ -12,25 +12,11 @@
 </head>
 
 <body>
-    <header>
-        <!-- Fixed navbar -->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Controle de Produção</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="cadastroinsumo.html">Cadastro Insumo</a>
-                    </li>
-            </div>
-        </nav>
-    </header>
-
+<?php    
+include_once("header.php");
+?>
     <main role="main" class="container">
-        <form method="POST">
+        <form action="recebevalores.php" method="POST">
             <div class="form-group">
                 <label for="insumo">Nome do insumo</label>
                 <input type="text" class="form-control" name="insumo" id="nome" placeholder="Digite o nome do Insumo">
@@ -52,14 +38,6 @@
 
             <input type="submit" value="Salvar" class="btn btn-primary" /> 
         </form>
-
-        <table class="table">
-            <tr>
-            <th>ID</th>
-            <th>Nome Insumo</th>
-            <th>Unidade de Medida</th>
-</tr>
-                
 
     </main>
     <footer class="footer">
