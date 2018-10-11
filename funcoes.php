@@ -11,6 +11,6 @@ function salvarInsumo($post){
 }
 
 function listarInsumos(){
-    $_SESSION['insumos'];
+   return $_SESSION['insumos'];
 }
 ?>

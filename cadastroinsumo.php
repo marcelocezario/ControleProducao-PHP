@@ -22,7 +22,7 @@ $insumos = listarInsumos();
 ?>
 
     <main role="main" class="container">
-        <form action="recebevalores.php" method="POST">
+        <form action="cadastroInsumo.php" method="POST">
             <div class="form-group">
                 <label for="insumo">Nome do insumo</label>
                 <input type="text" class="form-control" name="insumo" id="nome" placeholder="Digite o nome do Insumo">
@@ -44,6 +44,40 @@ $insumos = listarInsumos();
 
             <input type="submit" value="Salvar" class="btn btn-primary" /> 
         </form>
+
+        <table class="table table-dark">
+        <thead>
+    <tr>
+    <th scope="Insumo">Insumo</th>
+    <th scope="Unidade">Unidade</th>
+
+        </tr>
+        </thead>
+        <?php
+        foreach($insumos as $insumo){
+            ?>
+
+        <tbody>
+
+                <tr>
+                    <td><?=$insumo['insumo']?></td>
+                    <td><?=$insumo['unidadeDeMedida']?></td>
+                    <td><button>Editar</button></td>
+                    <td><button>Excluir</button></td>
+                </tr>
+
+                  </tbody>
+
+            <?php  
+                }
+            ?>
+        
+
+
+
+
+        </table>
+
 
     </main>
     <footer class="footer">
