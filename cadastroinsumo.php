@@ -15,6 +15,12 @@
 <?php    
 include_once("header.php");
 ?>
+<?php    
+include_once("funcoes.php");
+salvarInsumo($_POST);
+$insumos = listarInsumos();
+?>
+
     <main role="main" class="container">
         <form action="recebevalores.php" method="POST">
             <div class="form-group">
