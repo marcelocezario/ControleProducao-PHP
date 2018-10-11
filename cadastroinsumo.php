@@ -23,6 +23,7 @@ $insumos = listarInsumos();
 
     <main role="main" class="container">
         <form action="cadastroInsumo.php" method="POST">
+        <input type="hidden" name="id"/>
             <div class="form-group">
                 <label for="insumo">Nome do insumo</label>
                 <input type="text" class="form-control" name="insumo" id="nome" placeholder="Digite o nome do Insumo">
@@ -48,8 +49,9 @@ $insumos = listarInsumos();
         <table class="table table-dark">
         <thead>
     <tr>
-    <th scope="Insumo">Insumo</th>
-    <th scope="Unidade">Unidade</th>
+    <th>Id</th>
+    <th>Insumo</th>
+    <th>Unidade</th>
 
         </tr>
         </thead>
@@ -60,6 +62,7 @@ $insumos = listarInsumos();
         <tbody>
 
                 <tr>
+                    <td><?=$insumo['id']?></td>
                     <td><?=$insumo['insumo']?></td>
                     <td><?=$insumo['unidadeDeMedida']?></td>
                     <td><button>Editar</button></td>
