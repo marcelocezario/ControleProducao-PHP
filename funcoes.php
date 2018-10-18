@@ -6,14 +6,24 @@ if (empty($_SESSION['insumos'])){
 
 function salvarInsumo($insumo){
 
-    if (buscarInsumo($insumo['id'])){
-
-      foreach($_SESSION['insumos']) as
-        $indice => $insumoEditar){
-
-            if ($insumo['id'] == $insumoEditar['id']){
-                $_SESSION['insumos'][$indice] = $insumo;
+    if (listarInsumos($insumo['id'])){
+    
+        foreach ($_SESSION['insumos'] as $indice => $alterarInsumo) {
+    
+            if ($insumo['id']== $alterarInsumo['id']){
+    
+                $_SESSION['insumos'][$indice]=$insumo;
             }
+        }
+    }else{                    
+        if (!empty($insumo)){
+    
+        $cont = count ($_SESSION['insumos']);
+    
+        $insumo ['id'] = $cont +1;
+    
+        array_push ($_SESSION['insumos'],$insumo);
+    
         }
     }
 }
@@ -30,4 +40,15 @@ function buscarInsumo($id){
         }
     }
 }
+
+function excluirInsumo($id){
+
+    foreach($_SESSION['insumos'] as $indice => $insumoRemover){
+
+        if ($insumo['id'] == $insumoRemover['id']){
+            unset($_SESSION['insumos'][$indice]);
+        }
+    }
+}
+
 ?>
