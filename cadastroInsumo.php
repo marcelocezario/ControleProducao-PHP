@@ -19,13 +19,23 @@ $insumos = listarInsumos();
 //upload de arquivo usado imagem com exemplo
 $url = "";
 if(!empty($_FILES)) {
+
+    //Seleciona o local que será armazenado os arquivos no servidor
     $caminho_arquivo = "C:\\xampp\\htdocs\\sistema\\img\\";
+    
+    
+    /*
+    $_FILES = comando do arquivo,
+    image é o nome do campo que será feito o upload
+    name é o atributo que tem que pegar (nome do arquivo)
+    */
+    $nome_arquivo = $_FILES['imagem']['name'];
+    
+    
+    // pega da memória temporária e envia para o servidor 
+    move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho_arquivo.$nome_arquivo);
      
-    $nome_arquivo = $_FILES['image']['name'];
-     
-    move_uploaded_file($_FILES['image']['tmp_name'], 
-    $caminho_arquivo.$nome_arquivo);
-     
+    // seta objeto para puxar de novo
     $url = 'img/'.$nome_arquivo;
 }
 
@@ -44,7 +54,7 @@ if (!empty($_GET)){
         $nomeInsumo = $insumo['nomeInsumo'];
         $unidadeDeMedida = $insumo['unidadeDeMedida'];
         $cpf = $insumo['cpf'];
-        $url = $cliente['url'];
+        $url = $insumo['url'];
     }
     if($_GET['acao'] == 'excluir')
     {
@@ -58,6 +68,9 @@ if (!empty($_GET)){
             <form action="cadastroInsumo.php" method="POST"
             enctype="multipart/form-data">
             <input type="hidden" name="id"/>
+
+
+            <img src="<?=$url?>" class="rounded-circle" width="304" height="236" />
 
             <div class="form-group">
                 <label for="nomeInsumo">Nome do insumo</label>
