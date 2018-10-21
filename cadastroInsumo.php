@@ -21,22 +21,23 @@ $url = "";
 if(!empty($_FILES)) {
 
     //Seleciona o local que será armazenado os arquivos no servidor
-    $caminho_arquivo = "C:\\xampp\\htdocs\\sistema\\img\\";
-    
+    $caminho_arquivo = "C:\\xampp\\htdocs\\ControleProducao-PHP\\img\\";
     
     /*
     $_FILES = comando do arquivo,
     image é o nome do campo que será feito o upload
     name é o atributo que tem que pegar (nome do arquivo)
     */
-    $nome_arquivo = $_FILES['imagem']['name'];
+    $nome_arquivo = $_FILES['image']['name'];
     
     
     // pega da memória temporária e envia para o servidor 
-    move_uploaded_file($_FILES['imagem']['tmp_name'], $caminho_arquivo.$nome_arquivo);
-     
+    move_uploaded_file($_FILES['image']['tmp_name'],
+    $caminho_arquivo.$nome_arquivo);
+ 
     // seta objeto para puxar de novo
     $url = 'img/'.$nome_arquivo;
+
 }
 
 $id = "";
@@ -60,6 +61,14 @@ if (!empty($_GET)){
     {
         excluirInsumo($id);
     }
+
+    if(!empty($_POST)){
+        $_POST['url'] = $url;
+        print_r($_POST);
+        salvarInsumo($_POST);
+    }
+
+    $insumos = listarInsumos();
 }
 
 ?>
@@ -81,8 +90,8 @@ if (!empty($_GET)){
                 <input type="text" class="cpf form-control" name="cpf" id="cpf" placeholder="Digite o cpf" value="<?=$cpf?>">
             </div>
             <div class="form-group">
-                <label for="imagem">cpf</label>
-                <input type="file" class="form-control" name="imagem" id="imagem" >
+                <label for="imagem">Imagem</label>
+                <input type="file" class="form-control" name="image" id="imagem" >
             </div>
             <div class="form-group">
                 <label for="unidadeDeMedida">Unidade de medida</label>
