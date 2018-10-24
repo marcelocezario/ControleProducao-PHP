@@ -41,13 +41,14 @@ function buscarInsumo($id){
     }
 }
 
-function excluirInsumo($id){
+function excluirInsumo($id) {
+    
+    foreach($_SESSION['insumos'] as $indice => $insumoRemover) {
 
-    foreach($_SESSION['insumos'] as $indice => $insumoRemover){
-
-        if ($insumo['id'] == $insumoRemover['id']){
+        if ($insumoRemover['id'] == $id) {
             unset($_SESSION['insumos'][$indice]);
         }
+
     }
 }
 

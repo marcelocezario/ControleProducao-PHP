@@ -1,65 +1,46 @@
-<html>
-
-
-
-<body>
-<?php    
-include_once("header.php");
-?>
-
 <?php
 require_once "funcoes.php";
 
-if(!empty($_POST)){
-    salvarInsumo($_POST);
-}
- 
-$insumos = listarInsumos();
-
 //upload de arquivo usado imagem com exemplo
-$url = "";
-if(!empty($_FILES)) {
+    $url = "";
+    if(!empty($_FILES)) {
 
-    //Seleciona o local que será armazenado os arquivos no servidor
-    $caminho_arquivo = "C:\\xampp\\htdocs\\ControleProducao-PHP\\img\\";
+        //Seleciona o local que será armazenado os arquivos no servidor
+        $caminho_arquivo = "C:\\xampp\\htdocs\\ControleProducao-PHP\\img\\";
+        
+        /*
+        $_FILES = comando do arquivo,
+        image é o nome do campo que será feito o upload
+        name é o atributo que tem que pegar (nome do arquivo)
+        */
+        $nome_arquivo = $_FILES['image']['name'];   
+        
+        // pega da memória temporária e envia para o servidor 
+        move_uploaded_file($_FILES['image']['tmp_name'],
+        $caminho_arquivo.$nome_arquivo);
     
-    /*
-    $_FILES = comando do arquivo,
-    image é o nome do campo que será feito o upload
-    name é o atributo que tem que pegar (nome do arquivo)
-    */
-    $nome_arquivo = $_FILES['image']['name'];
-    
-    
-    // pega da memória temporária e envia para o servidor 
-    move_uploaded_file($_FILES['image']['tmp_name'],
-    $caminho_arquivo.$nome_arquivo);
- 
-    // seta objeto para puxar de novo
-    $url = 'img/'.$nome_arquivo;
+        // seta objeto para puxar de novo
+        $url = 'img/'.$nome_arquivo;
+    }
 
-}
+    $id = "";
+    $nomeInsumo = "";
+    $unidadeDeMedida = "";
+    $cpf = "";
 
-$id = "";
-$nomeInsumo = "";
-$unidadeDeMedida = "";
-$cpf = "";
-
-if (!empty($_GET)){
-    if($_GET['acao'] == 'carregar')
-    {
-        print_r($_GET);
+    if (!empty($_GET)) {
         $id = $_GET['id'];
 
-        $insumo = buscarInsumo($id);
-        $nomeInsumo = $insumo['nomeInsumo'];
-        $unidadeDeMedida = $insumo['unidadeDeMedida'];
-        $cpf = $insumo['cpf'];
-        $url = $insumo['url'];
-    }
-    if($_GET['acao'] == 'excluir')
-    {
-        excluirInsumo($id);
+        if ($_GET['acao'] == 'carregar') {
+            $insumo = buscarInsumo($id);
+            $nomeInsumo = $insumo['nomeInsumo'];
+            $unidadeDeMedida = $insumo['unidadeDeMedida'];
+            $cpf = $insumo['cpf'];
+            $url = $insumo['url'];
+        }
+        if ($_GET['acao'] == 'excluir') {
+            excluirInsumo($id);
+        }
     }
 
     if(!empty($_POST)){
@@ -69,8 +50,12 @@ if (!empty($_GET)){
     }
 
     $insumos = listarInsumos();
-}
+?>
 
+<html>
+<body>
+<?php    
+include_once("header.php");
 ?>
     <main role="main" class="container">
         <h2>Cadastro de Insumo</h2>
