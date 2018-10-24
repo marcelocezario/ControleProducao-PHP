@@ -1,7 +1,7 @@
 <?php
 require_once "funcoes.php";
 
-//upload de arquivo usado imagem com exemplo
+    //upload de arquivo usado imagem com exemplo
     $url = "";
     if(!empty($_FILES)) {
 
@@ -31,21 +31,6 @@ require_once "funcoes.php";
     if (!empty($_GET)) {
         $id = $_GET['id'];
         print_r($_GET);
-        print_r($_GET);
-
-    
-        print_r($_GET);
-        print_r($_GET);
-
-        
-        
-        print_r($_GET);
-
-        print_r($_GET);
-
-        print_r($_GET);
-
-        print_r($_GET);
 
         if ($_GET['acao'] == 'carregar') {
             $insumo = buscarInsumo($id);
@@ -62,25 +47,7 @@ require_once "funcoes.php";
     if(!empty($_POST)){
         $_POST['url'] = $url;
         print_r($_POST);
-        print_r($_POST);
-
-        print_r($_POST);
-
-        print_r($_POST);
-
-        print_r($_POST);
-
-        print_r($_POST);
-
-        print_r($_POST);
-
-        
-        
-        print_r($_POST);
-
-        
-        print_r($_POST);
-
+    
         salvarInsumo($_POST);
         
     }

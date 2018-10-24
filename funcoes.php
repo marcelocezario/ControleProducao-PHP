@@ -6,15 +6,14 @@ if (empty($_SESSION['insumos'])){
 
 function salvarInsumo($insumo)  {  
     if (buscarInsumo($insumo['id'])) {
-       // print_r($_SESSION['insumos']);
+       //print_r($_SESSION['insumos']);
         foreach($_SESSION['insumos'] as $indice => $insumoAlterar) {
 
             if ($insumo['id'] == $insumoAlterar['id']) {
                 $_SESSION['insumos'][$indice] = $insumo;
             }
-
         }    
-    } else {
+    } else if(empty($insumo['id'])) {
     
         if (!empty($insumo)) {
             $cont = count($_SESSION['insumos']);
