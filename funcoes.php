@@ -10,21 +10,16 @@ function salvarInsumo($insumo){
     
         foreach ($_SESSION['insumos'] as $indice => $alterarInsumo) {
     
-            if ($insumo['id']== $alterarInsumo['id']){
-    
-                $_SESSION['insumos'][$indice]=$insumo;
+            if ($insumo['id'] == $alterarInsumo['id']){
+                $_SESSION['insumos'][$indice];
             }
         }
-    }else{                    
-        if (!empty($insumo)){
+    }else{                
+        $cont = count($_SESSION['insumos']);
     
-        $cont = count ($_SESSION['insumos']);
+        $insumo['id'] = $cont +1;
     
-        $insumo ['id'] = $cont +1;
-    
-        array_push ($_SESSION['insumos'],$insumo);
-    
-        }
+        array_push($_SESSION['insumos'],$insumo); 
     }
 }
 
