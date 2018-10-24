@@ -30,6 +30,22 @@ require_once "funcoes.php";
 
     if (!empty($_GET)) {
         $id = $_GET['id'];
+        print_r($_GET);
+        print_r($_GET);
+
+    
+        print_r($_GET);
+        print_r($_GET);
+
+        
+        
+        print_r($_GET);
+
+        print_r($_GET);
+
+        print_r($_GET);
+
+        print_r($_GET);
 
         if ($_GET['acao'] == 'carregar') {
             $insumo = buscarInsumo($id);
@@ -46,7 +62,27 @@ require_once "funcoes.php";
     if(!empty($_POST)){
         $_POST['url'] = $url;
         print_r($_POST);
+        print_r($_POST);
+
+        print_r($_POST);
+
+        print_r($_POST);
+
+        print_r($_POST);
+
+        print_r($_POST);
+
+        print_r($_POST);
+
+        
+        
+        print_r($_POST);
+
+        
+        print_r($_POST);
+
         salvarInsumo($_POST);
+        
     }
 
     $insumos = listarInsumos();
@@ -62,8 +98,6 @@ include_once("header.php");
             <form action="cadastroInsumo.php" method="POST"
             enctype="multipart/form-data">
             <input type="hidden" name="id"/>
-
-
             <img src="<?=$url?>" class="rounded-circle" width="304" height="236" />
 
             <div class="form-group">
@@ -145,7 +179,7 @@ include_once("header.php");
     </footer>
 
     <!-- JavaScript-->
-    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/jquery.mask.min.js"></script>
