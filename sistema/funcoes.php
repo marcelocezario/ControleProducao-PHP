@@ -33,7 +33,6 @@ function salvarCliente($cliente)  {
         print_r($stmt->errorInfo());
         return "erro! ";
     }
-
 }
 
 function listarClientes() {
