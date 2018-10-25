@@ -87,21 +87,21 @@ if (!empty($id)){
 <div class="form-group">
     <label for="nome">Nome</label>
     <input type="text" name="nome" class="form-control" 
-    id="nome" placeholder="Digite seu nome"
+    id="nome" placeholder="Digite seu nome" disabled="true"
     value="<?=$nome?>"
     required >
 </div>
 <div class="form-group">
     <label for="cpf">CPF</label>
     <input type="text" name="cpf" class="form-control cpf" 
-    id="cpf" placeholder="Digite seu cpf"
+    id="cpf" placeholder="Digite seu cpf" disabled="true"
     value="<?=$cpf?>"
      >
 </div>
 <div class="form-group">
     <label for="idade">Idade</label>
     <input type="number" name="idade" class="form-control" 
-    id="idade" placeholder="Digite sua idade"
+    id="idade" placeholder="Digite sua idade" disabled="true"
     onkeydown="return event.keyCode >= 48 && event.keyCode <= 57 
     ? true : false;"
     value="<?=$idade?>">
@@ -110,48 +110,11 @@ if (!empty($id)){
     <label for="dtNascimento">Data de nascimento</label>
     <input type="date" name="dtNascimento" class="form-control" 
     id="dtNascimento" placeholder="Digite a data de nascimento"
-    value="<?=$dtNascimento?>"
+    disabled="true" value="<?=$dtNascimento?>"
     >
 </div>
-<div class="form-group">
-    <label for="imagem">Imagem</label>
-    <input type="file" name="image" class="form-control" 
-    id="imagem">
+<div>
 </div>
-<input type="submit" value="Salvar" class="btn btn-primary" />
-</form>
-
-<table class="table">
-    <tr>
-        <th>ID</th>        
-        <th>NOME</th>        
-        <th>&nbsp;</th>    
-        <th>&nbsp;</th>    
-    </tr>
-    <?php
-
-    foreach ($clientes as $cliente) {
-    
-    ?>
-    <tr>
-        <td><?=$cliente['id']?></td>        
-        <td><?=$cliente['nome']?></td>        
-        <td><a href="cadastro.php?acao=carregar&id=<?=$cliente['id']?>"
-         class="btn btn-primary">Carregar</a>
-         </td>     
-        <td>
-        <a href="cadastro.php?acao=excluir&id=<?=$cliente['id']?>"
-         class="btn btn-primary"
-         onclick="return confirm('Você está certo disso?');">Excluir</a>
-        
-        </td>     
-    </tr>
-    <?php
-    }
-    ?>
-
-</table>
-
 
 </main>
 

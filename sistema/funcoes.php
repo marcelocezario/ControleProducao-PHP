@@ -27,7 +27,6 @@ function salvarCliente($cliente)  {
     $stmt->bindParam(':idade',$cliente['idade']);
     $stmt->bindParam(':dtNascimento',$cliente['dtNascimento']);
     $stmt->bindParam(':url',$cliente['url']);
-    $stmt->bindParam(':cpf',$cliente['cpf']);
     if ($stmt->execute()){
         return "Cliente inserido com sucesso!";
     } else {
@@ -38,13 +37,11 @@ function salvarCliente($cliente)  {
 }
 
 function listarClientes() {
-
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nome, cpf from cliente order by nome");
+    $stmt = $conn->prepare("select id, nome, cpf, url from cliente order by nome");
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    print_r($retorno);
     return $retorno;
 }
 
@@ -57,17 +54,35 @@ function buscarCliente($id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function excluirCliente($id) {
-    
-    foreach($_SESSION['clientes'] as 
-        $indice => $clienteRemover) {
+function editarCliente($cliente){
+    $conn = conectar();
 
-        if ($clienteRemover['id'] == $id) {
-            unset($_SESSION['clientes'][$indice]);
-        }
-
+    $stmt = $conn->prepare('update cliente set nome = :nome, cpf = :cpf, idade = :idade,
+        dtNascimento = :dtNascimento, url = :url where id = :id');
+    $stmt->bindParam(':id',$cliente['id']);
+    $stmt->bindParam(':nome',$cliente['nome']);
+    $stmt->bindParam(':cpf',$cliente['cpf']);
+    $stmt->bindParam(':idade',$cliente['idade']);
+    $stmt->bindParam(':dtNascimento',$cliente['dtNascimento']);
+    $stmt->bindParam(':url',$cliente['url']);
+    if ($stmt->execute()){
+        return "Cliente alterado com sucesso!";
+    } else {
+        print_r($stmt->errorInfo());
+        return "erro! ";
     }
 }
 
+function excluirCliente($id) {
+    $conn = conectar();
 
+    $stmt = $conn->prepare('delete from cliente where id = :id');
+    $stmt->bindParam(':id',$id);
+    if ($stmt->execute()){
+        return "Cliente excluído com sucesso!";
+    } else {
+        print_r($stmt->errorInfo());
+        return "erro! ";
+    }
+}
 ?>
