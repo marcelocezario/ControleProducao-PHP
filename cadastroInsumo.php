@@ -35,7 +35,7 @@ require_once "funcoes.php";
         if ($_GET['acao'] == 'carregar') {
             $insumo = buscarInsumo($id);
             $nomeInsumo = $insumo['nomeInsumo'];
-            $unidadeDeMedida = $insumo['unidadeDeMedida'];
+            $unidadeMedida = $insumo['unidadeMedida'];
             $cpf = $insumo['cpf'];
             $url = $insumo['url'];
         }
@@ -49,13 +49,12 @@ require_once "funcoes.php";
         print_r($_POST);
     
         salvarInsumo($_POST);
-        
     }
 
     $insumos = listarInsumos();
 ?>
 
-<html>
+<!DOCTYPE html>
 <body>
 <?php    
 include_once("header.php");
@@ -65,7 +64,6 @@ include_once("header.php");
             <form action="cadastroInsumo.php" method="POST"
             enctype="multipart/form-data">
             <input type="hidden" name="id"/>
-            <img src="<?=$url?>" class="rounded-circle" width="304" height="236" />
 
             <div class="form-group">
                 <label for="nomeInsumo">Nome do insumo</label>
@@ -80,64 +78,61 @@ include_once("header.php");
                 <input type="file" class="form-control" name="image" id="imagem" >
             </div>
             <div class="form-group">
-                <label for="unidadeDeMedida">Unidade de medida</label>
-                <select class="form-control" id="unidadeDeMedida" name="unidadeDeMedida"  value="<?=$unidadeDeMedida?>">
+                <label for="unidadeMedida">Unidade de medida</label>
+                <select class="form-control" id="unidadeMedida" name="unidadeMedida"  value="<?=$unidadeMedida?>">
                     <option value="" disabled selected>Selecione uma unidade de medida</option>
-                    <option value="1" <?=($unidadeDeMedida == 1) ? "selected" : ""?>>Gramas</option>
-                    <option value="2" <?=($unidadeDeMedida == 2) ? "selected" : ""?>>Litros</option>
-                    <option value="3" <?=($unidadeDeMedida == 3) ? "selected" : ""?>>Mililitro</option>
-                    <option value="4" <?=($unidadeDeMedida == 4) ? "selected" : ""?>>Quilos</option>
-                    <option value="5" <?=($unidadeDeMedida == 5) ? "selected" : ""?>>Unidade</option>
+                    <option value="Gramas" <?=($unidadeMedida.equals("Gramas")) ? "selected" : ""?>>Gramas</option>
+                    <option value="Litros" <?=($unidadeMedida.equals("Litros")) ? "selected" : ""?>>Litros</option>
+                    <option value="Mililitro" <?=($unidadeMedida.equals("Mililitro")) ? "selected" : ""?>>Mililitro</option>
+                    <option value="Quilos" <?=($unidadeMedida.equals("Quilos")) ? "selected" : ""?>>Quilos</option>
+                    <option value="Unidade" <?=($unidadeMedida.equals("Unidade")) ? "selected" : ""?>>Unidade</option>
                  </select>
             </div>
             <input type="submit" value="Salvar" class="btn btn-primary" /> 
         </form>
 
         <table class="table table-dark">
-        <thead>
-    <tr>
-    <th>Id</th>
-    <th>Insumo</th>
-    <th>Unidade</th>
-
-        </tr>
-        </thead>
-        <?php
-        foreach($insumos as $insumo){
-            ?>
-
-        <tbody>
-
+            <thead>
                 <tr>
-                    <td><?=$insumo['id']?></td>
-                    <td><?=$insumo['nomeInsumo']?></td>
-                    <td><?=$insumo['unidadeDeMedida']?></td>                   
-                    <td><?=$insumo['cpf']?></td>
-
-                    <td>
-                        <a href="cadastroInsumo.php?acao=carregar&id=<?=$insumo['id']?>"
-                            class="btn btn-primary">Editar
-                        </a>
-                    </td>
-                    <td>
-                        <a href="cadastroInsumo.php?acao=excluir&id=<?=$insumo['id']?>" 
-                            class="btn btn-primary"
-                            onclick="return confirm('Você está certo disso?');"
-                        >Remover
-                        </a>
-                    </td>
-</td>
+                    <th>Id</th>
+                    <th>Insumo</th>
+                    <th>Unidade</th>
                 </tr>
-
-                  </tbody>
-
+            </thead>
+            <?php
+            foreach($insumos as $insumo){
+            ?>
+                <tbody>
+                    <tr>
+                        <td><?=$insumo['id']?></td>
+                        <td><?=$insumo['nomeInsumo']?></td>
+                        <td><?=$insumo['unidadeDeMedida']?></td>                   
+                        <td><?=$insumo['cpf']?></td>
+                        <?php
+                            if (!empty($id)){
+                        ?>
+                            <img src="<?=$url?>" class="rounded-circle" width="304" height="236" />
+                        <?php
+                            }
+                        ?>
+                        <td>
+                            <a href="cadastroInsumo.php?acao=carregar&id=<?=$insumo['id']?>"
+                                class="btn btn-primary">Editar
+                            </a>
+                        </td>
+                        <td>
+                            <a href="cadastroInsumo.php?acao=excluir&id=<?=$insumo['id']?>" 
+                                class="btn btn-primary"
+                                onclick="return confirm('Você está certo disso?');">
+                                Remover
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
             <?php  
                 }
             ?>
-        
         </table>
-
-
     </main>
     <footer class="footer">
         <div class="container">

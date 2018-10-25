@@ -1,0 +1,21 @@
+/************* Dados do Servidor *************\
+
+define("DSN","mysql");
+define("SERVIDOR","localhost");
+define("USUARIO","root");
+define("SENHA","");
+define("BANCODEDADOS","controleProducao");
+
+/************* Cadastro de insumo *************\
+create table insumo(
+	id int not null PRIMARY KEY AUTO_INCREMENT,
+    nomeInsumo varchar(100),
+    unidadeMedida varchar(20)
+);
+/************* Cadastro de cliente *************\
+CREATE TABLE cliente (
+   ID int(11) NOT NULL,
+   NOME varchar(80) DEFAULT NULL,
+   CPF varchar(15) DEFAULT NULL,
+   DTNASCIMENTO date DEFAULT NULL,
+);

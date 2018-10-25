@@ -43,7 +43,6 @@ function excluirInsumo($id) {
         if ($insumoRemover['id'] == $id) {
             unset($_SESSION['insumos'][$indice]);
         }
-
     }
 }
 
