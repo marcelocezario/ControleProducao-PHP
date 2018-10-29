@@ -1,3 +1,22 @@
+/************* template da pagina *************\
+
+<!DOCTYPE html>
+<body>
+    <?php    
+        include_once("header.php");
+    ?>
+    <main role="main" class="container">
+    </main>
+    <?php    
+        include_once("footer.php");
+    ?>
+        <!-- JavaScript-->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+</body>
+</html>
+
 /************* Dados do Servidor *************\
 
 define("DSN","mysql");
@@ -12,6 +31,7 @@ create table insumo(
     nomeInsumo varchar(100),
     unidadeMedida varchar(20)
 );
+
 /************* Cadastro de cliente *************\
 CREATE TABLE cliente (
    ID int(11) NOT NULL,

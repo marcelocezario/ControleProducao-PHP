@@ -24,8 +24,6 @@ require_once "funcoes.php";
             salvarInsumo($_POST);
         }
     }
-
-
     $insumos = listarInsumos();
 ?>
 <!DOCTYPE html>

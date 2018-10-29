@@ -1,5 +1,3 @@
-
-
 <header>
 <head>
     <meta charset="utf-8">
@@ -11,7 +9,6 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/sticky-footer-navbar.css" rel="stylesheet">
 </head>
-
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
             <a class="navbar-brand" href="#">Controle de Produção</a>
