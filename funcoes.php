@@ -1,48 +1,87 @@
 <?php
-session_start();
-if (empty($_SESSION['insumos'])){
-    $_SESSION['insumos'] = [];
+
+define("DSN","mysql");
+define("SERVIDOR","localhost");
+define("USUARIO","root");
+define("SENHA","");
+define("BANCODEDADOS","controleProducao");
+
+function conectar(){
+    try{
+        $conn = new PDO(DSN.':host='.SERVIDOR.';dbname='.
+        BANCODEDADOS, USUARIO, SENHA);
+        return $conn;
+    } catch (PDOException $e) {
+        echo ''.$e->getMessage();
+    }
+}
+
+function selected( $value, $selected ){
+    return $value==$selected ? ' selected="selected"' : '';
 }
 
 function salvarInsumo($insumo)  {  
-    if (buscarInsumo($insumo['id'])) {
-       //print_r($_SESSION['insumos']);
-        foreach($_SESSION['insumos'] as $indice => $insumoAlterar) {
+    $conn = conectar();
 
-            if ($insumo['id'] == $insumoAlterar['id']) {
-                $_SESSION['insumos'][$indice] = $insumo;
-            }
-        }    
-    } else if(empty($insumo['id'])) {
-    
-        if (!empty($insumo)) {
-            $cont = count($_SESSION['insumos']);
-            $insumo['id'] = $cont + 1;//$cont++;
+    $stmt = $conn->prepare('INSERT INTO insumo (nomeInsumo, unidadeMedida)
+            VALUES(:nomeInsumo, :unidadeMedida)');
 
-            array_push($_SESSION['insumos'],$insumo);
-        }
+    $stmt->bindParam(':nomeInsumo',$insumo['nomeInsumo']);
+    $stmt->bindParam(':unidadeMedida',$insumo['unidadeMedida']);
+   
+    if ($stmt->execute()){
+        print_r("\n\n\naqui foi ");
+        return "Insumo inserido com sucesso!";
+    } else {
+        print_r($stmt->errorInfo());
+        return "erro! ";
     }
 }
 
 function listarInsumos() {
-    return $_SESSION['insumos'];
-}
+    $conn = conectar();
+
+    $stmt = $conn->prepare("select id, nomeInsumo, unidadeMedida from insumo order by nomeInsumo");
+    $stmt->execute();
+    $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $retorno;}
 
 function buscarInsumo($id) {
-    foreach ($_SESSION['insumos'] as $insumo) {
-        if ($insumo['id'] == $id) {
-            return $insumo;
-        }
+    $conn = conectar();
+
+    $stmt = $conn->prepare("select id, nomeInsumo, unidadeMedida from insumo where id = :id");
+    $stmt->bindParam(':id',$id);
+
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function editarInsumo($insumo){
+    $conn = conectar();
+
+    $stmt = $conn->prepare('update insumo set nomeInsumo = :nomeInsumo, unidadeMedida = :unidadeMedida where id = :id');
+    $stmt->bindParam(':id',$insumo['id']);
+    $stmt->bindParam(':nomeInsumo',$insumo['nomeInsumo']);
+    $stmt->bindParam(':unidadeMedida',$insumo['unidadeMedida']);
+
+    if ($stmt->execute()){
+        return "Insumo alterado com sucesso!";
+    } else {
+        print_r($stmt->errorInfo());
+        return "erro! ";
     }
 }
 
 function excluirInsumo($id) {
-    
-    foreach($_SESSION['insumos'] as $indice => $insumoRemover) {
+    $conn = conectar();
 
-        if ($insumoRemover['id'] == $id) {
-            unset($_SESSION['insumos'][$indice]);
-        }
+    $stmt = $conn->prepare('delete from insumo where id = :id');
+    $stmt->bindParam(':id',$id);
+    if ($stmt->execute()){
+        return "Insumo excluído com sucesso!";
+    } else {
+        print_r($stmt->errorInfo());
+        return "erro! ";
     }
 }
 
