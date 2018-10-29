@@ -9,9 +9,14 @@ require_once "funcoes.php";
 ?>
 <body>
     <main>
+    <form action="estoqueInsumo.php" method="POST">
+        <br>
+        <br>
+    <div class="form-group">
+    <label class="form-group">Insumo:</label>
+    <select class="form-control" id="insumo" name="insumo"  value="<?=$insumo?>">
+    <option value="" disabled selected>Selecione um insumo </option>
 
-    <label >Produto:</label>
-        <select name="insumo" id="insumo" >
         <?php
             $resultado = listarInsumos();
         
@@ -24,6 +29,8 @@ require_once "funcoes.php";
         }
         ?>
         </select>
+    </div>
+    </form>
     </main>
     <?php    
         include_once("footer.php");
