@@ -31,11 +31,24 @@ create table insumo(
     nomeInsumo varchar(100),
     unidadeMedida varchar(20)
 );
+/************* estoque de insumo *************\
+create table insumo_estoque(
+	id int not null PRIMARY KEY AUTO_INCREMENT,
+    qtde decimal(10,2),
+    id_insumo int
+);
+ALTER TABLE `insumo_estoque` ADD CONSTRAINT `fk_insumo` FOREIGN KEY ( `id_insumo` ) REFERENCES `insumo` ( `id` ) ;
 
 /************* Cadastro de cliente *************\
 CREATE TABLE cliente (
-   ID int(11) NOT NULL,
+   ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
    NOME varchar(80) DEFAULT NULL,
    CPF varchar(15) DEFAULT NULL,
    DTNASCIMENTO date DEFAULT NULL,
+);
+/************* login do cliente *************\
+CREATE TABLE login (
+   ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+   login varchar(40) not null,
+   senha varchar(40) not null
 );
