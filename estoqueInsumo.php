@@ -51,7 +51,7 @@ require_once "funcoes/funcoesInsumo.php";
             if(!empty($resultado)){
                 foreach ($resultado as $res) {
                 ?>                                             
-                <option  value="<?=$res['id'];?>" ><?=$res['nomeInsumo'];?></option> 
+                    <option  value="<?=$res['id'];?>" ><?=$res['nomeInsumo'];?></option> 
                 <?php      
                 }
             }
@@ -77,7 +77,7 @@ require_once "funcoes/funcoesInsumo.php";
             ?>
                 <tbody>
                     <tr>
-                        <td><?=$estoqueInsumo['id_insumo']?></td>
+                        <td><?=$estoqueInsumo['id']?></td>
                         <td><?=$estoqueInsumo['nomeInsumo']?></td>
                         <td><?=$estoqueInsumo['qtde']?></td>                   
                         <td>

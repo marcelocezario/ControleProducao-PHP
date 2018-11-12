@@ -1,5 +1,5 @@
 <?php
-require_once "funcoes/funcoesInsumo.php";
+    require_once "funcoes/funcoesInsumo.php";
     
     $id = "";
     $nomeInsumo = "";
