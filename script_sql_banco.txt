@@ -3,12 +3,12 @@
 <!DOCTYPE html>
 <body>
     <?php    
-        include_once("header.php");
+        include_once("default/header.php");
     ?>
     <main role="main" class="container">
     </main>
     <?php    
-        include_once("footer.php");
+        include_once("default/footer.php");
     ?>
         <!-- JavaScript-->
         <script type="text/javascript" src="js/bootstrap.min.js"></script>

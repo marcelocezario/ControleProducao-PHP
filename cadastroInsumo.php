@@ -1,5 +1,6 @@
 <?php
-require_once "funcoes.php";
+require_once "funcoes/funcoesInsumo.php";
+    
     $id = "";
     $nomeInsumo = "";
     $unidadeMedida = "";
@@ -27,35 +28,37 @@ require_once "funcoes.php";
     $insumos = listarInsumos();
 ?>
 <!DOCTYPE html>
-<body>
 <?php    
-include_once("header.php");
+include_once("default/header.php");
 ?>
-
+<body>
 <main role="main" class="container">
-        <h2>Cadastro de Insumo</h2>
-            <form action="cadastroInsumo.php" method="POST">
-            <input type="hidden" id="id" name="id" value="<?=$id?>"/>
+    <h2>Novos Insumos</h2>
+        <form action="cadastroInsumo.php" method="POST">
+        <input type="hidden" id="id" name="id" value="<?=$id?>"/>
 
-            <div class="form-group">
-                <label for="nomeInsumo">Nome do insumo</label>
-                <input type="text" class="form-control" name="nomeInsumo" id="nomeInsumo" placeholder="Digite o nome do Insumo" value="<?=$nomeInsumo?>">
-            </div>
+        <div class="form-group">
+            <label for="nomeInsumo">Nome do insumo</label>
+            <input type="text" class="form-control" name="nomeInsumo" id="nomeInsumo" placeholder="Digite o nome do Insumo" value="<?=$nomeInsumo?>">
+        </div>
 
-            <div class="form-group">
-                <label for="unidadeMedida">Unidade de medida</label>
-                <select class="form-control" id="unidadeMedida" name="unidadeMedida"  value="<?=$unidadeMedida?>">
-                    <option value="" disabled selected>Selecione uma unidade de medida</option>
-                    <option value="Gramas" <?php echo selected( 'Gramas', $unidadeMedida ); ?>>Gramas</option>
-                    <option value="Litros" <?php echo selected( 'Litros', $unidadeMedida ); ?>>Litros</option>
-                    <option value="Mililitro" <?php echo selected( 'Mililitro', $unidadeMedida );?>>Mililitro</option>
-                    <option value="Quilos" <?php echo selected( 'Quilos', $unidadeMedida ); ?>>Quilos</option>
-                    <option value="Unidade" <?php echo selected( 'Unidade', $unidadeMedida );?>>Unidade</option>
-                 </select>
-            </div>
-            <input type="submit" value="Salvar" class="btn btn-primary" /> 
-        </form>
-
+        <div class="form-group">
+            <label for="unidadeMedida">Unidade de medida</label>
+            <select class="form-control" id="unidadeMedida" name="unidadeMedida"  value="<?=$unidadeMedida?>">
+                <option value="" disabled selected>Selecione uma unidade de medida</option>
+                <option value="Gramas" <?php echo selected( 'Gramas', $unidadeMedida ); ?>>Gramas</option>
+                <option value="Litros" <?php echo selected( 'Litros', $unidadeMedida ); ?>>Litros</option>
+                <option value="Mililitro" <?php echo selected( 'Mililitro', $unidadeMedida );?>>Mililitro</option>
+                <option value="Quilos" <?php echo selected( 'Quilos', $unidadeMedida ); ?>>Quilos</option>
+                <option value="Unidade" <?php echo selected( 'Unidade', $unidadeMedida );?>>Unidade</option>
+                </select>
+        </div>
+        <input type="submit" value="Salvar" class="btn btn-primary" /> 
+    </form>
+    <?php
+        if(!empty($insumos))
+        {
+    ?>
         <table class="table table-dark">
             <thead>
                 <tr>
@@ -90,16 +93,17 @@ include_once("header.php");
                 }
             ?>
         </table>
-    </main>
+    <?php  
+        }
+    ?>
+</main>
 <?php    
-    include_once("footer.php");
+    include_once("default/footer.php");
 ?>
-
     <!-- JavaScript-->
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 </body>
-
 </html>

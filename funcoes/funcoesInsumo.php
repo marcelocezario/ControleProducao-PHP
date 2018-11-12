@@ -105,20 +105,20 @@ function listarEstoqueInsumo() {
 function buscarEstoqueInsumo($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, qtde, id_insumo from insumo_estoque insumo where id = :id");
+    $stmt = $conn->prepare("select ie.id_insumo, ie.qtde, i.nomeInsumo from insumo_estoque as ie left join insumo as i on i.id = :id");
     $stmt->bindParam(':id',$id);
 
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function editarEstoqueInsumo($insumo){
+function editarEstoqueInsumo($estoqueInsumo){
     $conn = conectar();
 
-    $stmt = $conn->prepare('update insumo set nomeInsumo = :nomeInsumo, unidadeMedida = :unidadeMedida where id = :id');
-    $stmt->bindParam(':id',$insumo['id']);
-    $stmt->bindParam(':nomeInsumo',$insumo['nomeInsumo']);
-    $stmt->bindParam(':unidadeMedida',$insumo['unidadeMedida']);
+    $stmt = $conn->prepare('update insumo set nomeInsumo = :nomeInsumo, qtde = :qtde where id = :id');
+    $stmt->bindParam(':id',$estoqueInsumo['id_insumo']);
+    $stmt->bindParam(':nomeInsumo',$estoqueInsumo['nomeInsumo']);
+    $stmt->bindParam(':qtde',$estoqueInsumo['qtde']);
 
     if ($stmt->execute()){
         return "Insumo alterado com sucesso!";
