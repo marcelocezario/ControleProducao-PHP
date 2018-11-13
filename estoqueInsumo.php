@@ -5,11 +5,11 @@ require_once "funcoes/funcoesInsumo.php";
     $id_insumo = "";
 
     if (!empty($_GET)) {
-        $id = $_GET['id_insumo'];
+        $id = $_GET['id'];
 
         if ($_GET['acao'] == 'carregar') {
-            $estoqueInsumo = buscarInsumo($id);
-            $nomeInsumo = $estoqueInsumo['nomeInsumo'];
+            $estoqueInsumo = buscarEstoqueInsumo($id);
+
             $qtde = $estoqueInsumo['qtde'];
             $id_insumo = $estoqueInsumo['id_insumo'];
         }
@@ -18,14 +18,13 @@ require_once "funcoes/funcoesInsumo.php";
         }
     }
     if(!empty($_POST)) {
-
-        if (!empty($_POST['id_insumo'])){
+        if (!empty($_POST['id'])){
             editarEstoqueInsumo($_POST);
         } else {
             salvarEstoqueInsumo($_POST);
         }
     }
-    $estoqueInsumos = listarInsumos();
+    $estoqueInsumos = listarEstoqueInsumo();
 ?>
 <!DOCTYPE html>
 <?php    
@@ -35,30 +34,35 @@ require_once "funcoes/funcoesInsumo.php";
 <main role="main" class="container">
         <h2>Estoque de Insumos</h2>
     <form action="estoqueInsumo.php" method="POST">
-    <input type="hidden" id="id" name="id" value="<?=$id?>"/>
+        <input type="hidden" id="id" name="id" value="<?=$id?>"/>
 
-    <div class="form-group">
-        <label for="qtde">Quantidade do Insumo</label>
-        <input type="text" class="form-control" name="qtde" id="qtde" placeholder="Digite a quantidade">
-    </div>
-    <div class="form-group">
-    <label for="id_insumo">Insumo:</label>
-    <select class="form-control" id="id_insumo" name="id_insumo">
-        <option value="" disabled selected>Selecione um insumo </option>
-        <?php
-            $resultado = listarInsumos();
-            
-            if(!empty($resultado)){
-                foreach ($resultado as $res) {
-                ?>                                             
-                    <option  value="<?=$res['id'];?>" ><?=$res['nomeInsumo'];?></option> 
-                <?php      
-                }
-            }
-        ?>
-        </select>
-    </div>
-    <input type="submit" value="Salvar" class="btn btn-primary" /> 
+        <div class="form-group">
+            <label for="qtde">Quantidade do Insumo</label>
+            <input type="text" class="form-control" name="qtde" id="qtde" placeholder="Digite a quantidade" value="<?=$qtde?>">
+        </div>
+        <div class="form-group">
+            <label for="id_insumo">Insumo:</label>
+            <select class="form-control" id="id_insumo" name="id_insumo">
+                <option value="" disabled selected>Selecione um insumo </option>
+                <?php
+                    $resultado = listarInsumos();
+                    
+                    if(!empty($resultado)){
+                    
+                        foreach ($resultado as $res) {
+                            $selected = "";
+                            if($res['id'] == $id_insumo){
+                                $selected = "selected";
+                            }
+                        ?>                                             
+                            <option <?=$selected ?> value="<?=$res['id'];?>" ><?=$res['nomeInsumo'];?></option> 
+                        <?php      
+                        }
+                    }
+                ?>
+            </select>
+        </div>
+        <input type="submit" value="Salvar" class="btn btn-primary" /> 
     </form>
     <?php
         if(!empty($estoqueInsumos)){
@@ -69,6 +73,7 @@ require_once "funcoes/funcoesInsumo.php";
                 <tr>
                     <th>Id</th>
                     <th>Insumo</th>
+                    <th>U. de Medida</th>
                     <th>Quantidade</th>
                 </tr>
             </thead>
@@ -79,6 +84,7 @@ require_once "funcoes/funcoesInsumo.php";
                     <tr>
                         <td><?=$estoqueInsumo['id']?></td>
                         <td><?=$estoqueInsumo['nomeInsumo']?></td>
+                        <td><?=$estoqueInsumo['unidadeMedida']?></td>
                         <td><?=$estoqueInsumo['qtde']?></td>                   
                         <td>
                             <a href="estoqueInsumo.php?acao=carregar&id=<?=$estoqueInsumo['id']?>"

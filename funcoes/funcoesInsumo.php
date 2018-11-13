@@ -18,7 +18,6 @@ function salvarInsumo($insumo)  {
     $stmt->bindParam(':unidadeMedida',$insumo['unidadeMedida']);
    
     if ($stmt->execute()){
-        print_r("\n\n\naqui foi ");
         return "Insumo inserido com sucesso!";
     } else {
         print_r($stmt->errorInfo());
@@ -76,17 +75,17 @@ function excluirInsumo($id) {
 
 /*************************** ESTOQUE INSUMO ***********************************/
 
-function salvarEstoqueInsumo($estoque_insumo)  {  
+function salvarEstoqueInsumo($estoque)  {  
     $conn = conectar();
 
     $stmt = $conn->prepare('INSERT INTO insumo_estoque (qtde, id_insumo)
-            VALUES(:qtde, :id_insumo)');
+                            VALUES (:qtde, :id_insumo)');
 
-    $stmt->bindParam(':qtde',$estoque_insumo['qtde']);
-    $stmt->bindParam(':id_insumo',$estoque_insumo['id_insumo']);
+    $stmt->bindParam(':qtde',$estoque['qtde']);
+    $stmt->bindParam(':id_insumo',$estoque['id_insumo']);
    
     if ($stmt->execute()){
-        return "Insumo inserido com sucesso!";
+        return "Insumo  com sucesso!";
     } else {
         print_r($stmt->errorInfo());
         return "erro! ";
@@ -96,7 +95,7 @@ function salvarEstoqueInsumo($estoque_insumo)  {
 function listarEstoqueInsumo() {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select ie.id, ie.qtde, i.nomeInsumo from insumo_estoque as ie left join insumo as i on i.id = ie.id_insumo");
+    $stmt = $conn->prepare("select ie.id, ie.qtde as qtde , i.nomeInsumo, i.unidadeMedida from insumo_estoque as ie inner join insumo as i on ie.id_insumo =  i.id");
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $retorno;
@@ -105,7 +104,7 @@ function listarEstoqueInsumo() {
 function buscarEstoqueInsumo($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select ie.id_insumo, ie.qtde, i.nomeInsumo from insumo_estoque as ie left join insumo as i on i.id = :id");
+    $stmt = $conn->prepare("select id, qtde,id_insumo from insumo_estoque where id = :id");
     $stmt->bindParam(':id',$id);
 
     $stmt->execute();
@@ -115,9 +114,9 @@ function buscarEstoqueInsumo($id) {
 function editarEstoqueInsumo($estoqueInsumo){
     $conn = conectar();
 
-    $stmt = $conn->prepare('update insumo set nomeInsumo = :nomeInsumo, qtde = :qtde where id = :id');
-    $stmt->bindParam(':id',$estoqueInsumo['id_insumo']);
-    $stmt->bindParam(':nomeInsumo',$estoqueInsumo['nomeInsumo']);
+    $stmt = $conn->prepare('update insumo_estoque set id_insumo = :id_insumo, qtde = :qtde where id = :id');
+    $stmt->bindParam(':id',$estoqueInsumo['id']);
+    $stmt->bindParam(':id_insumo',$estoqueInsumo['id_insumo']);
     $stmt->bindParam(':qtde',$estoqueInsumo['qtde']);
 
     if ($stmt->execute()){
@@ -131,7 +130,7 @@ function editarEstoqueInsumo($estoqueInsumo){
 function excluirEstoqueInsumo($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare('delete from insumo where id = :id');
+    $stmt = $conn->prepare('delete from insumo_estoque where id = :id');
     $stmt->bindParam(':id',$id);
     if ($stmt->execute()){
         return "Insumo excluído com sucesso!";
