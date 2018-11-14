@@ -32,6 +32,9 @@
 include_once("default/header.php");
 ?>
 <body>
+<?php    
+    include_once("default/navbar.php");
+?>
 <main role="main" class="container">
     <h2>Novos Insumos</h2>
         <form action="cadastroInsumo.php" method="POST">

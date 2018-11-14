@@ -31,6 +31,9 @@ require_once "funcoes/funcoesInsumo.php";
         include_once("default/header.php");
 ?>
 <body>
+<?php    
+        include_once("default/navbar.php");
+?>
 <main role="main" class="container">
         <h2>Estoque de Insumos</h2>
     <form action="estoqueInsumo.php" method="POST">
