@@ -12,19 +12,19 @@
               </a>
             </li>
             <?php
-                if(empty($_SESSION)){
+                if(!empty($acesso) && $acesso == 2){
             ?>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Insumos
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="cadastroInsumo.php">Novos Insumos</a>
-                    <a class="dropdown-item" href="estoqueInsumo.php">Estoque de Insumos</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Insumos
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="insumo/cadastroInsumo.php">Novos Insumos</a>
+                      <a class="dropdown-item" href="insumo/estoqueInsumo.php">Estoque de Insumos</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+              </li>
             <?php
                 }
             ?>

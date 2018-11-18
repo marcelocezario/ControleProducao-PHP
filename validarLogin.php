@@ -1,9 +1,9 @@
 <?php
-    require_once "funcoes.php";
+    require_once "funcoes/funcaoCliente.php";
 
     session_start();
 
-    $login = $_POST['login'];
+    $login = $_POST['email'];
     $senha = $_POST['senha'];
 
     $retorno = validarLogin($login,$senha);

@@ -10,4 +10,7 @@
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/sticky-footer-navbar.css" rel="stylesheet">
     </head>
+    <?php
+        session_start();
+    ?>
 </header>

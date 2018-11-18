@@ -16,24 +16,30 @@ $bairro = "";
 $id_estado = "";
 $email = "";
 $senha = "";
+$acesso = "";
 
+if (!empty($_SESSION['cliente'])) {
+	$valida = $_SESSION['cliente'];
+	$retorno =  buscarCliente($valida['id']);
+	$_SESSION['cliente'] = $retorno;
+	$cliente = $_SESSION['cliente'];
+
+	$id = $cliente['id'];
+	$nome = $cliente['nome'];
+	$dtNascimento = $cliente['dtNascimento'];
+	$cpf = $cliente['cep'];
+	$telefone = $cliente['telefone'];
+	$cep = $cliente['cep'];
+	$rua = $cliente['rua'];
+	$numero = $cliente['numero'];
+	$bairro = $cliente['bairro'];
+	$id_estado = $cliente['id_estado'];
+	$email = $cliente['email'];
+	$acesso = $cliente['acesso'];
+}
 if (!empty($_GET)) {
 	$id = $_GET['id'];
 
-	if ($_GET['acao'] == 'carregar') {
-		$cliente = buscarCliente($id);
-		$id = $cliente['id'];
-		$nome = $cliente['nome'];
-		$dtNascimento = $cliente['dtNascimento'];
-		$cpf = $cliente['cep'];
-		$telefone = $cliente['telefone'];
-		$cep = $cliente['cep'];
-		$rua = $cliente['rua'];
-		$numero = $cliente['numero'];
-		$bairro = $cliente['bairro'];
-		$id_estado = $cliente['id_estado'];
-		$email = $cliente['email'];
-	}
 	if ($_GET['acao'] == 'excluir') {
 		excluirCliente($id);
 	}
@@ -54,7 +60,7 @@ if(!empty($_POST)) {
 <div id="main" class="container-fluid">
   
   <h3 class="page-header">Area de Cadastro</h3>
-  <form action="cliente.php" method="POST">
+  <form action="carrinho.php" method="POST">
   <input type="hidden" id="id" name="id" value="<?=$id?>"/>
   	<div class="row">
 		<div class="form-group col-md-4">
@@ -139,6 +145,44 @@ if(!empty($_POST)) {
 	
 	<button type="submit" class="btn btn-primary">Salvar</button>
 
+ 	<?php
+        if($acesso == 2){
+    ?>
+    <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nome do cliente</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                </tr>
+            </thead>
+            <?php
+				$resultados = listarCliente()
+                foreach($resultados as $res){
+            ?>
+                <tbody>
+                    <tr>
+                        <td><?=$res['id']?></td>
+                        <td><?=$res['nome']?></td>
+                        <td><?=$res['email']?></td>
+                        <td><?=$res['telefone']?></td>                   
+                        <td>
+                            <a href="cliente.php?acao=excluir&id=<?=$res['id']?>" 
+                                class="btn btn-primary"
+                                onclick="return confirm('Você está certo disso?');">
+                                Remover
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            <?php  
+                }
+            ?>
+        </table>
+        <?php  
+            }        
+        ?>
   </form>
  </div>
 <?php    
