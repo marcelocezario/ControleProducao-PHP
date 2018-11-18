@@ -114,9 +114,5 @@ require_once "funcoes/funcoesInsumo.php";
     <?php    
         include_once("default/footer.php");
     ?>
-        <!-- JavaScript-->
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
 </body>
 </html>

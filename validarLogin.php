@@ -19,6 +19,4 @@
         echo "Login ou senha inválido(s)";
     }
 
-
-
 ?>

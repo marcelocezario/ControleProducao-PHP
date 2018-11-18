@@ -33,7 +33,7 @@ include_once("default/header.php");
 ?>
 <body>
 <?php    
-    include_once("default/navbar.php");
+    include_once("default/form.php");
 ?>
 <main role="main" class="container">
     <h2>Novos Insumos</h2>
@@ -103,10 +103,6 @@ include_once("default/header.php");
 <?php    
     include_once("default/footer.php");
 ?>
-    <!-- JavaScript-->
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
 </body>
 </html>

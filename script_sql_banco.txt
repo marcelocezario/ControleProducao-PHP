@@ -55,10 +55,9 @@ CREATE TABLE login (
 /************* estado *************\
 
 CREATE TABLE estados (
-  codigo INTEGER NOT NULL AUTO_INCREMENT,
+  id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   sigla VARCHAR(2) NOT NULL,
   descricao VARCHAR(30) NOT NULL,
-  PRIMARY KEY(codigo)
 );
  
 INSERT INTO estados (`sigla`, `descricao`) VALUES ('AC', 'Acre');
@@ -88,3 +87,35 @@ INSERT INTO estados (`sigla`, `descricao`) VALUES ('SC', 'Santa Catarina');
 INSERT INTO estados (`sigla`, `descricao`) VALUES ('SP', 'São Paulo');
 INSERT INTO estados (`sigla`, `descricao`) VALUES ('SE', 'Sergipe');
 INSERT INTO estados (`sigla`, `descricao`) VALUES ('TO', 'Tocantins');
+
+/******************** Corigir UTF8 ******************/
+add na my.ini
+
+[client]
+default-character-set=utf8
+
+[mysql]
+default-character-set=utf8
+
+[mysqld]
+collation-server = utf8_unicode_ci
+init-connect='SET NAMES utf8'
+character-set-server = utf8
+
+/******************** Cadastro de cliente******************/
+CREATE TABLE cliente (
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome varchar(80),
+    dtNascimento varchar(11),
+    cpf varchar(17),
+    telefone varchar(15),
+    cep varchar(10),
+    rua varchar(80),
+    numero decimal,
+    bairro varchar(80),
+    id_estado decimal,
+    email varchar(80),
+    senha varchar(20),
+    ativo boolean,
+    acesso decimal(1)
+);
