@@ -30,8 +30,13 @@ create table categoria(
 /************* Produtos *************\
 create table produtos(
 	id int not null PRIMARY KEY AUTO_INCREMENT,
+    nomeProduto varchar(80),
     qtde decimal(10,2),
-    id_categoria int
+    id_categoria INTEGER,
+    descricao varchar(200), 
+    url varchar(200),
+    valor decimal(10,2),
+    ativo boolean 
 );
 ALTER TABLE `produtos` ADD CONSTRAINT `id_categoria` FOREIGN KEY ( `id_categoria` ) REFERENCES `categoria` ( `id` ) ;
 

@@ -1,20 +1,15 @@
 <?php
-    $cliente = $_SESSION['cliente'];
-
-    if(!empty($cliente) && $cliente['acesso'] == 2)
-    {
-?>
-<?php
-    require_once "funcoes/funcoesCategoria.php";
+    require_once "funcoes/funcaoProduto.php";
     
     $id = "";
     $nomeCategoria = "";
-    $unidadeMedida = "";
+    $descricao = "";
 
     if (!empty($_GET)) {
         $id = $_GET['id'];
 
         if ($_GET['acao'] == 'carregar') {
+
             $categoria = buscarCategoria($id);
             $nomeCategoria = $categoria['nomeCategoria'];
             $descricao = $descricao['descricao'];
@@ -31,7 +26,7 @@
             salvarCategoria($_POST);
         }
     }
-    $categorias = listarCategorias();
+    $categorias = listarCategoria();
 ?>
 <!DOCTYPE html>
 <?php    
@@ -39,21 +34,21 @@ include_once("default/header.php");
 ?>
 <body>
 <?php    
-    include_once("default/form.php");
+    include_once("default/navbar.php");
 ?>
 <main role="main" class="container">
-    <h2>Novos Categorias</h2>
-        <form action="cadastroCategoria.php" method="POST">
+    <h2>Novas Categorias</h2>
+        <form action="cadastroCategorias.php" method="POST">
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
 
         <div class="form-group">
-            <label for="nomeCategoria">Nome do categoria</label>
-            <input type="text" class="form-control" name="nomeCategoria" id="nomeCategoria" placeholder="Digite o nome do Categoria" value="<?=$nomeCategoria?>">
+            <label for="nomeCategoria">Nome da Categoria</label>
+            <input type="text" class="form-control" name="nomeCategoria" id="nomeCategoria" placeholder="Digite o nome da Categoria" value="<?=$nomeCategoria?>">
         </div>
 
         <div class="form-group">
-            <label for="unidadeMedida">Unidade de medida</label>
-            <input type="text" class="form-control" name="nomeCategoria" id="nomeCategoria" placeholder="Digite o nome do Categoria" value="<?=$nomeCategoria?>">
+            <label for="descricao">Descrição</label>
+            <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Digite a descrição da categoria" value="<?=$descricao?>">
         </div>
         <input type="submit" value="Salvar" class="btn btn-primary" /> 
     </form>
@@ -100,6 +95,3 @@ include_once("default/header.php");
 
 </body>
 </html>
-<?php  
-    }
-?>

@@ -1,43 +1,46 @@
 <?php
 require_once "conexao.php";
-/*
- * Insumo começa linha 11 e ternima 75
- * Categoria começa linha 79 e ternima 142
- */
+
 function selected( $value, $selected ){
     return $value==$selected ? ' selected="selected"' : '';
 }
 
-function salvarInsumo($insumo)  {  
+function salvarProduto($produto)  {  
     $conn = conectar();
+    $ativo = true;
 
-    $stmt = $conn->prepare('INSERT INTO insumo (nomeInsumo, unidadeMedida)
-            VALUES(:nomeInsumo, :unidadeMedida)');
-
-    $stmt->bindParam(':nomeInsumo',$insumo['nomeInsumo']);
-    $stmt->bindParam(':unidadeMedida',$insumo['unidadeMedida']);
+    $stmt = $conn->prepare('INSERT INTO produtos (nomeProduto, descricao, url, valor, qtde, id_categoria, ativo)
+        VALUES(:nomeProduto, :descricao, :url, :valor, :qtde, :id_categoria, :ativo)');
+ 
+    $stmt->bindParam(':nomeProduto',$produto['nomeProduto']);
+    $stmt->bindParam(':descricao',$produto['descricao']);
+    $stmt->bindParam(':url',$produto['url']);
+    $stmt->bindParam(':valor',$produto['valor']);
+    $stmt->bindParam(':qtde',$produto['qtde']);
+    $stmt->bindParam(':id_categoria',$produto['id_categoria']);
+    $stmt->bindParam(':ativo',$produto['ativo']);
    
     if ($stmt->execute()){
-        return "Insumo inserido com sucesso!";
+        return "Produto inserido com sucesso!";
     } else {
         print_r($stmt->errorInfo());
         return "erro! ";
     }
 }
 
-function listarInsumos() {
+function listarProdutos() {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nomeInsumo, unidadeMedida from insumo order by nomeInsumo");
+    $stmt = $conn->prepare("SELECT id, nomeProduto, url, valor from produtos order by nomeProduto");
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $retorno;
 }
 
-function buscarInsumo($id) {
+function buscarProduto($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nomeInsumo, unidadeMedida from insumo where id = :id");
+    $stmt = $conn->prepare("select id, nomeProtudos from produtos where id = :id");
     $stmt->bindParam(':id',$id);
 
     $stmt->execute();
@@ -47,13 +50,18 @@ function buscarInsumo($id) {
 function editarInsumo($insumo){
     $conn = conectar();
 
-    $stmt = $conn->prepare('update insumo set nomeInsumo = :nomeInsumo, unidadeMedida = :unidadeMedida where id = :id');
+    $stmt = $conn->prepare('UPDATE produtos set nomeProduto = :nomeProduto, descricao = :descricao, url = :url, valor = :valor, qtde = :qtde, id_categoria = :id_categoria where id = :id');
     $stmt->bindParam(':id',$insumo['id']);
-    $stmt->bindParam(':nomeInsumo',$insumo['nomeInsumo']);
-    $stmt->bindParam(':unidadeMedida',$insumo['unidadeMedida']);
+
+    $stmt->bindParam(':nomeProduto',$produto['nomeProduto']);
+    $stmt->bindParam(':descricao',$produto['descricao']);
+    $stmt->bindParam(':url',$produto['url']);
+    $stmt->bindParam(':valor',$produto['valor']);
+    $stmt->bindParam(':qtde',$produto['qtde']);
+    $stmt->bindParam(':id_categoria',$produto['id_categoria']);
 
     if ($stmt->execute()){
-        return "Insumo alterado com sucesso!";
+        return "Produto alterado com sucesso!";
     } else {
         print_r($stmt->errorInfo());
         return "erro! ";
@@ -62,9 +70,12 @@ function editarInsumo($insumo){
 
 function excluirInsumo($id) {
     $conn = conectar();
+    $ativo = false;
 
-    $stmt = $conn->prepare('delete from insumo where id = :id');
+    $stmt = $conn->prepare('UPDATE produtos ativo = $ativo where id = :id');
     $stmt->bindParam(':id',$id);
+    $stmt->bindParam(':ativo',$ativo);
+
     if ($stmt->execute()){
         return "Insumo excluído com sucesso!";
     } else {
@@ -73,7 +84,7 @@ function excluirInsumo($id) {
     }
 }
 
-/*************************** ESTOQUE INSUMO ***********************************/
+/*************************** Categorias ***********************************/
 
 function salvarCategoria($estoque)  {  
     $conn = conectar();

@@ -60,7 +60,7 @@ if(!empty($_POST)) {
 <div id="main" class="container-fluid">
   
   <h3 class="page-header">Area de Cadastro</h3>
-  <form action="carrinho.php" method="POST">
+  <form action="cliente.php" method="POST">
   <input type="hidden" id="id" name="id" value="<?=$id?>"/>
   	<div class="row">
 		<div class="form-group col-md-4">
