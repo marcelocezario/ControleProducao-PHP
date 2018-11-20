@@ -11,23 +11,25 @@
                 <span class="sr-only">(current)</span>
               </a>
             </li>
-            <?php
-                if(!empty($acesso) && $acesso == 2){
-            ?>
+           
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Insumos
+                  Produtos
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="insumo/cadastroInsumo.php">Novos Insumos</a>
-                      <a class="dropdown-item" href="insumo/estoqueInsumo.php">Estoque de Insumos</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                      <a class="dropdown-item" href="produto/album.php">Lista de produtos</a>
+                      <?php
+                        if(!empty($acesso) && $acesso == 2){
+                      ?>                       
+                         <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="produto/cadastroCategorias.php">Novas Categorias </a>
+                        <a class="dropdown-item" href="produto/cadastroProdutos.php">Novos Produtos</a>
+                      <?php
+                        }
+                      ?>
                   </div>
               </li>
-            <?php
-                }
-            ?>
+            
             <li class="nav-item">
               <a class="nav-link" href="#">About</a>
             </li>

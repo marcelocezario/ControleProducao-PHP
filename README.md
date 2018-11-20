@@ -1,1 +1,1 @@
-# Controle de Produção - PHP
+# Projeto E-commerce - PHP
