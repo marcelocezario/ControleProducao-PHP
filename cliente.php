@@ -158,7 +158,7 @@ if(!empty($_POST)) {
                 </tr>
             </thead>
             <?php
-				$resultados = listarCliente()
+				$resultados = listarCliente();
                 foreach($resultados as $res){
             ?>
                 <tbody>
