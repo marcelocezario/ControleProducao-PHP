@@ -41,7 +41,7 @@ function salvarCliente($cliente){
 function listarCliente() {
     $conn = conectar();
 
-    $stmt = $conn->prepare("SELECT id, nome, cpf, telefone, ativo  from cliente ");
+    $stmt = $conn->prepare("SELECT id, nome, email, telefone, ativo  from cliente ");
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $retorno;

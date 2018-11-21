@@ -18,29 +18,29 @@ $email = "";
 $senha = "";
 $acesso = "";
 
-if (!empty($_SESSION['cliente'])) {
-	$valida = $_SESSION['cliente'];
-	$retorno =  buscarCliente($valida['id']);
-	$_SESSION['cliente'] = $retorno;
-	$cliente = $_SESSION['cliente'];
+if(empty($_GET)){	 
+	if (!empty($_SESSION['cliente'])) {
+		$valida = $_SESSION['cliente'];
+		$retorno =  buscarCliente($valida['id']);
+		$_SESSION['cliente'] = $retorno;
+		$cliente = $_SESSION['cliente'];
 
-	$id = $cliente['id'];
-	$nome = $cliente['nome'];
-	$dtNascimento = $cliente['dtNascimento'];
-	$cpf = $cliente['cep'];
-	$telefone = $cliente['telefone'];
-	$cep = $cliente['cep'];
-	$rua = $cliente['rua'];
-	$numero = $cliente['numero'];
-	$bairro = $cliente['bairro'];
-	$id_estado = $cliente['id_estado'];
-	$email = $cliente['email'];
-	$acesso = $cliente['acesso'];
-}
-if (!empty($_GET)) {
+		$id = $cliente['id'];
+		$nome = $cliente['nome'];
+		$dtNascimento = $cliente['dtNascimento'];
+		$cpf = $cliente['cep'];
+		$telefone = $cliente['telefone'];
+		$cep = $cliente['cep'];
+		$rua = $cliente['rua'];
+		$numero = $cliente['numero'];
+		$bairro = $cliente['bairro'];
+		$id_estado = $cliente['id_estado'];
+		$email = $cliente['email'];
+		$acesso = $cliente['acesso'];
+	}
+}else if ($_GET['acao'] != 'novo'){
 	$id = $_GET['id'];
-
-	if ($_GET['acao'] == 'excluir') {
+	if ($_GET['acao'] == 'excluir') {		
 		excluirCliente($id);
 	}
 }
@@ -155,10 +155,11 @@ if(!empty($_POST)) {
                     <th>Nome do cliente</th>
                     <th>E-mail</th>
                     <th>Telefone</th>
+					<th>Ativo</th>
                 </tr>
             </thead>
             <?php
-				$resultados = listarCliente()
+				$resultados = listarCliente();
                 foreach($resultados as $res){
             ?>
                 <tbody>
@@ -166,7 +167,8 @@ if(!empty($_POST)) {
                         <td><?=$res['id']?></td>
                         <td><?=$res['nome']?></td>
                         <td><?=$res['email']?></td>
-                        <td><?=$res['telefone']?></td>                   
+                        <td><?=$res['telefone']?></td>
+						<td><?=$res['ativo']?></td>                   
                         <td>
                             <a href="cliente.php?acao=excluir&id=<?=$res['id']?>" 
                                 class="btn btn-primary"

@@ -1,65 +1,44 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<!-- NO ADD head
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Login</title>
-   <!--Made by Mutiullah Samim -->
-   
-	<!--Bootsrap 4 CDN-->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!--Fontawesome CDN-->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<html lang="pt">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
 
-	<!--Custom styles-->
-	<link rel="stylesheet" type="text/css" href="css/login.css">
-</head>
-<body>
-<form action="validarLogin.php" method="POST">
-	<div class="container">
-		<div class="d-flex justify-content-center h-100">
-			<div class="card">
-				<div class="card-header">
-					<h3>Entrar</h3>
-					<div class="d-flex justify-content-end social_icon">
-						<span><i class="fab fa-facebook-square"></i></span>
-						<span><i class="fab fa-google-plus-square"></i></span>
-						<span><i class="fab fa-twitter-square"></i></span>
-					</div>
-				</div>
-				<div class="card-body">
-					<form>
-						<div class="input-group form-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="fas fa-user"></i></span>
-							</div>
-							<input type="text" requered class="form-control" id="email" name="email" placeholder="E-mail">
-						</div>
-						<div class="input-group form-group">
-							<div class="input-group-prepend">
-								<span class="input-group-text"><i class="fas fa-key"></i></span>
-							</div>
-							<input type="password" requered id="senha" name="senha" class="form-control" placeholder="Senha">
-						</div>
-						<div class="row align-items-center remember">
-							<input type="checkbox">Continuar logado
-						</div>
-						<div class="form-group">
-							<input type="submit" value="entrar" class="btn float-right login_btn">
-						</div>
-					</form>
-				</div>
-				<div class="card-footer">
-					<div class="d-flex justify-content-center links">
-						Não possue uma conta<a href="cliente.php">Criar conta</a>
-					</div>
-					<div class="d-flex justify-content-center">
-						<a href="#">Esqueceu sua senha?</a>
-					</div>
-				</div>
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/login.css" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <form class="form-signin">
+      <img class="mb-4" src="../../assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+      <label for="inputEmail" class="sr-only">Email address</label>
+      <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <label for="inputPassword" class="sr-only">Password</label>
+      <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+      <div class="checkbox mb-3">
+        <label>
+          <input type="checkbox" value="remember-me"> Remember me
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    
+		<div class="card-footer">
+			<div class="d-flex justify-content-center links">
+				Não possue uma conta<a href="cliente.php?acao=novo">Criar conta</a>
+			</div>
+			<div class="d-flex justify-content-center">
+				<a href="#">Esqueceu sua senha?</a>
 			</div>
 		</div>
-	</div>
-</form>
+		<p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+	</form>
 </body>
 </html>
