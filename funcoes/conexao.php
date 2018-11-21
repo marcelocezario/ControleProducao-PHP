@@ -3,7 +3,7 @@ define("DSN","mysql");
 define("SERVIDOR","localhost");
 define("USUARIO","root");
 define("SENHA","");
-define("BANCODEDADOS","controleProducao");
+define("BANCODEDADOS","ecommerce");
 
 function conectar(){
     try{

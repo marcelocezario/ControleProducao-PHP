@@ -19,41 +19,52 @@ define("DSN","mysql");
 define("SERVIDOR","localhost");
 define("USUARIO","root");
 define("SENHA","");
-define("BANCODEDADOS","controleProducao");
+define("BANCODEDADOS","ecommerce");
 
-/************* Cadastro de insumo *************\
-create table insumo(
+/************* Categorias *************\
+create table categoria(
 	id int not null PRIMARY KEY AUTO_INCREMENT,
-    nomeInsumo varchar(100),
-    unidadeMedida varchar(20)
+    nomeCategoria varchar(80),
+    descricao varchar(150)
 );
-/************* estoque de insumo *************\
-create table insumo_estoque(
+/************* Produtos *************\
+create table produtos(
 	id int not null PRIMARY KEY AUTO_INCREMENT,
+    nomeProduto varchar(80),
     qtde decimal(10,2),
-    id_insumo int
+    id_categoria INTEGER,
+    descricao varchar(200), 
+    url varchar(200),
+    valor decimal(10,2),
+    ativo boolean 
 );
-ALTER TABLE `insumo_estoque` ADD CONSTRAINT `fk_insumo` FOREIGN KEY ( `id_insumo` ) REFERENCES `insumo` ( `id` ) ;
+ALTER TABLE `produtos` ADD CONSTRAINT `id_categoria` FOREIGN KEY ( `id_categoria` ) REFERENCES `categoria` ( `id` ) ;
 
 /************* Cadastro de cliente *************\
+
 CREATE TABLE cliente (
-   ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-   NOME varchar(80) DEFAULT NULL,
-   CPF varchar(15) DEFAULT NULL,
-   DTNASCIMENTO date DEFAULT NULL,
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    nome varchar(80),
+    dtNascimento varchar(11),
+    cpf varchar(17),
+    telefone varchar(15),
+    cep varchar(10),
+    rua varchar(80),
+    numero decimal,
+    bairro varchar(80),
+    id_estado decimal,
+    email varchar(80),
+    senha varchar(20),
+    ativo boolean,
+    acesso decimal(1)
 );
-/************* login do cliente *************\
-CREATE TABLE login (
-   ID int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-   login varchar(40) not null,
-   senha varchar(40) not null
-);
+
 /************* estado *************\
 
 CREATE TABLE estados (
   id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
   sigla VARCHAR(2) NOT NULL,
-  descricao VARCHAR(30) NOT NULL,
+  descricao VARCHAR(30) NOT NULL
 );
  
 INSERT INTO estados (`sigla`, `descricao`) VALUES ('AC', 'Acre');
@@ -98,20 +109,3 @@ collation-server = utf8_unicode_ci
 init-connect='SET NAMES utf8'
 character-set-server = utf8
 
-/******************** Cadastro de cliente******************/
-CREATE TABLE cliente (
-    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome varchar(80),
-    dtNascimento varchar(11),
-    cpf varchar(17),
-    telefone varchar(15),
-    cep varchar(10),
-    rua varchar(80),
-    numero decimal,
-    bairro varchar(80),
-    id_estado decimal,
-    email varchar(80),
-    senha varchar(20),
-    ativo boolean,
-    acesso decimal(1)
-);
