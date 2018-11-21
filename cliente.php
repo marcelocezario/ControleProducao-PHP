@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <?php    
 include_once("default/header.php");
+$cliente = $_SESSION['cliente'];
 date_default_timezone_set('America/Sao_Paulo');
 require_once "funcoes/funcaoCliente.php";
 $id = "";
@@ -125,9 +126,9 @@ if(!empty($_POST)) {
                         }
                     }
                 ?>
-            </select>  	  	</div>
-	</div>
-
+            </select>  	  	
+		</div>
+	</div>  
 	<hr />
 	<h3>Login</h3>
 	<div class="row">
@@ -136,10 +137,10 @@ if(!empty($_POST)) {
   	  		<input type="email" class="form-control" id="email" name="email" placeholder="Digite o e-mail" required value="<?=$email?>">
   	  	</div>
   	 
-	  <div class="form-group col-md-3">
-  	  	<label for="senha">Senha</label>
-  	  	<input type="password" class="form-control" id="senha" name="senha" placeholder="Digite a senha" required value="<?=$senha?>">
-  	  </div>
+		<div class="form-group col-md-3">
+			<label for="senha">Senha</label>
+			<input type="password" class="form-control" id="senha" name="senha" placeholder="Digite a senha" required value="<?=$senha?>">
+		</div>
 	</div>
 	<hr />
 	
@@ -195,7 +196,7 @@ if(!empty($_POST)) {
 	function mascara(o,f){
 		v_obj=o
 		v_fun=f
-		setTimeout("execmascara()",1)
+		setTimeout("execmascara()",0)
 	}
 	function execmascara(){
 		v_obj.value=v_fun(v_obj.value)

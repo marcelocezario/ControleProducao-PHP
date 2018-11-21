@@ -1,6 +1,8 @@
 <?php
 require_once "funcoes/funcaoProduto.php";
+include_once("default/header.php");
 
+$cliente = $_SESSION['cliente'];
 
     $id = "";
     $nomeProduto = "";
@@ -45,3 +47,23 @@ require_once "funcoes/funcaoProduto.php";
 
     $produtos = listarProtudos();
 ?>
+<!DOCTYPE html>
+<body>
+    <?php    
+        include_once("default/navbar.php");
+    ?>
+    <main role="main" class="container">
+    <h2>Novos Produtos</h2>
+        <form action="cadastroProdutos.php" method="POST">
+        <input type="hidden" id="id" name="id" value="<?=$id?>"/>
+
+        <div class="form-group">
+            <label for="nomeProduto">Nome da Produto</label>
+            <input type="text" class="form-control" maxlength="40" requered name="nomeProduto" id="nomeProduto" placeholder="Digite o nome do produto" value="<?=$nomeProduto?>">
+        </div>
+    </main>
+    <?php    
+        include_once("default/footer.php");
+    ?>
+</body>
+</html>

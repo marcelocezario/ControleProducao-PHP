@@ -1,4 +1,8 @@
-<?php
+<!DOCTYPE html>
+<?php    
+    include_once("default/header.php");
+    $cliente = $_SESSION['cliente'];
+
     require_once "funcoes/funcaoProduto.php";
     
     $id = "";
@@ -28,10 +32,7 @@
     }
     $categorias = listarCategoria();
 ?>
-<!DOCTYPE html>
-<?php    
-include_once("default/header.php");
-?>
+
 <body>
 <?php    
     include_once("default/navbar.php");
@@ -43,16 +44,15 @@ include_once("default/header.php");
 
         <div class="form-group">
             <label for="nomeCategoria">Nome da Categoria</label>
-            <input type="text" class="form-control" name="nomeCategoria" id="nomeCategoria" placeholder="Digite o nome da Categoria" value="<?=$nomeCategoria?>">
+            <input type="text" class="form-control" maxlength="40" requered name="nomeCategoria" id="nomeCategoria" placeholder="Digite o nome da Categoria" value="<?=$nomeCategoria?>">
         </div>
 
         <div class="form-group">
             <label for="descricao">Descrição</label>
-            <input type="text" class="form-control" name="descricao" id="descricao" placeholder="Digite a descrição da categoria" value="<?=$descricao?>">
+            <input type="text"  maxlength="200" class="form-control" name="descricao" id="descricao" placeholder="Digite a descrição da categoria" value="<?=$descricao?>">
         </div>
         <input type="submit" value="Salvar" class="btn btn-primary" /> 
     </form>
-   
         <table class="table table-dark">
             <thead>
                 <tr>
@@ -68,14 +68,14 @@ include_once("default/header.php");
                     <tr>
                         <td><?=$categoria['id']?></td>
                         <td><?=$categoria['nomeCategoria']?></td>
-                        <td><?=$categoria['descricao']?></td>                   
+                        <td><?=$categoria['descricao']?></td>
                         <td>
-                            <a href="cadastroCategoria.php?acao=carregar&id=<?=$categoria['id']?>"
+                            <a href="cadastroCategorias.php?acao=carregar&id=<?=$categoria['id']?>"
                                 class="btn btn-primary">Editar
                             </a>
                         </td>
                         <td>
-                            <a href="cadastroCategoria.php?acao=excluir&id=<?=$categoria['id']?>" 
+                            <a href="cadastroCategorias.php?acao=excluir&id=<?=$categoria['id']?>" 
                                 class="btn btn-primary"
                                 onclick="return confirm('Você está certo disso?');">
                                 Remover
