@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <?php    
     include_once("default/header.php");
-    $cliente = $_SESSION['cliente'];
-
+    $cliente =  $_SESSION['cliente'];
+    if (!empty($_SESSION['cliente'])) {
+        
+    }else {
+        header("location: erro.php");
+    } 
+    
+    
     require_once "funcoes/funcaoProduto.php";
     
     $id = "";

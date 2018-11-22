@@ -5,6 +5,7 @@ include_once("default/header.php");
 $cliente = $_SESSION['cliente'];
 date_default_timezone_set('America/Sao_Paulo');
 require_once "funcoes/funcaoCliente.php";
+
 $id = "";
 $nome = "";
 $dtNascimento = "";
@@ -218,5 +219,5 @@ if(!empty($_POST)) {
 	$('#cpf').mask('000.000.000-00', {reverse: true});
 	$('#cep').mask('00000-000', {reverse: true});
 </script>
- </body>
+</body>
 </html>

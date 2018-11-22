@@ -2,8 +2,6 @@
 require_once "funcoes/funcaoProduto.php";
 include_once("default/header.php");
 
-$cliente = $_SESSION['cliente'];
-
     $id = "";
     $nomeProduto = "";
     $descricao = "";    
@@ -12,10 +10,11 @@ $cliente = $_SESSION['cliente'];
     $qtde = "";
     $id_categoria = "";
     $ativo = "";
+
     if(!empty($_FILES)) {
         $caminho_arquivo = "C:\\xampp\\htdocs\\ControleProducao-PHP\\img\\";
-        $nome_arquivo = $_FILES['image']['name'];   
-        move_uploaded_file($_FILES['image']['tmp_name'],
+        $nome_arquivo = $_FILES['imagem']['name'].'-'.date(his);   
+        move_uploaded_file($_FILES['imagem']['tmp_name'],
         $caminho_arquivo.$nome_arquivo);
         $url = 'img/'.$nome_arquivo;
     }
@@ -39,13 +38,14 @@ $cliente = $_SESSION['cliente'];
     }
 
     if(!empty($_POST)){
-        $_POST['url'] = $url;
-        print_r($_POST);
-    
-        salvarProduto($_POST);
+        if (!empty($_POST['id'])){
+            editarProduto($_POST);
+        } else {
+            salvarProduto($_POST);
+        }
     }
 
-    $produtos = listarProtudos();
+    $produtos = listarProdutos();
 ?>
 <!DOCTYPE html>
 <body>
@@ -56,11 +56,92 @@ $cliente = $_SESSION['cliente'];
     <h2>Novos Produtos</h2>
         <form action="cadastroProdutos.php" method="POST">
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="nomeProduto">Nome da Produto</label>
+                <input type="text" class="form-control" maxlength="40" requered name="nomeProduto" id="nomeProduto" placeholder="Digite o nome do produto" value="<?=$nomeProduto?>">
+            </div>
 
-        <div class="form-group">
-            <label for="nomeProduto">Nome da Produto</label>
-            <input type="text" class="form-control" maxlength="40" requered name="nomeProduto" id="nomeProduto" placeholder="Digite o nome do produto" value="<?=$nomeProduto?>">
+            <div class="form-group col-md-4">
+                <label for="descricao">Descrição </label>
+                <input type="text" maxlength="50" class="form-control" id="descricao" name="descricao" placeholder="Digite a Descrição" required value="<?=$descricao?>">
+            </div>  
         </div>
+
+        <div class="row">
+            <div class="form-group col-md-3">
+                <label for="valor">Valor</label>
+                <input type="text" class="cpf form-control" name="valor" id="valor" placeholder="Digite o valor do Produto" value="<?=$valor?>">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="qtde">Quantidade</label>
+                    <input type="text" class="sp_celphones form-control" id="qtde" name="qtde" placeholder="Digite a quantidade de produto" maxlength="15 " required value="<?=$qtde?>">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="imagem">Imagem</label>
+                <input type="file" class="form-control" name="imagem" id="imagem" >
+            </div >
+            <div class="form-group col-md-3">
+                <label for="id_categoria">Categoria</label>
+                <select class="form-control" id="id_categoria" name="id_categoria">
+                    <option value="" disabled selected>Selecione uma Categoria </option>
+                    <?php
+                        $resultado = listarCategoria();
+                        
+                        if(!empty($resultado)){
+                        
+                            foreach ($resultado as $res) {
+                                $selected = "";
+                                if($res['id'] == $id_categoria){
+                                    $selected = "selected";
+                                }
+                            ?>                                             
+                                <option <?=$selected ?> value="<?=$res['id'];?>" ><?=$res['nomeCategoria'];?></option> 
+                            <?php      
+                            }
+                        }
+                    ?>
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+    <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Produto</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <?php
+                foreach($produtos as $produto){
+            ?>
+                <tbody>
+                    <tr>
+                        <td><?=$produto['id']?></td>
+                        <td><?=$produto['nomeProduto']?></td>
+                        <td><?=$produto['descricao']?></td>
+                        <td>
+                            <a href="cadastroCategorias.php?acao=carregar&id=<?=$produto['id']?>"
+                                class="btn btn-primary">Editar
+                            </a>
+                        </td>
+                        <td>
+                            <a href="cadastroCategorias.php?acao=excluir&id=<?=$produto['id']?>" 
+                                class="btn btn-primary"
+                                onclick="return confirm('Você está certo disso?');">
+                                Remover
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            <?php  
+                }
+            ?>
+        </table>
     </main>
     <?php    
         include_once("default/footer.php");

@@ -18,7 +18,7 @@ function salvarProduto($produto)  {
     $stmt->bindParam(':valor',$produto['valor']);
     $stmt->bindParam(':qtde',$produto['qtde']);
     $stmt->bindParam(':id_categoria',$produto['id_categoria']);
-    $stmt->bindParam(':ativo',$produto['ativo']);
+    $stmt->bindParam(':ativo',$ativo);
    
     if ($stmt->execute()){
         return "Produto inserido com sucesso!";
@@ -31,7 +31,7 @@ function salvarProduto($produto)  {
 function listarProdutos() {
     $conn = conectar();
 
-    $stmt = $conn->prepare("SELECT id, nomeProduto, url, valor from produtos order by nomeProduto");
+    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria from produtos order by nomeProduto");
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $retorno;
@@ -71,13 +71,11 @@ function editarInsumo($insumo){
 function excluirInsumo($id) {
     $conn = conectar();
     $ativo = false;
-
-    $stmt = $conn->prepare('UPDATE produtos ativo = $ativo where id = :id');
+    $stmt = $conn->prepare('DELETE produtos where id = :id');
     $stmt->bindParam(':id',$id);
-    $stmt->bindParam(':ativo',$ativo);
 
     if ($stmt->execute()){
-        return "Insumo excluído com sucesso!";
+        return "Produto excluído com sucesso!";
     } else {
         print_r($stmt->errorInfo());
         return "erro! ";
