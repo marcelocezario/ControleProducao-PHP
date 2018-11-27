@@ -1,7 +1,14 @@
-<?php
+
+
+<?php 
 require_once "funcoes/funcaoProduto.php";
 include_once("default/header.php");
-
+    
+    $cliente = $_SESSION['cliente'];
+    if(!$cliente['acesso'] == 2 || empty($cliente)){
+        header("location: erro.php");
+    }
+    
     $id = "";
     $nomeProduto = "";
     $descricao = "";    
@@ -114,6 +121,7 @@ include_once("default/header.php");
                     <th>Id</th>
                     <th>Produto</th>
                     <th>Descrição</th>
+                    <th>Imagem</th>
                 </tr>
             </thead>
             <?php
@@ -124,6 +132,7 @@ include_once("default/header.php");
                         <td><?=$produto['id']?></td>
                         <td><?=$produto['nomeProduto']?></td>
                         <td><?=$produto['descricao']?></td>
+                        <img src="<?=$produto['url']?>" class="rounded-circle" width="50" height="50" />
                         <td>
                             <a href="cadastroCategorias.php?acao=carregar&id=<?=$produto['id']?>"
                                 class="btn btn-primary">Editar

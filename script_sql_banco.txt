@@ -27,6 +27,14 @@ create table categoria(
     nomeCategoria varchar(80),
     descricao varchar(150)
 );
+
+/************* Marca *************\
+create table marca(
+	id int not null PRIMARY KEY AUTO_INCREMENT,
+    nomeMarca varchar(80),
+    descricao varchar(150)
+);
+
 /************* Produtos *************\
 create table produtos(
 	id int not null PRIMARY KEY AUTO_INCREMENT,

@@ -148,4 +148,6 @@ function excluirCategoria($id) {
         return "erro! ";
     }
 }
+
+/*********************  *********************/
 ?>
