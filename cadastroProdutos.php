@@ -134,12 +134,12 @@ include_once("default/header.php");
                         <td><?=$produto['descricao']?></td>
                         <img src="<?=$produto['url']?>" class="rounded-circle" width="50" height="50" />
                         <td>
-                            <a href="cadastroCategorias.php?acao=carregar&id=<?=$produto['id']?>"
+                            <a href="cadastroProdutos.php?acao=carregar&id=<?=$produto['id']?>"
                                 class="btn btn-primary">Editar
                             </a>
                         </td>
                         <td>
-                            <a href="cadastroCategorias.php?acao=excluir&id=<?=$produto['id']?>" 
+                            <a href="cadastroProdutos.php?acao=excluir&id=<?=$produto['id']?>" 
                                 class="btn btn-primary"
                                 onclick="return confirm('Você está certo disso?');">
                                 Remover
