@@ -5,7 +5,7 @@ require_once "funcoes/funcaoProduto.php";
 include_once("default/header.php");
     
     $cliente = $_SESSION['cliente'];
-    if(!$cliente['acesso'] == 2 || empty($cliente)){
+    if(!$cliente['acesso'] == 1 || empty($cliente)){
         header("location: erro.php");
     }
     
