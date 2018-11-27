@@ -5,7 +5,7 @@ require_once "funcoes/funcaoProduto.php";
 include_once("default/header.php");
     
     $cliente = $_SESSION['cliente'];
-    if(!$cliente['acesso'] == 1 || empty($cliente)){
+    if ($cliente['acesso'] != 2) {
         header("location: erro.php");
     }
     
@@ -16,11 +16,10 @@ include_once("default/header.php");
     $valor = "";
     $qtde = "";
     $id_categoria = "";
-    $ativo = "";
 
     if(!empty($_FILES)) {
         $caminho_arquivo = "C:\\xampp\\htdocs\\Ecommerce-PHP\\img\\";
-        $nome_arquivo = $_FILES['imagem']['name'].'-'.date(his);   
+        $nome_arquivo = $_FILES['imagem']['name'];   
         move_uploaded_file($_FILES['imagem']['tmp_name'],
         $caminho_arquivo.$nome_arquivo);
         $url = 'img/'.$nome_arquivo;
@@ -37,7 +36,6 @@ include_once("default/header.php");
             $qtde = $produto['qtde'];
             $id_categoria = $produto['id_categoria'];
             $url = $produto['url'];
-            $ativo = $produto['ativo'];
         }
         if ($_GET['acao'] == 'excluir') {
             excluirProduto($id);

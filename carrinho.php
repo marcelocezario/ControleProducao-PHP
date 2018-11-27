@@ -1,7 +1,5 @@
 <?php
 include_once("default/header.php");
-session_start();
-
 
 $cliente = $_SESSION['cliente'];
 print_r($cliente);

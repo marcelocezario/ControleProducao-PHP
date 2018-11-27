@@ -2,11 +2,9 @@
 <?php    
     include_once("default/header.php");
     $cliente =  $_SESSION['cliente'];
-    if (!empty($_SESSION['cliente'])) {
-        
-    }else {
+    if ($cliente['acesso'] != 2) {
         header("location: erro.php");
-    } 
+    }
     
     
     require_once "funcoes/funcaoProduto.php";
