@@ -40,7 +40,7 @@ function listarProdutos() {
 function buscarProduto($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nomeProtudos from produtos where id = :id");
+    $stmt = $conn->prepare("select id, nomeProduto descricao, url, valor, qtde, id_categoria from produtos where id = :id");
     $stmt->bindParam(':id',$id);
 
     $stmt->execute();
@@ -149,5 +149,5 @@ function excluirCategoria($id) {
     }
 }
 
-/*********************  *********************/
+/********************* Marca  *********************/
 ?>

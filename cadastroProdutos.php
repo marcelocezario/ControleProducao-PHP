@@ -132,7 +132,7 @@ include_once("default/header.php");
                         <td><?=$produto['id']?></td>
                         <td><?=$produto['nomeProduto']?></td>
                         <td><?=$produto['descricao']?></td>
-                        <img src="<?=$produto['url']?>" class="rounded-circle" width="50" height="50" />
+                        <td><img src="<?=$produto['url']?>" class="rounded-circle" width="50" height="50" /></td>
                         <td>
                             <a href="cadastroProdutos.php?acao=carregar&id=<?=$produto['id']?>"
                                 class="btn btn-primary">Editar
