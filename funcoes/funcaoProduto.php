@@ -40,18 +40,18 @@ function listarProdutos() {
 function buscarProduto($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nomeProduto descricao, url, valor, qtde, id_categoria from produtos where id = :id");
+    $stmt = $conn->prepare("select id, nomeProduto, descricao, url, valor, qtde, id_categoria from produtos where id = :id");
     $stmt->bindParam(':id',$id);
 
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function editarInsumo($insumo){
+function editarProduto($produto){
     $conn = conectar();
 
     $stmt = $conn->prepare('UPDATE produtos set nomeProduto = :nomeProduto, descricao = :descricao, url = :url, valor = :valor, qtde = :qtde, id_categoria = :id_categoria where id = :id');
-    $stmt->bindParam(':id',$insumo['id']);
+    $stmt->bindParam(':id',$produto['id']);
 
     $stmt->bindParam(':nomeProduto',$produto['nomeProduto']);
     $stmt->bindParam(':descricao',$produto['descricao']);
