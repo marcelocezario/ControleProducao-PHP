@@ -19,7 +19,7 @@ include_once("default/header.php");
     $ativo = "";
 
     if(!empty($_FILES)) {
-        $caminho_arquivo = "C:\\xampp\\htdocs\\ControleProducao-PHP\\img\\";
+        $caminho_arquivo = "C:\\xampp\\htdocs\\Ecommerce-PHP\\img\\";
         $nome_arquivo = $_FILES['imagem']['name'].'-'.date(his);   
         move_uploaded_file($_FILES['imagem']['tmp_name'],
         $caminho_arquivo.$nome_arquivo);
