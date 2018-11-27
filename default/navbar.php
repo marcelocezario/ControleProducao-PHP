@@ -41,9 +41,15 @@
           <?php
             }
           ?>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Services</a>
-        </li>
+         <?php
+            if(empty($cliente)){
+          ?>   
+            <li class="nav-item">
+              <a class="nav-link" href="login.php">Login</a>
+            </li>
+          <?php
+            }
+          ?>
         <li class="nav-item">
           <a class="nav-link" href="#">Contact</a>
         </li>
