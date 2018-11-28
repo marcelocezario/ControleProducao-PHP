@@ -114,51 +114,48 @@ include_once("default/header.php");
         </div>
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
-    <table class="table table-dark">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Produto</th>
-                    <th>Descrição</th>
-                    <th>Imagem</th>
-                </tr>
-            </thead>
-            <?php
-                foreach($produtos as $produto){
-            ?>
-                <tbody>
+        <table class="table table-dark">
+                <thead>
                     <tr>
-                        <td><?=$produto['id']?></td>
-                        <td><?=$produto['nomeProduto']?></td>
-                        <td><?=$produto['descricao']?></td>
-                        <?php
-                            if(!empty($produto['url'])){                                 
-                        ?>
-                        <td><img src="<?=$produto['url']?>" class="rounded-circle" width="50" height="50" /></td>
-                        <?php
-                            }
-                        ?>
-                        <td>
-                            <a href="cadastroProdutos.php?acao=carregar&id=<?=$produto['id']?>"
-                                class="btn btn-primary">Editar
-                            </a>
-                        </td>
-                        <td>
-                            <a href="cadastroProdutos.php?acao=excluir&id=<?=$produto['id']?>" 
-                                class="btn btn-primary"
-                                onclick="return confirm('Você está certo disso?');">
-                                Remover
-                            </a>
-                        </td>
+                        <th>Id</th>
+                        <th>Produto</th>
+                        <th>Descrição</th>
+                        <th>Imagem</th>
                     </tr>
-                </tbody>
-            <?php  
-                }
-            ?>
-        </table>
+                </thead>
+                <?php
+                    foreach($produtos as $produto){
+                ?>
+                    <tbody>
+                        <tr>
+                            <td><?=$produto['id']?></td>
+                            <td><?=$produto['nomeProduto']?></td>
+                            <td><?=$produto['descricao']?></td>
+                            <?php
+                                if(!empty($produto['url'])){                                 
+                            ?>
+                            <td><img src="<?=$produto['url']?>" class="rounded-circle" width="50" height="50" /></td>
+                            <?php
+                                }
+                            ?>
+                            <td>
+                                <a href="cadastroProdutos.php?acao=carregar&id=<?=$produto['id']?>"
+                                    class="btn btn-primary">Editar
+                                </a>
+                            </td>
+                            <td>
+                                <a href="cadastroProdutos.php?acao=excluir&id=<?=$produto['id']?>" 
+                                    class="btn btn-primary"
+                                    onclick="return confirm('Você está certo disso?');">
+                                    Remover
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                <?php  
+                    }
+                ?>
+            </table>
     </main>
-    <?php    
-        include_once("default/footer.php");
-    ?>
 </body>
 </html>
