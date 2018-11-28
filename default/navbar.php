@@ -18,7 +18,7 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="produtos.php">Lista de Produtos</a>
-                  <a class="dropdown-item" href="cadastroProdutos.php">Cadastro de Produtos</a>
+                  <a class="dropdown-item" href="cadastroProduto.php">Cadastro de Produtos</a>
                   <?php
                     if(!empty($acesso) && $acesso == 2){
                   ?>                       

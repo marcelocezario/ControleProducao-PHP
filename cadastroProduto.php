@@ -58,8 +58,8 @@ include_once("default/header.php");
         include_once("default/navbar.php");
     ?>
     <main role="main" class="container">
-    <h2>Novos Produtos</h2>
-        <form action="cadastroProdutos.php" method="POST">
+    <h2>Novo Produto</h2>
+        <form action="cadastroProduto.php" method="POST">
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
         <div class="row">
             <div class="form-group col-md-3">
@@ -87,23 +87,24 @@ include_once("default/header.php");
             <div class="form-group">
                 <label for="imagem">Imagem</label>
                 <input type="file" class="form-control" name="imagem" id="imagem" >
-            </div >
+        </div >
+
             <div class="form-group col-md-3">
                 <label for="id_categoria">Categoria</label>
                 <select class="form-control" id="id_categoria" name="id_categoria">
                     <option value="" disabled selected>Selecione uma Categoria </option>
                     <?php
-                        $resultado = listarCategoria();
+                        $categorias = listarCategorias();
                         
-                        if(!empty($resultado)){
+                        if(!empty($categorias)){
                         
-                            foreach ($resultado as $res) {
+                            foreach ($categorias as $categoria) {
                                 $selected = "";
-                                if($res['id'] == $id_categoria){
+                                if($categoria['id'] == $id_categoria){
                                     $selected = "selected";
                                 }
                             ?>                                             
-                                <option <?=$selected ?> value="<?=$res['id'];?>" ><?=$res['nomeCategoria'];?></option> 
+                                <option <?=$selected?> value="<?=$categoria['id'];?>"> <?=$categoria['nomeCategoria']?></option> 
                             <?php      
                             }
                         }
