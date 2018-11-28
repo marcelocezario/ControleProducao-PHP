@@ -6,9 +6,17 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Controle de Produção</title>
+        <title>Ecommerce</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/sticky-footer-navbar.css" rel="stylesheet">
+    
+    
+        <!-- Bootstrap core CSS -->
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom styles for this template -->
+        <link href="css/shop-homepage.css" rel="stylesheet">
+
     </head>
     <?php
         session_start();

@@ -13,11 +13,12 @@
         </li>
         
           <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="produtos.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Produtos
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="produto/album.php">Lista de produtos</a>
+                  <a class="dropdown-item" href="produtos.php">Lista de Produtos</a>
+                  <a class="dropdown-item" href="cadastroProdutos.php">Cadastro de Produtos</a>
                   <?php
                     if(!empty($acesso) && $acesso == 2){
                   ?>                       

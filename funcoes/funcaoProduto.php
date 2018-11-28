@@ -37,6 +37,16 @@ function listarProdutos() {
     return $retorno;
 }
 
+function listarProdutosPorCategoria($idCategoria) {
+    $conn = conectar();
+
+    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria from produtos where id_categoria = :idCategoria order by nomeProduto");
+    $stmt->bindParam(':idCategoria',$idCategoria);
+    $stmt->execute();
+    $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $retorno;
+}
+
 function buscarProduto($id) {
     $conn = conectar();
 
@@ -101,10 +111,10 @@ function salvarCategoria($estoque)  {
     }
 }
 
-function listarCategoria() {
+function listarCategorias() {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nomeCategoria, descricao from categoria");
+    $stmt = $conn->prepare("select id, nomeCategoria, descricao from categoria order by nomeCategoria");
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $retorno;
@@ -148,6 +158,8 @@ function excluirCategoria($id) {
         return "erro! ";
     }
 }
+
+
 
 /********************* Marca  *********************/
 ?>
