@@ -22,9 +22,10 @@
                   <?php
                     if(!empty($acesso) && $acesso == 2){
                   ?>                       
-                      <div class="dropdown-divider"></div>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="produto/cadastroCategorias.php">Novas Categorias </a>
                     <a class="dropdown-item" href="produto/cadastroProdutos.php">Novos Produtos</a>
+                    <a class="dropdown-item" href="produto/cadastroMarca.php">Novas Marcas </a>
                   <?php
                     }
                   ?>
