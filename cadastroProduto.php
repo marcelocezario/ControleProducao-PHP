@@ -9,29 +9,14 @@
         header("location: erro.php");
     }
     
-
-    $url = "";
-    if(!empty($_FILES)) {
-        $caminho_arquivo = "C:\\xampp\\htdocs\\Ecommerce-PHP\\img\\";
-        //$nome_arquivo = $_FILES['image']['name'];
-
-        $extensaoArquivo = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-
-        $nome_arquivo = uniqid().".".$extensaoArquivo;
-
-        move_uploaded_file($_FILES['image']['tmp_name'],$caminho_arquivo.$nome_arquivo);
-
-        $url = 'img/'.$nome_arquivo;
-    }
-
     $id = "";
     $nomeProduto = "";
     $descricao = ""; 
     $valor = "";
     $qtde = "";
     $id_categoria = "";
+    global $url;
 
-    
     if (!empty($_GET)) {
         $id = $_GET['id'];
 
@@ -44,18 +29,30 @@
             $qtde = $produto['qtde'];
             $id_categoria = $produto['id_categoria'];
             $url = $produto['url'];
+
+
         }
         if ($_GET['acao'] == 'excluir') {
             excluirProduto($id);
         }
     }
 
-    
+    if(!empty($_FILES['image']['name'])) {
+        $caminho_arquivo = "C:\\xampp\\htdocs\\Ecommerce-PHP\\img\\";
+
+        $extensaoArquivo = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+        $nome_arquivo = uniqid().".".$extensaoArquivo;
+
+        move_uploaded_file($_FILES['image']['tmp_name'],$caminho_arquivo.$nome_arquivo);
+
+        $url = 'img/'.$nome_arquivo;
+    }
+
+
+
     if(!empty($_POST)){
 
         $_POST['url'] = $url;
-
-        print_r($_POST);
 
         if (!empty($_POST['id'])){
             
@@ -73,9 +70,10 @@
         include_once("default/navbar.php");
     ?>
     <main role="main" class="container">
-    <h2>Novo Produto</h2>
+    <h2>Cadastro de Produto</h2>
         <form action="cadastroProduto.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
+        <input type="hidden" id="url" name="url" value="<?=$url?>"/>
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="nomeProduto">Nome da Produto</label>
@@ -147,14 +145,15 @@
                             <td><?=$produto['id']?></td>
                             <td><?=$produto['nomeProduto']?></td>
                             <td><?=$produto['descricao']?></td>
+                            <td>
                             <?php
                                 if(!empty($produto['url'])){                                 
                             ?>
-                            <td><img src="<?=$produto['url']?>" class="rounded-circle" width="50" height="50" /></td>
+                            <img src="<?=$produto['url']?>" class="rounded-circle" width="50" height="50" />
                             <?php
                                 }
                             ?>
-                            <td>
+                            </td>                            <td>
                                 <a href="cadastroProduto.php?acao=carregar&id=<?=$produto['id']?>"
                                     class="btn btn-primary">Editar
                                 </a>
@@ -166,6 +165,7 @@
                                     Remover
                                 </a>
                             </td>
+
                         </tr>
                     </tbody>
                 <?php  

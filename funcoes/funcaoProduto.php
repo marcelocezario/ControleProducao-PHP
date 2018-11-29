@@ -78,10 +78,10 @@ function editarProduto($produto){
     }
 }
 
-function excluirInsumo($id) {
+function excluirProduto($id) {
     $conn = conectar();
     $ativo = false;
-    $stmt = $conn->prepare('DELETE produtos where id = :id');
+    $stmt = $conn->prepare('DELETE from produtos where id = :id');
     $stmt->bindParam(':id',$id);
 
     if ($stmt->execute()){
