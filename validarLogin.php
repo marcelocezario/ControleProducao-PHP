@@ -14,7 +14,7 @@
         $cliente = buscarCliente($id);
         $_SESSION['cliente'] = $cliente;
 
-        header("location: carrinho.php");
+        header("location: produtos.php");
     } else {
         echo "Login ou senha inválido(s)";
     }

@@ -1,29 +1,32 @@
 
 
 <?php 
-require_once "funcoes/funcaoProduto.php";
-include_once("default/header.php");
+    require_once "funcoes/funcaoProduto.php";
+    include_once("default/header.php");
     
     $cliente = $_SESSION['cliente'];
     if ($cliente['acesso'] != 2) {
         header("location: erro.php");
     }
     
+
+    $url = "";
+    if(!empty($_FILES)) {
+        $caminho_arquivo = "C:\\xampp\\htdocs\\Ecommerce-PHP\\img\\";
+        $nome_arquivo = $_FILES['image']['name'];   
+        move_uploaded_file($_FILES['image']['tmp_name'],$caminho_arquivo.$nome_arquivo);
+
+        $url = 'img/'.$nome_arquivo;
+    }
+
     $id = "";
     $nomeProduto = "";
-    $descricao = "";    
-    $url = "";
+    $descricao = ""; 
     $valor = "";
     $qtde = "";
     $id_categoria = "";
 
-    if(!empty($_FILES)) {
-        $caminho_arquivo = "C:\\xampp\\htdocs\\Ecommerce-PHP\\img\\";
-        $nome_arquivo = $_FILES['imagem']['name'];   
-        move_uploaded_file($_FILES['imagem']['tmp_name'],
-        $caminho_arquivo.$nome_arquivo);
-        $url = 'img/'.$nome_arquivo;
-    }
+    
     if (!empty($_GET)) {
         $id = $_GET['id'];
 
@@ -42,8 +45,15 @@ include_once("default/header.php");
         }
     }
 
+    
     if(!empty($_POST)){
+
+        $_POST['url'] = $url;
+
+        print_r($_POST);
+
         if (!empty($_POST['id'])){
+            
             editarProduto($_POST);
         } else {
             salvarProduto($_POST);
@@ -59,7 +69,7 @@ include_once("default/header.php");
     ?>
     <main role="main" class="container">
     <h2>Novo Produto</h2>
-        <form action="cadastroProduto.php" method="POST">
+        <form action="cadastroProduto.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
         <div class="row">
             <div class="form-group col-md-3">
@@ -86,8 +96,9 @@ include_once("default/header.php");
         <div class="row">
             <div class="form-group">
                 <label for="imagem">Imagem</label>
-                <input type="file" class="form-control" name="imagem" id="imagem" >
-        </div >
+                <input type="file" class="form-control" name="image"
+                id="imagem" >
+            </div >
 
             <div class="form-group col-md-3">
                 <label for="id_categoria">Categoria</label>
@@ -139,12 +150,12 @@ include_once("default/header.php");
                                 }
                             ?>
                             <td>
-                                <a href="cadastroProdutos.php?acao=carregar&id=<?=$produto['id']?>"
+                                <a href="cadastroProduto.php?acao=carregar&id=<?=$produto['id']?>"
                                     class="btn btn-primary">Editar
                                 </a>
                             </td>
                             <td>
-                                <a href="cadastroProdutos.php?acao=excluir&id=<?=$produto['id']?>" 
+                                <a href="cadastroProduto.php?acao=excluir&id=<?=$produto['id']?>" 
                                     class="btn btn-primary"
                                     onclick="return confirm('Você está certo disso?');">
                                     Remover
