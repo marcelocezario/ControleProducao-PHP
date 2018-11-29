@@ -1,12 +1,12 @@
 <?php 
     require_once "funcoes/funcaoProduto.php";
     include_once("default/header.php");
-
+/*
     $cliente = $_SESSION['cliente'];
     if ($cliente['acesso'] != 2) {
         header("location: erro.php");
     }
-
+*/
     if (!empty($_GET)) {
       $idCategoria = $_GET['idCategoria'];
 
@@ -51,6 +51,7 @@
                 <?php
                     }
                 ?>
+                               
           </div>
 
         </div>

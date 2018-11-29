@@ -94,14 +94,14 @@ function excluirProduto($id) {
 
 /*************************** Categorias ***********************************/
 
-function salvarCategoria($estoque)  {  
+function salvarCategoria($categoria)  {  
     $conn = conectar();
 
     $stmt = $conn->prepare('INSERT INTO categoria (nomeCategoria, descricao)
                             VALUES (:nomeCategoria, :descricao)');
 
-    $stmt->bindParam(':nomeCategoria',$estoque['nomeCategoria']);
-    $stmt->bindParam(':descricao',$estoque['descricao']);
+    $stmt->bindParam(':nomeCategoria',$categoria['nomeCategoria']);
+    $stmt->bindParam(':descricao',$categoria['descricao']);
    
     if ($stmt->execute()){
         return "Categoria adicionado com sucesso!";
@@ -152,7 +152,7 @@ function excluirCategoria($id) {
     $stmt = $conn->prepare('delete from categoria where id = :id');
     $stmt->bindParam(':id',$id);
     if ($stmt->execute()){
-        return "Insumo excluído com sucesso!";
+        return "Categoria excluída com sucesso!";
     } else {
         print_r($stmt->errorInfo());
         return "erro! ";
@@ -162,4 +162,68 @@ function excluirCategoria($id) {
 
 
 /********************* Marca  *********************/
+function salvarMarca($marca)  {  
+    $conn = conectar();
+
+    $stmt = $conn->prepare('INSERT INTO marcas (nomeMarca, fornecedor)
+                            VALUES (:nomeMarca, :fornecedor)');
+
+    $stmt->bindParam(':nomeMarca',$marca['nomeMarca']);
+    $stmt->bindParam(':fornecedor',$marca['fornecedor']);
+   
+    if ($stmt->execute()){
+        return "Marca adicionada com sucesso!";
+    } else {
+        print_r($stmt->errorInfo());
+        return "erro! ";
+    }
+}
+
+function listarMarcas() {
+    $conn = conectar();
+
+    $stmt = $conn->prepare("select id, nomeMarca, fornecedor from marcas order by nomeMarca");
+    $stmt->execute();
+    $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $retorno;
+}
+
+function buscarMarca($id) {
+    $conn = conectar();
+
+    $stmt = $conn->prepare("select id, nomeMarca, fornecedor from marcas where id = :id");
+    $stmt->bindParam(':id',$id);
+
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function editarMarca($marca){
+    $conn = conectar();
+
+    $stmt = $conn->prepare('update marcas set nomeMarca = :nomeMarca, fornecedor = :fornecedor where id = :id');
+    $stmt->bindParam(':id',$marca['id']);
+    $stmt->bindParam(':nomeMarca',$marca['nomeMarca']);
+    $stmt->bindParam(':fornecedor',$marca['fornecedor']);
+
+    if ($stmt->execute()){
+        return "Marca alterada com sucesso!";
+    } else {
+        print_r($stmt->errorInfo());
+        return "erro! ";
+    }
+}
+
+function excluirMarca($id) {
+    $conn = conectar();
+
+    $stmt = $conn->prepare('delete from marcas where id = :id');
+    $stmt->bindParam(':id',$id);
+    if ($stmt->execute()){
+        return "Marca excluída com sucesso!";
+    } else {
+        print_r($stmt->errorInfo());
+        return "erro! ";
+    }
+}
 ?>

@@ -12,7 +12,7 @@
     
     $id = "";
     $nomeMarca = "";
-    $descricao = "";
+    $fornecedor = "";
 
     if (!empty($_GET)) {
         $id = $_GET['id'];
@@ -21,7 +21,7 @@
 
             $marca = buscarMarca($id);
             $nomeMarca = $marca['nomeMarca'];
-            $descricao = $descricao['descricao'];
+            $fornecedor = $marca['fornecedor'];
         }
         if ($_GET['acao'] == 'excluir') {
             excluirMarca($id);
@@ -35,7 +35,7 @@
             salvarMarca($_POST);
         }
     }
-    $marcas = listarMarca();
+    $marcas = listarMarcas();
 ?>
 
 <body>
@@ -53,8 +53,8 @@
         </div>
 
         <div class="form-group">
-            <label for="descricao">Descrição</label>
-            <input type="text"  maxlength="200" class="form-control" name="descricao" id="descricao" placeholder="Digite a descrição da marca" value="<?=$descricao?>">
+            <label for="fornecedor">Fornecedor</label>
+            <input type="text"  maxlength="200" class="form-control" name="fornecedor" id="fornecedor" placeholder="Digite o fornecedor da marca" value="<?=$fornecedor?>">
         </div>
         <input type="submit" value="Salvar" class="btn btn-primary" /> 
     </form>
@@ -63,7 +63,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Marca</th>
-                    <th>Descrição</th>
+                    <th>Fornecedor</th>
                 </tr>
             </thead>
             <?php
@@ -73,7 +73,7 @@
                     <tr>
                         <td><?=$marca['id']?></td>
                         <td><?=$marca['nomeMarca']?></td>
-                        <td><?=$marca['descricao']?></td>
+                        <td><?=$marca['fornecedor']?></td>
                         <td>
                             <a href="cadastroMarcas.php?acao=carregar&id=<?=$marca['id']?>"
                                 class="btn btn-primary">Editar

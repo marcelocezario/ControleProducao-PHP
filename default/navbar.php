@@ -18,14 +18,16 @@
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="produtos.php">Lista de Produtos</a>
-                  <a class="dropdown-item" href="cadastroProduto.php">Cadastro de Produtos</a>
+                  <a class="dropdown-item" href="cadastroProdutos.php">Cadastro de Produtos</a>
+                  <a class="dropdown-item" href="cadastroCategorias.php">Cadastro de Catagorias</a>
+                  <a class="dropdown-item" href="cadastroMarcas.php">Cadastro de Marcas</a>
                   <?php
                     if(!empty($acesso) && $acesso == 2){
                   ?>                       
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="produto/cadastroCategorias.php">Novas Categorias </a>
-                    <a class="dropdown-item" href="produto/cadastroProdutos.php">Novos Produtos</a>
-                    <a class="dropdown-item" href="produto/cadastroMarca.php">Novas Marcas </a>
+                    <a class="dropdown-item" href="cadastroCategorias.php">Cadastro de Catagorias</a>
+                    <a class="dropdown-item" href="cadastroProdutos.php">Cadastro de Produtos</a>
+                    <a class="dropdown-item" href="cadastroMarcas.php">Cadastro de Marcas</a>
                   <?php
                     }
                   ?>
@@ -35,12 +37,11 @@
             if(!empty($cliente)){
           ?>   
             <li class="nav-item">
-              <a class="nav-link" href="opcoes.php?acao=sair">Sair</a>
-            </li>
-            <li class="nav-item">
               <label class="nav-link" href="cliente.php">Ola <?=$cliente['nome']?></label>
             </li>
-          <?php
+            <li class="nav-item">
+              <a class="nav-link" href="opcoes.php?acao=sair">Sair</a>
+            </li>          <?php
             }
           ?>
          <?php
@@ -52,9 +53,6 @@
           <?php
             }
           ?>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Contact</a>
-        </li>
       </ul>
     </div>
 </nav>

@@ -20,7 +20,7 @@
 
             $categoria = buscarCategoria($id);
             $nomeCategoria = $categoria['nomeCategoria'];
-            $descricao = $descricao['descricao'];
+            $descricao = $categoria['descricao'];
         }
         if ($_GET['acao'] == 'excluir') {
             excluirCategoria($id);
@@ -34,7 +34,7 @@
             salvarCategoria($_POST);
         }
     }
-    $categorias = listarCategoria();
+    $categorias = listarCategorias();
 ?>
 
 <body>
@@ -93,9 +93,5 @@
         </table>
     
 </main>
-<?php    
-    include_once("default/footer.php");
-?>
-
 </body>
 </html>
