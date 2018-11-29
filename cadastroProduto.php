@@ -13,7 +13,12 @@
     $url = "";
     if(!empty($_FILES)) {
         $caminho_arquivo = "C:\\xampp\\htdocs\\Ecommerce-PHP\\img\\";
-        $nome_arquivo = $_FILES['image']['name'];   
+        //$nome_arquivo = $_FILES['image']['name'];
+
+        $extensaoArquivo = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+
+        $nome_arquivo = uniqid().".".$extensaoArquivo;
+
         move_uploaded_file($_FILES['image']['tmp_name'],$caminho_arquivo.$nome_arquivo);
 
         $url = 'img/'.$nome_arquivo;
