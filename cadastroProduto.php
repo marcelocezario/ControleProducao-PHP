@@ -15,7 +15,7 @@
     $valor = "";
     $qtde = "";
     $id_categoria = "";
-    global $url;
+    $url = "";
 
     if (!empty($_GET)) {
         $id = $_GET['id'];
@@ -29,14 +29,14 @@
             $qtde = $produto['qtde'];
             $id_categoria = $produto['id_categoria'];
             $url = $produto['url'];
-
-
         }
         if ($_GET['acao'] == 'excluir') {
             excluirProduto($id);
+            header("location: cadastroProdutos.php");
         }
     }
 
+    
     if(!empty($_FILES['image']['name'])) {
         $caminho_arquivo = "C:\\xampp\\htdocs\\Ecommerce-PHP\\img\\";
 
@@ -49,13 +49,17 @@
     }
 
 
-
     if(!empty($_POST)){
 
-        $_POST['url'] = $url;
+        if(empty($url)){
+            $produto = buscarProduto($_POST['id']);
+            $_POST['url'] = $produto['url'];
+        } else{
+            $_POST['url'] = $url;
+        }
 
-        if (!empty($_POST['id'])){
-            
+
+        if (!empty($_POST['id'])){           
             editarProduto($_POST);
         } else {
             salvarProduto($_POST);
@@ -73,7 +77,6 @@
     <h2>Cadastro de Produto</h2>
         <form action="cadastroProduto.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
-        <input type="hidden" id="url" name="url" value="<?=$url?>"/>
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="nomeProduto">Nome da Produto</label>
