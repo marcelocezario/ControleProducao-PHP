@@ -75,7 +75,7 @@
     ?>
     <main role="main" class="container">
     <h2>Cadastro de Produto</h2>
-        <form action="cadastroProduto.php" method="POST" enctype="multipart/form-data">
+        <form action="cadastroProdutos.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
         <div class="row">
             <div class="form-group col-md-3">
@@ -157,12 +157,12 @@
                                 }
                             ?>
                             </td>                            <td>
-                                <a href="cadastroProduto.php?acao=carregar&id=<?=$produto['id']?>"
+                                <a href="cadastroProdutos.php?acao=carregar&id=<?=$produto['id']?>"
                                     class="btn btn-primary">Editar
                                 </a>
                             </td>
                             <td>
-                                <a href="cadastroProduto.php?acao=excluir&id=<?=$produto['id']?>" 
+                                <a href="cadastroProdutos.php?acao=excluir&id=<?=$produto['id']?>" 
                                     class="btn btn-primary"
                                     onclick="return confirm('Você está certo disso?');">
                                     Remover

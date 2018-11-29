@@ -51,9 +51,8 @@
                 <?php
                     }
                 ?>
-                               
+                             
           </div>
-
         </div>
         <!-- /.col-lg-3 -->
 
@@ -65,9 +64,10 @@
               <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
+            
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                <img class="d-block img-fluid" src="<?=$produtos['0']['url']?>" alt="First slide" height="900px" width="350px">
               </div>
               <div class="carousel-item">
                 <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
