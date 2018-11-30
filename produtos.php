@@ -42,8 +42,10 @@
           $parAltura = "50% - ".$altura/2;
   
           $image = $image->crop($parLargura, $parAltura, 900, 350);
-  
-          $image->saveToFile('teste.jpg');
+
+          $localNovoArquivo = $caminhoBase.'/'.$nomeArquivo.$largura.'x'.$altura.'.jpg';
+
+          $image->saveToFile($localNovoArquivo);
 
       }
       
@@ -96,7 +98,7 @@
             
              <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide" width="900px" height="350px" >
+                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
               </div>
               <div class="carousel-item">
                 <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
