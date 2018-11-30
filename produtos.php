@@ -23,22 +23,36 @@
 
 <?php
 
-    function redimensionarImagem900x350($imagem){
+   
+      function redimensionarImagem ($caminhoImagem, $largura, $altura){
+        
+        include '_wideimage/WideImage.php';
+
+        $path_parts = pathinfo($caminhoImagem);
+        
+        $caminhoBase = $path_parts['dirname'];
+        $nomeArquivo = $path_parts['filename'];
+        $extensaoArquivo = $path_parts['extension'];
+  
+          $image = WideImage::load($caminhoImagem);
+          
+          $image = $image->resize($largura, $altura, 'outside' );
+  
+          $parLargura = "50% - ".$largura/2;
+          $parAltura = "50% - ".$altura/2;
+  
+          $image = $image->crop($parLargura, $parAltura, 900, 350);
+  
+          $image->saveToFile('teste.jpg');
+
+      }
       
-      $largura = 900;
-      $altura = 350;
-      
-      include '_wideimage/WideImage.php';
 
-        $image = WideImage::load($imagem)->resize($largura, $altura)->saveToFile($imagem.'900x350.jpg');
+      redimensionarImagem($produtos['0']['url'], 900, 350);
+  
+  
+  ?>
 
-        $white = $image->allocateColor(255, 255, 255);
-
-        $image->resizeCanvas('200%', '100% + 20', 10, 'center+20', $white)->saveToFile('novo'.$imagem.'900x350.jpg');
-
-    }
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,9 +62,6 @@
         <?php    
             include_once("default/navbar.php");
         ?>
-
-
-        <?=print_r($produtos);?>
 
     <!-- Page Content -->
     <div class="container">
@@ -83,14 +94,9 @@
               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             
-            <?php
-              redimensionarImagem900x350($produtos['0']['url']);
-            ?>
-
-
-            <div class="carousel-inner" role="listbox">
+             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src="<?=$produtos['0']['url']?>900x350.jpg" alt="First slide" width="900px" height="350px" >
+                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide" width="900px" height="350px" >
               </div>
               <div class="carousel-item">
                 <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
