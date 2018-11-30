@@ -43,14 +43,18 @@
   
           $image = $image->crop($parLargura, $parAltura, 900, 350);
 
-          $localNovoArquivo = $caminhoBase.'/'.$nomeArquivo.$largura.'x'.$altura.'.jpg';
+          $localNovoArquivo = $caminhoBase.'/'.$nomeArquivo.' w'.$largura.'x'.'h'.$altura.'.jpg';
+
+          print_r($localNovoArquivo);
 
           $image->saveToFile($localNovoArquivo);
+
+          return $localNovoArquivo;
 
       }
       
 
-      redimensionarImagem($produtos['0']['url'], 900, 350);
+      $teste = redimensionarImagem($produtos['0']['url'], 900, 350);
   
   
   ?>
@@ -98,10 +102,10 @@
             
              <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+                <img class="d-block img-fluid" src="img/5c01af7a3a2a8 w900xh350.jpg" alt="First slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+                <img class="d-block img-fluid" src="<?=$teste?>" alt="Second slide">
               </div>
               <div class="carousel-item">
                 <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
