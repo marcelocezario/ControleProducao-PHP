@@ -1,1 +1,0 @@
-select c.id, c.nome, p.nome from cliente as c left join pais p on c.id_pais = p.id;

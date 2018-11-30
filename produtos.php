@@ -21,6 +21,24 @@
     $categorias = listarCategorias();
 ?>
 
+<?php
+
+    function redimensionarImagem900x350($imagem){
+      
+      $largura = 900;
+      $altura = 350;
+      
+      include '_wideimage/WideImage.php';
+
+        $image = WideImage::load($imagem)->resize($largura, $altura)->saveToFile($imagem.'900x350.jpg');
+
+        $white = $image->allocateColor(255, 255, 255);
+
+        $image->resizeCanvas('200%', '100% + 20', 10, 'center+20', $white)->saveToFile('novo'.$imagem.'900x350.jpg');
+
+    }
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -65,9 +83,14 @@
               <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
             
+            <?php
+              redimensionarImagem900x350($produtos['0']['url']);
+            ?>
+
+
             <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src="<?=$produtos['0']['url']?>" alt="First slide" height="900px" width="350px">
+                <img class="d-block img-fluid" src="<?=$produtos['0']['url']?>900x350.jpg" alt="First slide" width="900px" height="350px" >
               </div>
               <div class="carousel-item">
                 <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">

@@ -226,4 +226,5 @@ function excluirMarca($id) {
         return "erro! ";
     }
 }
+
 ?>
