@@ -7,7 +7,7 @@ if($_GET['acao'] == 'sair'){
     header("location: login.php");
 } else if($_GET['acao'] == 'limpar'){
     unset($_SESSION['carrinho']);
-    header("location: login.php");
+    header("location: produtos.php");
 }
 
 ?>

@@ -36,12 +36,16 @@
           <?php
             if(!empty($cliente)){
           ?>   
+          <li class="nav-item">
+              <a class="nav-link" href="opcoes.php?acao=limpar">Esvaziar Carrinho</a>
+            </li> 
             <li class="nav-item">
               <label class="nav-link" href="cliente.php">Ola <?=$cliente['nome']?></label>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="opcoes.php?acao=sair">Sair</a>
-            </li>          <?php
+            </li>            
+          <?php
             }
           ?>
          <?php
