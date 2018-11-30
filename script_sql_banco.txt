@@ -1,4 +1,4 @@
-/************* template da pagina *************\
+﻿/************* template da pagina *************\
 
 <!DOCTYPE html>
 <body>
@@ -29,10 +29,10 @@ create table categoria(
 );
 
 /************* Marca *************\
-create table marca(
+create table marcas(
 	id int not null PRIMARY KEY AUTO_INCREMENT,
     nomeMarca varchar(80),
-    descricao varchar(150)
+    fornecedor varchar(150)
 );
 
 /************* Produtos *************\
