@@ -24,33 +24,52 @@
 <?php
 
    
-      function redimensionarImagem ($caminhoImagem, $largura, $altura){
+      function redimensionarImagem ($imagem, $novaLargura, $novaAltura){
         
-        include '_wideimage/WideImage.php';
+        if(file_exists($imagem)){
+            include '_wideimage/WideImage.php';
 
-        $path_parts = pathinfo($caminhoImagem);
-        
-        $caminhoBase = $path_parts['dirname'];
-        $nomeArquivo = $path_parts['filename'];
-        $extensaoArquivo = $path_parts['extension'];
-  
-          $image = WideImage::load($caminhoImagem);
-          
-          $image = $image->resize($largura, $altura, 'outside' );
-  
-          $parLargura = "50% - ".$largura/2;
-          $parAltura = "50% - ".$altura/2;
-  
-          $image = $image->crop($parLargura, $parAltura, 900, 350);
+            $path_parts = pathinfo($imagem);
+            $caminhoBase = $path_parts['dirname'];
+            $nomeArquivo = $path_parts['filename'];
+            $extensaoArquivo = $path_parts['extension'];
 
-          $localNovoArquivo = $caminhoBase.'/'.$nomeArquivo.' w'.$largura.'x'.'h'.$altura.'.jpg';
+            $dimensoes = getimagesize($imagem);
+            if (!empty($dimensoes)){
+              $img_largura = trim($dimensoes[0]);
+              $img_altura = trim($dimensoes[1]);
+            }
 
-          print_r($localNovoArquivo);
+            if($img_largura < $novaLargura){
+              $proporcaoAumentar = ($novaLargura - $img_largura) / $novaLargura;
+              $image = WideImage::load($imagem);
+              // fill - redimensiona imagem mas pode distorcer
+              $image = $image->resize($novaLargura, $img_altura * (1+$proporcaoAumentar), 'fill');
+              print_r('Altura: '.$img_altura * (1+$proporcaoAumentar));
+            }
 
-          $image->saveToFile($localNovoArquivo);
+            if($img_altura < $novaAltura){
+              $proporcaoAumentar = ($novaAltura - $img_altura) / $novaAltura;
+              $image = WideImage::load($imagem);
+              // fill - redimensiona imagem mas pode distorcer
+              $image = $image->resize($novaLargura * (1+$proporcaoAumentar), $novaAltura, 'fill');
+              print_r('Largura: '.$img_largura * (1+$proporcaoAumentar));
+            }
 
-          return $localNovoArquivo;
+            if($img_largura >= $novaLargura && $img_altura >= $novaAltura){
+              $image = WideImage::load($imagem);
+              // outside - mantem o tamanho mínimo proporcional para cobrir toda a imagem
+              $image = $image->resize($novaLargura, $novaAltura, 'outside' );
+            }
+            
+            //corta a imagem  
+            $parLargura = "50% - ".$novaLargura/2;
+            $parAltura = "50% - ".$novaAltura/2;
 
+            $image = $image->crop($parLargura, $parAltura, 900, 350);
+            $localNovoArquivo = $imagem.' w'.$novaLargura.'x'.'h'.$novaAltura.'.jpg';
+            $image->saveToFile($localNovoArquivo);
+        }
       }
       
 
@@ -102,12 +121,12 @@
             
              <div class="carousel-inner" role="listbox">
               <div class="carousel-item active">
-                <img class="d-block img-fluid" src="img/5c01af7a3a2a8 w900xh350.jpg" alt="First slide">
+                <img class="d-block img-fluid" src="<?=$produtos['0']['url'].' w900xh350.jpg'?>" alt="First slide">
               </div>
               <div class="carousel-item">
-                <img class="d-block img-fluid" src="<?=$teste?>" alt="Second slide">
+                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
               </div>
-              <div class="carousel-item">
+              <div class="carousel-item active">
                 <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
               </div>
             </div>

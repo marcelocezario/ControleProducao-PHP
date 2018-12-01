@@ -53,7 +53,12 @@
 
         if(empty($url)){
             $produto = buscarProduto($_POST['id']);
-            $_POST['url'] = $produto['url'];
+            print_r('url: '.$produto['url']);
+            if (!empty($produto['url'])){
+                $_POST['url'] = $produto['url'];
+            } else{
+                $_POST['url'] = 'img/sistema/naodisponivel.jpg';
+            }
         } else{
             $_POST['url'] = $url;
         }
@@ -79,7 +84,7 @@
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
         <div class="row">
             <div class="form-group col-md-3">
-                <label for="nomeProduto">Nome da Produto</label>
+                <label for="nomeProduto">Nome do Produto</label>
                 <input type="text" class="form-control" maxlength="40" requered name="nomeProduto" id="nomeProduto" placeholder="Digite o nome do produto" value="<?=$nomeProduto?>">
             </div>
 
