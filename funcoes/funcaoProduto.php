@@ -245,23 +245,24 @@ function redimensionarImagem ($imagem, $novaLargura, $novaAltura){
           $img_largura = trim($dimensoes[0]);
           $img_altura = trim($dimensoes[1]);
         }
+        
+        $image = WideImage::load($imagem);
 
         if($img_largura < $novaLargura){
-          $proporcaoAumentar = ($novaLargura - $img_largura) / $novaLargura;
-          $image = WideImage::load($imagem);
+          $img_altura = $img_altura * $novaLargura / $img_largura;
+          $img_largura = $novaLargura;
           // fill - redimensiona imagem mas pode distorcer
-          $image = $image->resize($novaLargura, $img_altura * (1+$proporcaoAumentar), 'fill');
+          $image = $image->resize($novaLargura, $img_altura, 'fill');
         }
 
         if($img_altura < $novaAltura){
-          $proporcaoAumentar = ($novaAltura - $img_altura) / $novaAltura;
-          $image = WideImage::load($imagem);
+          $img_largura = $img_largura * $novaAltura / $img_altura;
+          $img_altura = $novaAltura;
           // fill - redimensiona imagem mas pode distorcer
-          $image = $image->resize($novaLargura * (1+$proporcaoAumentar), $novaAltura, 'fill');
+          $image = $image->resize($img_largura, $novaAltura, 'fill');
         }
 
         if($img_largura >= $novaLargura && $img_altura >= $novaAltura){
-          $image = WideImage::load($imagem);
           // outside - mantem o tamanho mínimo proporcional para cobrir toda a imagem
           $image = $image->resize($novaLargura, $novaAltura, 'outside' );
         }
@@ -270,8 +271,9 @@ function redimensionarImagem ($imagem, $novaLargura, $novaAltura){
         $parLargura = "50% - ".$novaLargura/2;
         $parAltura = "50% - ".$novaAltura/2;
 
-        $image = $image->crop($parLargura, $parAltura, 900, 350);
+        $image = $image->crop($parLargura, $parAltura, $novaLargura, $novaAltura);
         $localNovoArquivo = $imagem.' w'.$novaLargura.'x'.'h'.$novaAltura.'.jpg';
+        
         $image->saveToFile($localNovoArquivo);
         $image->destroy();
     }
