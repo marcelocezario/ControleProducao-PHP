@@ -42,7 +42,7 @@
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Digite seu e-mail">
-						<input class="input100" type="email" id="email"name="email" required placeholder="E-mail" >
+            <input class="input100" type="email" id="email"name="email"  placeholder="E-mail" >
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
