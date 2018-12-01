@@ -15,8 +15,7 @@
     }
 
     $categorias = listarCategorias();
-    
-?>
+    ?>
 
 <script>
 function detalhesProduto(id){

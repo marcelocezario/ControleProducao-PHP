@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <?php    
     include_once("default/header.php");
-    $cliente =  $_SESSION['cliente'];
-    if ($cliente['acesso'] != 2) {
+    
+    if ($_SESSION['cliente']['acesso'] != 2) {
         header("location: erro.php");
     }
     

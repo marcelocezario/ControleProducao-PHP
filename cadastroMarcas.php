@@ -1,12 +1,9 @@
-<!DOCTYPE html>
 <?php    
     include_once("default/header.php");
-    $cliente =  $_SESSION['cliente'];
-    if ($cliente['acesso'] == 2) {
-
-    }else {
+    
+    if ($_SESSION['cliente']['acesso'] != 2) {
         header("location: erro.php");
-    } 
+    }
     
     require_once "funcoes/funcaoProduto.php";
     
@@ -25,6 +22,7 @@
         }
         if ($_GET['acao'] == 'excluir') {
             excluirMarca($id);
+            header("location: cadastroMarcas.php");
         }
     }
     if(!empty($_POST)) {
@@ -38,12 +36,14 @@
     $marcas = listarMarcas();
 ?>
 
+<!DOCTYPE html>
+
 <body>
 <?php    
     include_once("default/navbar.php");
 ?>
 <main role="main" class="container">
-    <h2>Novas Marcas</h2>
+    <h2>Cadastro de Marcas</h2>
         <form action="cadastroMarcas.php" method="POST">
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
 

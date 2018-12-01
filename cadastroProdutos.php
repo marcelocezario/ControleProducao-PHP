@@ -1,14 +1,13 @@
-
-
 <?php 
-    require_once "funcoes/funcaoProduto.php";
     include_once("default/header.php");
     
-    $cliente = $_SESSION['cliente'];
-    if ($cliente['acesso'] != 2) {
+    if ($_SESSION['cliente']['acesso'] != 2) {
         header("location: erro.php");
     }
     
+    require_once "funcoes/funcaoProduto.php";
+
+
     $id = "";
     $nomeProduto = "";
     $descricao = ""; 
@@ -21,8 +20,8 @@
         $id = $_GET['id'];
 
         if ($_GET['acao'] == 'carregar') {
+            
             $produto = buscarProduto($id);
-
             $nomeProduto = $produto['nomeProduto'];
             $descricao = $produto['descricao'];
             $valor = $produto['valor'];
@@ -63,7 +62,6 @@
             $_POST['url'] = $url;
         }
 
-
         if (!empty($_POST['id'])){           
             editarProduto($_POST);
         } else {
@@ -78,6 +76,7 @@
     <?php    
         include_once("default/navbar.php");
     ?>
+    
     <main role="main" class="container">
     <h2>Cadastro de Produto</h2>
         <form action="cadastroProdutos.php" method="POST" enctype="multipart/form-data">
