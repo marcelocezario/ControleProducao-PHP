@@ -2,7 +2,9 @@
 <!DOCTYPE html>
 <?php    
 include_once("default/header.php");
-$cliente = $_SESSION['cliente'];
+if(!empty($_SESSION['cliente'])){
+	$cliente = $_SESSION['cliente'];
+}
 date_default_timezone_set('America/Sao_Paulo');
 require_once "funcoes/funcaoCliente.php";
 
