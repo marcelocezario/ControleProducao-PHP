@@ -1,5 +1,7 @@
 <?php
 require_once "conexao.php";
+include '_wideimage/WideImage.php';
+
 
 function selected( $value, $selected ){
     return $value==$selected ? ' selected="selected"' : '';
@@ -227,4 +229,51 @@ function excluirMarca($id) {
     }
 }
 
+/******************************************************************/
+
+function redimensionarImagem ($imagem, $novaLargura, $novaAltura){
+        
+    if(file_exists($imagem)){
+
+        $path_parts = pathinfo($imagem);
+        $caminhoBase = $path_parts['dirname'];
+        $nomeArquivo = $path_parts['filename'];
+        $extensaoArquivo = $path_parts['extension'];
+
+        $dimensoes = getimagesize($imagem);
+        if (!empty($dimensoes)){
+          $img_largura = trim($dimensoes[0]);
+          $img_altura = trim($dimensoes[1]);
+        }
+
+        if($img_largura < $novaLargura){
+          $proporcaoAumentar = ($novaLargura - $img_largura) / $novaLargura;
+          $image = WideImage::load($imagem);
+          // fill - redimensiona imagem mas pode distorcer
+          $image = $image->resize($novaLargura, $img_altura * (1+$proporcaoAumentar), 'fill');
+        }
+
+        if($img_altura < $novaAltura){
+          $proporcaoAumentar = ($novaAltura - $img_altura) / $novaAltura;
+          $image = WideImage::load($imagem);
+          // fill - redimensiona imagem mas pode distorcer
+          $image = $image->resize($novaLargura * (1+$proporcaoAumentar), $novaAltura, 'fill');
+        }
+
+        if($img_largura >= $novaLargura && $img_altura >= $novaAltura){
+          $image = WideImage::load($imagem);
+          // outside - mantem o tamanho mínimo proporcional para cobrir toda a imagem
+          $image = $image->resize($novaLargura, $novaAltura, 'outside' );
+        }
+        
+        //corta a imagem  
+        $parLargura = "50% - ".$novaLargura/2;
+        $parAltura = "50% - ".$novaAltura/2;
+
+        $image = $image->crop($parLargura, $parAltura, 900, 350);
+        $localNovoArquivo = $imagem.' w'.$novaLargura.'x'.'h'.$novaAltura.'.jpg';
+        $image->saveToFile($localNovoArquivo);
+        $image->destroy();
+    }
+}
 ?>

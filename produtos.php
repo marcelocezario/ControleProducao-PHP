@@ -19,65 +19,9 @@
     }
 
     $categorias = listarCategorias();
+
+    redimensionarImagem('img/P1040281.JPG', 200,200);
 ?>
-
-<?php
-
-   
-      function redimensionarImagem ($imagem, $novaLargura, $novaAltura){
-        
-        if(file_exists($imagem)){
-            include '_wideimage/WideImage.php';
-
-            $path_parts = pathinfo($imagem);
-            $caminhoBase = $path_parts['dirname'];
-            $nomeArquivo = $path_parts['filename'];
-            $extensaoArquivo = $path_parts['extension'];
-
-            $dimensoes = getimagesize($imagem);
-            if (!empty($dimensoes)){
-              $img_largura = trim($dimensoes[0]);
-              $img_altura = trim($dimensoes[1]);
-            }
-
-            if($img_largura < $novaLargura){
-              $proporcaoAumentar = ($novaLargura - $img_largura) / $novaLargura;
-              $image = WideImage::load($imagem);
-              // fill - redimensiona imagem mas pode distorcer
-              $image = $image->resize($novaLargura, $img_altura * (1+$proporcaoAumentar), 'fill');
-              print_r('Altura: '.$img_altura * (1+$proporcaoAumentar));
-            }
-
-            if($img_altura < $novaAltura){
-              $proporcaoAumentar = ($novaAltura - $img_altura) / $novaAltura;
-              $image = WideImage::load($imagem);
-              // fill - redimensiona imagem mas pode distorcer
-              $image = $image->resize($novaLargura * (1+$proporcaoAumentar), $novaAltura, 'fill');
-              print_r('Largura: '.$img_largura * (1+$proporcaoAumentar));
-            }
-
-            if($img_largura >= $novaLargura && $img_altura >= $novaAltura){
-              $image = WideImage::load($imagem);
-              // outside - mantem o tamanho mínimo proporcional para cobrir toda a imagem
-              $image = $image->resize($novaLargura, $novaAltura, 'outside' );
-            }
-            
-            //corta a imagem  
-            $parLargura = "50% - ".$novaLargura/2;
-            $parAltura = "50% - ".$novaAltura/2;
-
-            $image = $image->crop($parLargura, $parAltura, 900, 350);
-            $localNovoArquivo = $imagem.' w'.$novaLargura.'x'.'h'.$novaAltura.'.jpg';
-            $image->saveToFile($localNovoArquivo);
-        }
-      }
-      
-
-      $teste = redimensionarImagem($produtos['0']['url'], 900, 350);
-  
-  
-  ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -114,21 +58,36 @@
 
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            <?php
+
+                $tamanhoLista = count($produtos);
+                $qtdeProdutosDestaque = 5;
+                if ($tamanhoLista < $qtdeProdutosDestaque){
+                  $qtdeProdutosDestaque = $tamanhoLista;
+                }
+                for ($i = 0; $i < $qtdeProdutosDestaque; $i++){
+            ?>
+              <li data-target="#carouselExampleIndicators" data-slide-to="<?=$i?>" <?php if($i==0):?> class="active" <?php endif; ?>></li>
+            <?php          
+                }
+            ?>
+
             </ol>
-            
+
              <div class="carousel-inner" role="listbox">
-              <div class="carousel-item active">
-                <img class="d-block img-fluid" src="<?=$produtos['0']['url'].' w900xh350.jpg'?>" alt="First slide">
+
+            <?php
+                for ($i = 0; $i < $qtdeProdutosDestaque; $i++){
+                  redimensionarImagem($produtos[$i]['url'],900,350);
+            ?>
+
+              <div class="carousel-item <?php if($i==0):?> active <?php endif; ?>">
+                <img class="d-block img-fluid" src="<?=$produtos[$i]['url'].' w900xh350.jpg'?>" alt="slide <?= $i ?>">
               </div>
-              <div class="carousel-item">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
-              </div>
-              <div class="carousel-item active">
-                <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
-              </div>
+
+            <?php          
+                }
+            ?>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -142,12 +101,20 @@
 
           <div class="row">
 
+          <?php
+
+                foreach ($produtos as $produto){
+
+                redimensionarImagem($produto['url'],700,400);
+          ?>
+
+          
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                <a href="#"><img class="card-img-top" src="<?=$produto['url'].' w700xh400.jpg'?>" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#">Item One</a>
+                    <a href="#"><?=$produto['nomeProduto']?></a>
                   </h4>
                   <h5>$24.99</h5>
                   <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
@@ -158,85 +125,14 @@
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Two</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Three</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Four</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Five</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Item Six</a>
-                  </h4>
-                  <h5>$24.99</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
+          <?php
+                }
+          ?>
+
 
           </div>
           <!-- /.row -->
