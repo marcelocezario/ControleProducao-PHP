@@ -1,12 +1,8 @@
 <?php 
     require_once "funcoes/funcaoProduto.php";
     include_once("default/header.php");
-/*
-    $cliente = $_SESSION['cliente'];
-    if ($cliente['acesso'] != 2) {
-        header("location: erro.php");
-    }
-*/
+
+    
     if (!empty($_GET)) {
       $idCategoria = $_GET['idCategoria'];
 
@@ -19,7 +15,14 @@
     }
 
     $categorias = listarCategorias();
+    
 ?>
+
+<script>
+function detalhesProduto(id){
+	window.location = "detalhesProduto.php?acao=carregar&idProduto="+id;
+}
+</script>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,6 +66,7 @@
                 if ($tamanhoLista < $qtdeProdutosDestaque){
                   $qtdeProdutosDestaque = $tamanhoLista;
                 }
+                
                 for ($i = 0; $i < $qtdeProdutosDestaque; $i++){
             ?>
               <li data-target="#carouselExampleIndicators" data-slide-to="<?=$i?>" <?php if($i==0):?> class="active" <?php endif; ?>></li>
@@ -75,12 +79,23 @@
              <div class="carousel-inner" role="listbox">
 
             <?php
+
+                $larguraImagem = 900;
+                $alturaImagem = 350;
+
                 for ($i = 0; $i < $qtdeProdutosDestaque; $i++){
-                  redimensionarImagem($produtos[$i]['url'],900,350);
+                  redimensionarImagem($produtos[$i]['url'],$larguraImagem,$alturaImagem);
             ?>
 
               <div class="carousel-item <?php if($i==0):?> active <?php endif; ?>">
-                <img class="d-block img-fluid" src="<?=$produtos[$i]['url'].' w900xh350.jpg'?>" alt="slide <?= $i ?>">
+                <img class="d-block img-fluid" src="<?=$produtos[$i]['url'].' w'.$larguraImagem.'xh'.$alturaImagem.'.jpg'?>" alt="slide <?= $i ?>">
+                
+                <div class="carousel-caption d-none d-md-block">
+                  <h4><?=$produtos[$i]['nomeProduto']?></h4>
+                </div>
+
+
+
               </div>
 
             <?php          
@@ -100,16 +115,19 @@
           <div class="row">
 
           <?php
+                $larguraImagem = 700;
+                $alturaImagem = 400;
 
                 foreach ($produtos as $produto){
 
-                redimensionarImagem($produto['url'],700,400);
+                redimensionarImagem($produto['url'],$larguraImagem,$alturaImagem);
+                
           ?>
 
           
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-30">
-                <a href="#"><img class="card-img-top" src="<?=$produto['url'].' w700xh400.jpg'?>" alt=""></a>
+                <a href="#"><img class="card-img-top" src="<?=$produto['url'].' w'.$larguraImagem.'xh'.$alturaImagem.'.jpg'?>" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
                     <a href="#"><?=$produto['nomeProduto']?></a>
@@ -117,8 +135,14 @@
                   <h5><?='R$ '.$produto['valor']?></h5>
                   <p class="card-text"><?=$produto['descricao']?></p>
                 </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                <div class="card-footer text-center">
+                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small><br/>
+                  
+                  <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="detalhesProduto(<?=$produto['id']?>);" href="">Detalhes</button>
+                    <button type="button" class="btn btn-success btn-sm" href="detalhesProduto.php?id=<?=$produto['id']?>">Adicionar</button>
+                  </div>
+                
                 </div>
               </div>
             </div>
