@@ -52,7 +52,6 @@
 
         if(empty($url)){
             $produto = buscarProduto($_POST['id']);
-            print_r('url: '.$produto['url']);
             if (!empty($produto['url'])){
                 $_POST['url'] = $produto['url'];
             } else{
@@ -76,7 +75,7 @@
     <?php    
         include_once("default/navbar.php");
     ?>
-    
+
     <main role="main" class="container">
     <h2>Cadastro de Produto</h2>
         <form action="cadastroProdutos.php" method="POST" enctype="multipart/form-data">
@@ -180,5 +179,9 @@
                 ?>
             </table>
     </main>
+
+        <!-- Bootstrap core JavaScript -->
+        <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
