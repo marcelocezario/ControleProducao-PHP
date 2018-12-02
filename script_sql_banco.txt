@@ -21,58 +21,112 @@ define("USUARIO","root");
 define("SENHA","");
 define("BANCODEDADOS","ecommerce");
 
-/************* Categorias *************\
+
+/************* Cliente *************\
+
+CREATE TABLE cliente (
+
+id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+nome varchar(80),
+dtNascimento varchar(11),
+cpf varchar(17),
+telefone varchar(15),
+cep varchar(10),
+rua varchar(80),
+numero decimal,
+bairro varchar(80),
+id_estado decimal,
+email varchar(80),
+senha varchar(20),
+ativo boolean,
+acesso decimal(1)
+
+);
+
+/************* Categoria *************\
 create table categoria(
-	id int not null PRIMARY KEY AUTO_INCREMENT,
-    nomeCategoria varchar(80),
-    descricao varchar(150)
+
+id int not null PRIMARY KEY AUTO_INCREMENT,
+nomeCategoria varchar(80),
+descricao varchar(150)
+
 );
 
 /************* Marca *************\
-create table marcas(
-	id int not null PRIMARY KEY AUTO_INCREMENT,
-    nomeMarca varchar(80),
-    fornecedor varchar(150)
+create table marca(
+
+id int not null PRIMARY KEY AUTO_INCREMENT,
+nomeMarca varchar(80),
+fornecedor varchar(150)
+
 );
 
-/************* Produtos *************\
-create table produtos(
-	id int not null PRIMARY KEY AUTO_INCREMENT,
-    nomeProduto varchar(80),
-    qtde decimal(10,2),
-    id_categoria INTEGER,
-    descricao varchar(200), 
-    url varchar(200),
-    valor decimal(10,2),
-    ativo boolean 
-);
-ALTER TABLE `produtos` ADD CONSTRAINT `id_categoria` FOREIGN KEY ( `id_categoria` ) REFERENCES `categoria` ( `id` ) ;
+/************* Produto *************\
+create table produto(
 
-/************* Cadastro de cliente *************\
-
-CREATE TABLE cliente (
-    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    nome varchar(80),
-    dtNascimento varchar(11),
-    cpf varchar(17),
-    telefone varchar(15),
-    cep varchar(10),
-    rua varchar(80),
-    numero decimal,
-    bairro varchar(80),
-    id_estado decimal,
-    email varchar(80),
-    senha varchar(20),
-    ativo boolean,
-    acesso decimal(1)
+id int not null PRIMARY KEY AUTO_INCREMENT,
+idCategoria INTEGER,
+nomeProduto varchar(80),
+qtde decimal(10,2),
+descricao varchar(200), 
+url varchar(200),
+valor decimal(10,2),
+ativo boolean
+FOREIGN KEY (idCategoria) REFERENCES categoria (id)
+ 
 );
 
-/************* estado *************\
+
+/************* Formas de Pagamento *************\
+create table formaPagamento(
+
+id int not null PRIMARY KEY AUTO_INCREMENT,
+formaPagamento varchar (80),
+nrParcelas integer,
+txJurosParcelamento decimal(10,2)
+
+);
+
+/************* Venda *************\
+create table venda(
+id int not null PRIMARY KEY AUTO_INCREMENT,
+data date,
+idCliente integer,
+idFormaPagamento integer,
+enderecoEntrega varchar(300),
+nomeCliente varchar (80),
+valorFrete decimal(10,2),
+valorTotal decimal(10,2),
+nrParcelas integer,
+valorParcela decimal (10,2),
+FOREIGN KEY (idCliente) REFERENCES cliente (id),
+FOREIGN KEY (idFormaPagamento) REFERENCES formapagamento (id)
+);
+
+
+/************* Item Venda *************\
+create table itemVenda(	
+
+id int not null PRIMARY KEY AUTO_INCREMENT,
+idProduto INTEGER,
+idVenda INTEGER,
+nomeProduto varchar (80),
+valorProduto decimal(10,2),
+qtde INTEGER,
+valorTotal decimal(10,2),
+foreign key (idProduto) references produto (id),
+foreign key ('idVenda') references venda ('id)
+);
+
+
+/************* Estado *************\
 
 CREATE TABLE estados (
-  id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  sigla VARCHAR(2) NOT NULL,
-  descricao VARCHAR(30) NOT NULL
+
+id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+sigla VARCHAR(2) NOT NULL,
+descricao VARCHAR(30) NOT NULL
+
 );
  
 INSERT INTO estados (`sigla`, `descricao`) VALUES ('AC', 'Acre');
