@@ -87,7 +87,9 @@
                   <img class="d-block img-fluid" src="<?=$produtos[$i]['url'].' w'.$larguraImagem.'xh'.$alturaImagem.'.jpg'?>" alt="slide <?= $i ?>">
                 </a>
                 <div class="carousel-caption d-none d-md-block">
-                  <h4><?=$produtos[$i]['nomeProduto']?></h4>
+                    <h1 class="display-4"><?=$produtos[$i]['nomeProduto']?></h1>
+                    <h4><span class="badge badge-light">R$ <?=$produtos[$i]['valor']?></span></h4>
+                
                 </div>
 
 
