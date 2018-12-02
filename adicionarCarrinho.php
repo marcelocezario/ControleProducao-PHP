@@ -18,7 +18,7 @@
                 $produto = buscarProduto($idProduto);
                 $itemVenda['idProduto'] = $idProduto;
                 $itemVenda['idVenda'] = 0;
-                $itemVenda['nomeProduto'] = $produto['nome'];
+                $itemVenda['nomeProduto'] = $produto['nomeProduto'];
                 $itemVenda['valor'] = $produto['valor'];
                 $itemVenda['qtde'] = 1;
                 $itemVenda['valorTotal'] = $itemVenda['valor'] * $itemVenda['qtde'];

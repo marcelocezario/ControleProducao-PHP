@@ -2,10 +2,8 @@
 include_once("default/header.php");
 
 if (!empty($_SESSION['cliente'])){
-    
+    $cliente = $_SESSION['cliente'];
 }
-$cliente = $_SESSION['cliente'];
-
 ?>
 
 <?php 
@@ -38,10 +36,24 @@ $cliente = $_SESSION['cliente'];
             include_once("default/navbar.php");
 
         ?>
+        <div>
+<br/>
+<br/>
+</div>
 
         <div class="jumbotron-fluid">
                 <div class="container">
-                    <h1 class="display-4">Olá Sr(a) <?=$cliente['nome']?></h1>
+                <?php
+                    if (!empty($cliente)){
+                ?>
+                    <h1 class="display-4">Olá Sr(a) <?=$cliente['nome']?>,</h1>
+                <?php
+                    } else {
+                ?>
+                    <h1 class="display-4">Faça login e aproveite já as melhores ofertas</h1>
+                <?php
+                    }
+                ?>
                     <?php
                         if(count($carrinho)>0){
                     ?>            
@@ -87,7 +99,23 @@ $cliente = $_SESSION['cliente'];
                             </td> 
                             <td><?=$item['nomeProduto']?></td>
                             <td><?=$item['valor']?></td>
-                            <td><?=$item['qtde']?></td>
+                            
+                            
+                            <td>
+                            
+                            <span class="badge badge-pill badge-danger">-</span>
+                            <?=$item['qtde']?>
+                            <span class="badge badge-pill badge-success">+</span>
+
+                            </td>
+                            
+                            
+                            
+                            <!--
+                            <td>
+                            <input type="number" class="count" name="qty" value="<?=$item['qtde']?>">
+                            </td>
+                            -->
                             <td><?=$item['valorTotal']?></td>
                             <td>
                                 <a href="cadastroProdutos.php?acao=excluir&id=<?=$produto['id']?>" 
