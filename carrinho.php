@@ -83,6 +83,7 @@ if (!empty($_SESSION['cliente'])){
                     </tr>
                 </thead>
                 <?php
+                    $idTemp = 0;
                     foreach($carrinho as $item){
                 ?>
                     <tbody>
@@ -102,11 +103,14 @@ if (!empty($_SESSION['cliente'])){
                             
                             
                             <td>
+                            <a class="btn btn-link" href="adicionarCarrinho.php?qtde=diminuir&id=<?=$idTemp?>">
+                                <span class="badge badge-pill badge-danger">-</span>
+                            </a>
                             
-                            <span class="badge badge-pill badge-danger">-</span>
                             <?=$item['qtde']?>
-                            <span class="badge badge-pill badge-success">+</span>
-
+                            <a class="btn btn-link" href="adicionarCarrinho.php?qtde=aumentar&id=<?=$idTemp?>">
+                                <span class="badge badge-pill badge-success">+</span>
+                            </a>
                             </td>
                             
                             
@@ -127,7 +131,8 @@ if (!empty($_SESSION['cliente'])){
 
                         </tr>
                     </tbody>
-                <?php  
+                <?php 
+                     $idTemp++;
                     }
                 ?>
             </table>
