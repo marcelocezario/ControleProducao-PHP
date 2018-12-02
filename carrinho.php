@@ -57,7 +57,11 @@ if (!empty($_SESSION['cliente'])){
                     <?php
                         if(count($carrinho)>0){
                     ?>            
-                    <p class="lead">esse é seu carrinho de compras, clique em comprar para garantir as ofertas</p>
+                    <p class="lead">esse é seu carrinho de compras, clique em Finalizar Pedido para garantir essas ofertas</p>
+                    <div class=text-right>
+                        <a class="btn btn-primary btn-lg" href="finalizarPedido.php">Finalizar Pedido</a>
+                        <br><br>
+                        </div>
                     <?php
                             } else {
                     ?>
@@ -129,6 +133,17 @@ if (!empty($_SESSION['cliente'])){
                     }
                 ?>
             </table>
+
+                <div>
+
+
+                <form action="opcoes.php?acao=limpar" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="urlAnterior" value="<?=$_SERVER['REQUEST_URI']?>">
+                    <button type="submit" class="badge badge-danger">Limpar carrinho
+                    </button>
+                 </form>
+                </div>
+
                 </div>
                 </div>
 

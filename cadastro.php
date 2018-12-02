@@ -30,6 +30,7 @@ require_once "funcoes/funcaoCliente.php";
 
 $id = "";
 $nome = "";
+$apelido = "";
 $dtNascimento = "";
 $cpf = "";
 $telefone = "";
@@ -59,11 +60,16 @@ if(!empty($_POST)) {
                 <div class="signup-form">
                     <form method="POST" class="register-form" id="register-form" action="cadastro.php" >
                         <h2>Bem Vindo. Cadastre-se hoje mesmo</h2>
-                        <div class="form-row">
                             <div class="form-group">
                                 <label for="nome">Nome</label>
                                 <input type="text"  id="nome" name="nome" maxlength="80" placeholder="Nome Completo" required value="<?=$nome?>">
                             </div>
+                            <div class="form-group">
+                                <label for="apelido">Como gostaria de ser chamado?</label>
+		                    	<input type="text" id="apelido" name="apelido" placeholder="Apelido" required value="<?=$apelido?>">
+		                    </div>
+                            <div class="form-row">
+
                             <div class="form-group">
                                 <label for="dtNascimento">Data de Nascimento</label>
 		                    	<input type="date" max="<?=date('Y-m-d')?>" id="dtNascimento" name="dtNascimento" required value="<?=$dtNascimento?>">
