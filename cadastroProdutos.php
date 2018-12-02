@@ -159,7 +159,8 @@
                             <?php
                                 }
                             ?>
-                            </td>                            <td>
+                            </td>
+                            <td>
                                 <a href="cadastroProdutos.php?acao=carregar&id=<?=$produto['id']?>"
                                     class="btn btn-primary">Editar
                                 </a>

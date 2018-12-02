@@ -9,7 +9,7 @@
 
             <li class="nav-item">
               <form action="produtos.php" class="form-inline" method="GET">
-                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisa" name="Pesquisa" aria-label="buscaPersonalizada">
+                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisa" name="pesquisa" aria-label="buscaPersonalizada">
                 <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Busca</button>
               </form>
             </li>

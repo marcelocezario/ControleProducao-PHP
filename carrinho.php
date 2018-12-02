@@ -1,6 +1,9 @@
 <?php
 include_once("default/header.php");
 
+if (!empty($_SESSION['cliente'])){
+    
+}
 $cliente = $_SESSION['cliente'];
 
 ?>

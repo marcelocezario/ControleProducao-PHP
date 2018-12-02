@@ -49,6 +49,32 @@ function listarProdutosPorCategoria($idCategoria) {
     return $retorno;
 }
 
+function pesquisaProdutos($palavraChave) {
+    $conn = conectar();
+
+    $pesquisa = "%$palavraChave%";
+
+    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria
+    from produto
+    where nomeProduto like :pesquisa
+    
+
+
+    
+    order by nomeProduto");
+    
+
+//    SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria
+//    from produto
+//    where nomeProduto like '%doce%'
+
+
+    $stmt->bindParam(':pesquisa',$pesquisa);
+    $stmt->execute();
+    $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $retorno;
+}
+
 function buscarProduto($id) {
     $conn = conectar();
 

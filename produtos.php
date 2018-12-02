@@ -3,11 +3,22 @@
     require_once "funcoes/funcaoCompra.php";
     include_once("default/header.php");
 
-    if (!empty($_GET)) {
-      $idCategoria = $_GET['idCategoria'];
 
-      if ($_GET['acao'] == 'carregar') {
-          $produtos = listarProdutosPorCategoria($idCategoria);
+    
+
+    if (!empty($_GET)) {
+
+      // filtra por categoria
+      if(!empty($_GET['idCategoria'])){
+        $idCategoria = $_GET['idCategoria'];
+
+        if ($_GET['acao'] == 'carregar') {
+            $produtos = listarProdutosPorCategoria($idCategoria);
+        }
+      }
+
+      if(!empty($_GET['pesquisa'])){
+            $produtos = pesquisaProdutos($_GET['pesquisa']);
       }
     }
     else {
@@ -37,6 +48,7 @@
           <h1 class="my-4">Categorias</h1>
           <div class="list-group">
                 <?php
+                print_r($produtos);
                     foreach($categorias as $categoria){
                 ?>
                     <a href="produtos.php?acao=carregar&idCategoria=<?=$categoria['id']?>" class="list-group-item"><?=$categoria['nomeCategoria']?></a>
