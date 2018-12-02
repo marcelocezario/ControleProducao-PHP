@@ -7,11 +7,18 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
 
-
+            <li class="nav-item">
+              <form action="produtos.php" class="form-inline" method="GET">
+                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisa" name="Pesquisa" aria-label="buscaPersonalizada">
+                <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Busca</button>
+              </form>
+            </li>
 
             <li class="nav-item">
               <a class="nav-link" href="index.php">Home</a>
             </li>
+
+
 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" id="navbarDropdownProdutos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="produtos.php">
@@ -39,24 +46,6 @@
                   ?>
               </div>
           </li>
-          <li class="nav-item">
-                  <a class="btn btn-link" href="carrinho.php">
-                    <span class="badge badge-light">
-                      Itens no carrinho 
-                      <?php
-                      if(!empty($_SESSION['carrinho'])){
-                        ?>
-                        <?=count($_SESSION['carrinho'])?>
-                        <?php
-                      } else {
-                        ?>
-                        0
-                        <?php
-                      }
-                      ?>
-                    </span>
-                    </a>
-            </li>
            
             <?php
             if(!empty($_SESSION['cliente'])){
@@ -87,6 +76,25 @@
           <?php
             }
           ?>
+                    <li class="nav-item">
+                  <a class="btn btn-link" href="carrinho.php">
+                    <span class="badge badge-pill badge-light">
+                      Itens no carrinho 
+                      <?php
+                      if(!empty($_SESSION['carrinho'])){
+                        ?>
+                        <?=count($_SESSION['carrinho'])?>
+                        <?php
+                      } else {
+                        ?>
+                        0
+                        <?php
+                      }
+                      ?>
+                    </span>
+                    </a>
+            </li>
+
 
           </ul>
         </div>
