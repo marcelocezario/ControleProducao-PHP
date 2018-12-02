@@ -47,6 +47,25 @@
               <label class="nav-link" href="cliente.php">Ola <?=$_SESSION['cliente']['nome']?></label>
               
             </li>
+
+                        <li class="nav-item">
+                  <a class="btn btn-link" href="carrinho.php">
+                    <span class="badge badge-light">
+                      Itens no carrinho 
+                      <?php
+                      if(!empty($_SESSION['carrinho'])){
+                        ?>
+                        <?=count($_SESSION['carrinho'])?>
+                        <?php
+                      } else {
+                        ?>
+                        0
+                        <?php
+                      }
+                      ?>
+                    </span>
+                    </a>
+            </li>
             
             <form action="opcoes.php?acao=sair" method="POST" enctype="multipart/form-data">
                 <input type="hidden" name="urlAnterior" value="<?=$_SERVER['REQUEST_URI']?>">
@@ -68,24 +87,7 @@
           <?php
             }
           ?>
-            <li class="nav-item">
-                  <a class="btn btn-primary" href="carrinho.php">
-                    <span class="badge badge-light">
-                      Itens no carrinho 
-                      <?php
-                      if(!empty($_SESSION['carrinho'])){
-                        ?>
-                        <?=count($_SESSION['carrinho'])?>
-                        <?php
-                      } else {
-                        ?>
-                        0
-                        <?php
-                      }
-                      ?>
-                    </span>
-                    </a>
-            </li>
+
           </ul>
         </div>
       </div>
