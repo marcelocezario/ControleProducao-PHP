@@ -4,7 +4,7 @@ require_once "conexao.php";
 function listarEstados(){
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, sigla ,descricao from estados");
+    $stmt = $conn->prepare("select id, sigla ,descricao from estado");
     $stmt->execute();    
     return  $stmt->fetchAll(PDO::FETCH_ASSOC);
 }

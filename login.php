@@ -33,6 +33,7 @@
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="validarLogin.php" method="POST">
+				<input type="hidden" name="urlAnterior" value="<?=$_POST['urlAnterior']?>">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-accounts"></i>
 					</span>

@@ -11,7 +11,7 @@ function salvarProduto($produto)  {
     $conn = conectar();
     $ativo = true;
 
-    $stmt = $conn->prepare('INSERT INTO produtos (nomeProduto, descricao, url, valor, qtde, id_categoria, ativo)
+    $stmt = $conn->prepare('INSERT INTO produto (nomeProduto, descricao, url, valor, qtde, id_categoria, ativo)
         VALUES(:nomeProduto, :descricao, :url, :valor, :qtde, :id_categoria, :ativo)');
  
     $stmt->bindParam(':nomeProduto',$produto['nomeProduto']);
@@ -33,7 +33,7 @@ function salvarProduto($produto)  {
 function listarProdutos() {
     $conn = conectar();
 
-    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria from produtos order by nomeProduto");
+    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria from produto order by nomeProduto");
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $retorno;
@@ -42,7 +42,7 @@ function listarProdutos() {
 function listarProdutosPorCategoria($idCategoria) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria from produtos where id_categoria = :idCategoria order by nomeProduto");
+    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria from produto where id_categoria = :idCategoria order by nomeProduto");
     $stmt->bindParam(':idCategoria',$idCategoria);
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -52,7 +52,7 @@ function listarProdutosPorCategoria($idCategoria) {
 function buscarProduto($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nomeProduto, descricao, url, valor, qtde, id_categoria from produtos where id = :id");
+    $stmt = $conn->prepare("select id, nomeProduto, descricao, url, valor, qtde, id_categoria from produto where id = :id");
     $stmt->bindParam(':id',$id);
 
     $stmt->execute();
@@ -62,7 +62,7 @@ function buscarProduto($id) {
 function editarProduto($produto){
     $conn = conectar();
 
-    $stmt = $conn->prepare('UPDATE produtos set nomeProduto = :nomeProduto, descricao = :descricao, url = :url, valor = :valor, qtde = :qtde, id_categoria = :id_categoria where id = :id');
+    $stmt = $conn->prepare('UPDATE produto set nomeProduto = :nomeProduto, descricao = :descricao, url = :url, valor = :valor, qtde = :qtde, id_categoria = :id_categoria where id = :id');
     $stmt->bindParam(':id',$produto['id']);
 
     $stmt->bindParam(':nomeProduto',$produto['nomeProduto']);
@@ -83,7 +83,7 @@ function editarProduto($produto){
 function excluirProduto($id) {
     $conn = conectar();
     $ativo = false;
-    $stmt = $conn->prepare('DELETE from produtos where id = :id');
+    $stmt = $conn->prepare('DELETE from produto where id = :id');
     $stmt->bindParam(':id',$id);
 
     if ($stmt->execute()){
@@ -167,7 +167,7 @@ function excluirCategoria($id) {
 function salvarMarca($marca)  {  
     $conn = conectar();
 
-    $stmt = $conn->prepare('INSERT INTO marcas (nomeMarca, fornecedor)
+    $stmt = $conn->prepare('INSERT INTO marca (nomeMarca, fornecedor)
                             VALUES (:nomeMarca, :fornecedor)');
 
     $stmt->bindParam(':nomeMarca',$marca['nomeMarca']);
@@ -184,7 +184,7 @@ function salvarMarca($marca)  {
 function listarMarcas() {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nomeMarca, fornecedor from marcas order by nomeMarca");
+    $stmt = $conn->prepare("select id, nomeMarca, fornecedor from marca order by nomeMarca");
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $retorno;
@@ -193,7 +193,7 @@ function listarMarcas() {
 function buscarMarca($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nomeMarca, fornecedor from marcas where id = :id");
+    $stmt = $conn->prepare("select id, nomeMarca, fornecedor from marca where id = :id");
     $stmt->bindParam(':id',$id);
 
     $stmt->execute();
@@ -203,7 +203,7 @@ function buscarMarca($id) {
 function editarMarca($marca){
     $conn = conectar();
 
-    $stmt = $conn->prepare('update marcas set nomeMarca = :nomeMarca, fornecedor = :fornecedor where id = :id');
+    $stmt = $conn->prepare('update marca set nomeMarca = :nomeMarca, fornecedor = :fornecedor where id = :id');
     $stmt->bindParam(':id',$marca['id']);
     $stmt->bindParam(':nomeMarca',$marca['nomeMarca']);
     $stmt->bindParam(':fornecedor',$marca['fornecedor']);
@@ -219,7 +219,7 @@ function editarMarca($marca){
 function excluirMarca($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare('delete from marcas where id = :id');
+    $stmt = $conn->prepare('delete from marca where id = :id');
     $stmt->bindParam(':id',$id);
     if ($stmt->execute()){
         return "Marca excluída com sucesso!";

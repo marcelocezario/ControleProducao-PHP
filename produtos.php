@@ -1,8 +1,8 @@
 <?php 
     require_once "funcoes/funcaoProduto.php";
+    require_once "funcoes/funcaoCompra.php";
     include_once("default/header.php");
 
-    
     if (!empty($_GET)) {
       $idCategoria = $_GET['idCategoria'];
 
@@ -15,13 +15,8 @@
     }
 
     $categorias = listarCategorias();
-    ?>
 
-<script>
-function detalhesProduto(id){
-	window.location = "detalhesProduto.php?acao=carregar&idProduto="+id;
-}
-</script>
+    ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -45,6 +40,7 @@ function detalhesProduto(id){
                     foreach($categorias as $categoria){
                 ?>
                     <a href="produtos.php?acao=carregar&idCategoria=<?=$categoria['id']?>" class="list-group-item"><?=$categoria['nomeCategoria']?></a>
+                    
 
                 <?php
                     }
@@ -87,10 +83,13 @@ function detalhesProduto(id){
             ?>
 
               <div class="carousel-item <?php if($i==0):?> active <?php endif; ?>">
-                <img class="d-block img-fluid" src="<?=$produtos[$i]['url'].' w'.$larguraImagem.'xh'.$alturaImagem.'.jpg'?>" alt="slide <?= $i ?>">
-                
+                <a href="detalhesProduto.php?acao=carregar&idProduto=<?=$produtos[$i]['id']?>">
+                  <img class="d-block img-fluid" src="<?=$produtos[$i]['url'].' w'.$larguraImagem.'xh'.$alturaImagem.'.jpg'?>" alt="slide <?= $i ?>">
+                </a>
                 <div class="carousel-caption d-none d-md-block">
-                  <h4><?=$produtos[$i]['nomeProduto']?></h4>
+                    <h1 class="display-4"><?=$produtos[$i]['nomeProduto']?></h1>
+                    <h4><span class="badge badge-light">R$ <?=$produtos[$i]['valor']?></span></h4>
+                
                 </div>
 
 
@@ -126,10 +125,10 @@ function detalhesProduto(id){
           
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-30">
-                <a href="#"><img class="card-img-top" src="<?=$produto['url'].' w'.$larguraImagem.'xh'.$alturaImagem.'.jpg'?>" alt=""></a>
+                <a href="detalhesProduto.php?acao=carregar&idProduto=<?=$produto['id']?>"><img class="card-img-top" src="<?=$produto['url'].' w'.$larguraImagem.'xh'.$alturaImagem.'.jpg'?>" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#"><?=$produto['nomeProduto']?></a>
+                    <a href="detalhesProduto.php?acao=carregar&idProduto=<?=$produto['id']?>"><?=$produto['nomeProduto']?></a>
                   </h4>
                   <h5><?='R$ '.$produto['valor']?></h5>
                   <p class="card-text"><?=$produto['descricao']?></p>
@@ -138,8 +137,8 @@ function detalhesProduto(id){
                   <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small><br/>
                   
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="detalhesProduto(<?=$produto['id']?>);" href="">Detalhes</button>
-                    <button type="button" class="btn btn-success btn-sm" href="detalhesProduto.php?id=<?=$produto['id']?>">Adicionar</button>
+                    <a class="btn btn-primary btn-sm" href="detalhesProduto.php?acao=carregar&idProduto=<?=$produto['id']?>">Detalhes</a>
+                    <a class="btn btn-success btn-sm" href="adicionarCarrinho.php?acao=adicionar&idProduto=<?=$produto['id']?>">Adicionar</a>
                   </div>
                 
                 </div>

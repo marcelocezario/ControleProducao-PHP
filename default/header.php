@@ -17,6 +17,13 @@
         <!-- Custom styles for this template -->
         <link href="css/shop-homepage.css" rel="stylesheet">
 
+
+        <style>
+body {
+background-color: #D8D8D8
+}
+</style>
+
     </head>
     <?php
         session_start();
