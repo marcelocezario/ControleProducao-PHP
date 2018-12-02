@@ -112,17 +112,10 @@ if (!empty($_SESSION['cliente'])){
                                 <span class="badge badge-pill badge-success">+</span>
                             </a>
                             </td>
-                            
-                            
-                            
-                            <!--
-                            <td>
-                            <input type="number" class="count" name="qty" value="<?=$item['qtde']?>">
-                            </td>
-                            -->
+
                             <td><?=$item['valorTotal']?></td>
                             <td>
-                                <a href="cadastroProdutos.php?acao=excluir&id=<?=$produto['id']?>" 
+                                <a href="adicionarCarrinho.php?acao=remover&id=<?=$idTemp?>" 
                                     class="btn btn-primary"
                                     onclick="return confirm('Você está certo disso?');">
                                     Remover

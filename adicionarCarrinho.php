@@ -27,6 +27,9 @@
 
                 array_push($_SESSION['carrinho'],$itemVenda);
             }
+            if (!empty($_GET['acao']) && $_GET['acao'] == 'remover') {
+                unset($_SESSION['carrinho'][$_GET['id']]);
+            }
 
             if (!empty($_GET['qtde']) && $_GET['qtde'] == 'aumentar'){
                 $itemVenda = $_SESSION['carrinho'][$_GET['id']];
@@ -39,11 +42,13 @@
             if (!empty($_GET['qtde']) && $_GET['qtde'] == 'diminuir'){
                 $itemVenda = $_SESSION['carrinho'][$_GET['id']];
 
-                if(!$itemVenda['qtde'] <= 0){
+                if($itemVenda['qtde'] > 1){
                     $itemVenda['qtde']--;
                     $itemVenda['valorTotal'] = $itemVenda['qtde'] * $itemVenda['valor'];
                     
                     $_SESSION['carrinho'][$_GET['id']] = $itemVenda;
+                } else {
+                    unset($_SESSION['carrinho'][$_GET['id']]);
                 }
             }
         }
