@@ -14,7 +14,8 @@
         $cliente = buscarCliente($id);
         $_SESSION['cliente'] = $cliente;
 
-        header("location: produtos.php");
+        header("location: ".$_POST['urlAnterior']);
+        //header("location: produtos.php");
     } else {
         echo "Login ou senha inválido(s)";
     }

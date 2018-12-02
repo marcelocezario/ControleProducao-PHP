@@ -1,10 +1,3 @@
-<script>
-function carrinho(){
-	window.location = "carrinho.php";
-}
-</script>
-
-
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">New Submarino</a>
@@ -32,7 +25,7 @@ function carrinho(){
                 <a class="dropdown-item" href="cadastroMarcas.php">Cadastro de Marcas</a>
                 
                 <?php
-                    if(!empty($_SESSION)){
+                    if(!empty($_SESSION['cliente'])){
                       if($_SESSION['cliente']['acesso'] == 2){
                   ?>                       
                     <div class="dropdown-divider"></div>
@@ -54,21 +47,31 @@ function carrinho(){
               <label class="nav-link" href="cliente.php">Ola <?=$_SESSION['cliente']['nome']?></label>
               
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="opcoes.php?acao=sair">Sair</a>
-            </li>            
+            
+            <form action="opcoes.php?acao=sair" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="urlAnterior" value="<?=$_SERVER['REQUEST_URI']?>">
+                <button type="submit" class="btn btn-outline-dark">Sair
+                </button>
+            </form>
+
           <?php
             } else {
           ?>   
-            <li class="nav-item">
-              <a class="nav-link" href="login.php">Login</a>
-            </li>
+
+            <form action="login.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="urlAnterior" value="<?=$_SERVER['REQUEST_URI']?>">
+                <button type="submit" class="btn btn-outline-dark">Login
+                </button>
+            </form>
+
+
           <?php
             }
           ?>
             <li class="nav-item">
-                  <button type="button" class="btn btn-primary btn-sm" onclick="carrinho();">
+                  <a class="btn btn-primary" href="carrinho.php">
                     <span class="badge badge-light">
+                      Itens no carrinho 
                       <?php
                       if(!empty($_SESSION['carrinho'])){
                         ?>
@@ -81,7 +84,7 @@ function carrinho(){
                       }
                       ?>
                     </span>
-                  </button>
+                    </a>
             </li>
           </ul>
         </div>
