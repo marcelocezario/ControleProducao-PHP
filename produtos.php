@@ -48,7 +48,6 @@
           <h1 class="my-4">Categorias</h1>
           <div class="list-group">
                 <?php
-                print_r($produtos);
                     foreach($categorias as $categoria){
                 ?>
                     <a href="produtos.php?acao=carregar&idCategoria=<?=$categoria['id']?>" class="list-group-item"><?=$categoria['nomeCategoria']?></a>
