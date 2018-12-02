@@ -23,6 +23,11 @@
         session_start();
     ?>
 </header>
+
+<script>
+
+    
+</script>
          
 <?php    
 date_default_timezone_set('America/Sao_Paulo');
@@ -34,12 +39,10 @@ $dtNascimento = "";
 $cpf = "";
 $telefone = "";
 $cep = "";
-$logradouro = "";
+$rua = "";
 $numero = "";
-$complemento = "";
 $bairro = "";
-$cidade = "";
-$id_uf = "";
+$id_estado = "";
 $email = "";
 $senha = "";
 $acesso = "";
@@ -57,98 +60,47 @@ if(!empty($_POST)) {
                     <img src="images/signup-img.jpg" alt="">
                 </div>
                 <div class="signup-form">
-                    <form method="POST" class="register-form" id="register-form" action="cadastro.php" >
-                        <h2>Bem Vindo. Cadastre-se hoje mesmo</h2>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="nome">Nome</label>
-                                <input type="text"  id="nome" name="nome" maxlength="80" placeholder="Nome Completo" required value="<?=$nome?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="dtNascimento">Data de Nascimento</label>
-		                    	<input type="date" max="<?=date('Y-m-d')?>" id="dtNascimento" name="dtNascimento" required value="<?=$dtNascimento?>">
-		                    </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="cpf">CPF</label>
-                                <input type="text" class="cpf" name="cpf" id="cpf" placeholder="CPF" value="<?=$cpf?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="telefone">Telefone</label>
-                	    		<input type="telefone" class="sp_celphones" id="telefone" name="telefone" placeholder="Telefone" maxlength="15 " minlength="14" required value="<?=$telefone?>">  </div>
-                            </div>
-                            
-                        <hr />
-                        <h3>Endereço</h3>
+                    <form method="POST" class="register-form" id="register-form" action="cadastro.php" ><h3>Endereço</h3>
                             <div class="form-row">
                             <div class="form-group">
                                 <label for="cep">
                                     CEP</label>
-			                    <input type="text" class="cep" id="cep" requered name="cep" placeholder="CEP" maxlength="10" value="<?=$cep?>">
-                                </div>
-                                </div>
+			                    <input type="text" class="cep" id="cep" requered name="cep" placeholder="CEP" onchange="atualizaCep(this.value)" maxlength="10" value="<?=$cep?>">
+                            </div>
                             <div class="form-group">
-                               <label for="logradouro">Logradouro</label>
-                                <input type="text" id="logradouro" requered name="logradouro" placeholder="Logradouro" maxlength="80" value="<?=$logradouro?>">
+                               <label for="rua">Rua</label>
+                                <input type="text" id="rua" requered name="rua" placeholder="Rua" maxlength="80" value="<?=$rua?>">
+                            </div>
                             </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="numero">Número</label>
 			                    <input type="text" id="numero" name="numero" placeholder="Número" maxlength="10" value="<?=$numero?>">
                             </div>
-                            <div class="form-group">
-                                <label for="Complemento">Complemento</label>
-                                <input type="text" id="complemento" name="complemento" maxlength="80" placeholder="Complemento"  value="<?=$complemento?>">
+                            <div class="form-group">                         
+                                <label for="Bairro/Distrido">Bairro/Distrido</label>
+                                <input type="text" id="bairro" name="bairro" maxlength="80" placeholder="Bairro/Distrido"  value="<?=$bairro?>">
                             </div>
                         </div>
                         <div class="form-group">
-                                <label for="Bairro">Bairro</label>
-                                <input type="text" id="bairro" name="bairro" maxlength="80" placeholder="Bairro"  value="<?=$bairro?>">
-                            </div>
-                            <div class="form-row">
-
-                            <div class="form-group">
-                                <label for="Cidade">Cidade</label>
-                                <input type="text" id="cidade" name="cidade" maxlength="80" placeholder="Cidade"  value="<?=$cidade?>">
-                            </div>
-                        <div class="form-group">
                             <label for="course">Estado</label>
                             <div class="form-select">
-                            <input type="hidden" name="ufRetorno" id="ufRetorno" value="">
-                            <select id="id_uf" name="id_uf">
-                                <option value="" disabled selected>Uf</option>
+                            <select id="id_estado" name="id_estado">
+                                <option value="" disabled selected>Selecione um estado </option>
                                 <?php
-                                    $estados = listarEstados(); 
-                                    if(!empty($estados)){
-                                    foreach ($estados as $estado) {
+                                    $resultado = listarEstados(); 
+                                    if(!empty($resultado)){
+                                    foreach ($resultado as $res) {
                                         $selected = "";
-                                        if($estado['id'] == $id_uf){
+                                        if($res['id'] == $id_estado){
                                             $selected = "selected";
                                         }
                                         ?>                                             
-                                            <option <?=$selected ?> value="<?=$estado['id'];?>"><?=$estado['sigla']?></option> 
+                                            <option <?=$selected ?> value="<?=$res['id'];?>"><?=$res['descricao']." - ".$res['sigla'];?></option> 
                                         <?php      
                                         }
                                     }
                                 ?>
-                                 </select>  	  	
-                                <span class="select-icon"><i class="zmdi zmdi-chevron-down"></i></span>
-                            </div>
-                                </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite o e-mail" required value="<?=$email?>">
-                            <div id='resposta'></div>
-                        </div>
-                        <div class="form-group">
-                            <label for="senha">Senha</label>
-                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite a senha" required value="<?=$senha?>">
-                        </div>
-                        <div class="form-submit">
-                            <button type="submit" class="btn btn-primary">Cadastrar</button>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -199,11 +151,10 @@ if(!empty($_POST)) {
     }); 
     }); 
 	$('#cpf').mask('000.000.000-00');
-    $('#cep').mask('00000-000');
-</script>
 
 
-/*
+
+    /*
      * Código de consulta de cep
      */
     <!-- Adicionando JQuery -->
@@ -218,15 +169,11 @@ if(!empty($_POST)) {
 
             function limpa_formulário_cep() {
                 // Limpa valores do formulário de cep.
-                $("#logradouro").val("");
+                $("#rua").val("");
                 $("#bairro").val("");
                 $("#cidade").val("");
-                $("#ufRetorno").val("");
-                $("#id_uf").val("1");
+                $("#uf").val("");
                 $("#ibge").val("");
-
-                jQuery('#id_uf').prop('selectedIndex',0);
-
             }
             
             //Quando o campo cep perde o foco.
@@ -245,10 +192,10 @@ if(!empty($_POST)) {
                     if(validacep.test(cep)) {
 
                         //Preenche os campos com "..." enquanto consulta webservice.
-                        $("#logradouro").val("...");
+                        $("#rua").val("...");
                         $("#bairro").val("...");
                         $("#cidade").val("...");
-                        $("#ufRetorno").val("...");
+                        $("#uf").val("...");
                         $("#ibge").val("...");
 
                         //Consulta o webservice viacep.com.br/
@@ -256,17 +203,11 @@ if(!empty($_POST)) {
 
                             if (!("erro" in dados)) {
                                 //Atualiza os campos com os valores da consulta.
-                                $("#logradouro").val(dados.logradouro);
+                                $("#rua").val(dados.logradouro);
                                 $("#bairro").val(dados.bairro);
                                 $("#cidade").val(dados.localidade);
-                                $("#ufRetorno").val(dados.uf);
+                                $("#uf").val(dados.uf);
                                 $("#ibge").val(dados.ibge);
-
-                                var estado = ufRetorno.value;
-                                $("#id_uf option").filter(function() {
-                                    return this.text == estado; 
-                                }).attr('selected', true)
-
                             } //end if.
                             else {
                                 //CEP pesquisado não foi encontrado.
@@ -292,8 +233,5 @@ if(!empty($_POST)) {
     /*
      * Fim do código consulta de cep
      */
-
-
-
-
+</script>   
 </html>
