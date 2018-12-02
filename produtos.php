@@ -1,7 +1,9 @@
 <?php 
     require_once "funcoes/funcaoProduto.php";
+    require_once "funcoes/funcaoCompra.php";
     include_once("default/header.php");
 
+    print_r($_SESSION);
     
     if (!empty($_GET)) {
       $idCategoria = $_GET['idCategoria'];
@@ -15,12 +17,21 @@
     }
 
     $categorias = listarCategorias();
+
     ?>
+
+
 
 <script>
 function detalhesProduto(id){
 	window.location = "detalhesProduto.php?acao=carregar&idProduto="+id;
 }
+
+function adicionarCarrinho(id){
+	window.location = "adicionarCarrinho.php?acao=adicionar&idProduto="+id;
+}
+
+
 </script>
 
 <!DOCTYPE html>
@@ -45,6 +56,7 @@ function detalhesProduto(id){
                     foreach($categorias as $categoria){
                 ?>
                     <a href="produtos.php?acao=carregar&idCategoria=<?=$categoria['id']?>" class="list-group-item"><?=$categoria['nomeCategoria']?></a>
+                    
 
                 <?php
                     }
@@ -138,8 +150,8 @@ function detalhesProduto(id){
                   <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small><br/>
                   
                   <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-primary btn-sm" onclick="detalhesProduto(<?=$produto['id']?>);" href="">Detalhes</button>
-                    <button type="button" class="btn btn-success btn-sm" href="detalhesProduto.php?id=<?=$produto['id']?>">Adicionar</button>
+                    <button type="button" class="btn btn-primary btn-sm" onclick="detalhesProduto(<?=$produto['id']?>);">Detalhes</button>
+                    <button type="button" class="btn btn-success btn-sm" onclick="adicionarCarrinho(<?=$produto['id']?>);">Adicionar</button>
                   </div>
                 
                 </div>

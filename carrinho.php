@@ -32,7 +32,10 @@ echo "Olá Sr(a). ".$cliente['nome'].", este é seu carrinho de compras";
   <body>
         <?php    
             include_once("default/navbar.php");
+
+            print_r($_SESSION['carrinho']);
         ?>
+        
 
 
 

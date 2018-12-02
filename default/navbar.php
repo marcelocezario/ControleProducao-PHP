@@ -1,3 +1,10 @@
+<script>
+function carrinho(){
+	window.location = "carrinho.php";
+}
+</script>
+
+
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info fixed-top">
       <div class="container">
         <a class="navbar-brand" href="#">New Submarino</a>
@@ -14,7 +21,7 @@
             </li>
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="navbarDropdownProdutos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownProdutos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="produtos.php">
                 Produtos
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProdutos">
@@ -41,7 +48,7 @@
           </li>
            
             <?php
-            if(!empty($_SESSION)){
+            if(!empty($_SESSION['cliente'])){
           ?>   
             <li class="nav-item">
               <label class="nav-link" href="cliente.php">Ola <?=$_SESSION['cliente']['nome']?></label>
@@ -59,6 +66,23 @@
           <?php
             }
           ?>
+            <li class="nav-item">
+                  <button type="button" class="btn btn-primary btn-sm" onclick="carrinho();">
+                    <span class="badge badge-light">
+                      <?php
+                      if(!empty($_SESSION['carrinho'])){
+                        ?>
+                        <?=count($_SESSION['carrinho'])?>
+                        <?php
+                      } else {
+                        ?>
+                        0
+                        <?php
+                      }
+                      ?>
+                    </span>
+                  </button>
+            </li>
           </ul>
         </div>
       </div>
