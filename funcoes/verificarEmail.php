@@ -7,7 +7,7 @@ if(isset($_POST['email'])){
 
     #Conecta banco de dados 
     require_once "conexao.php";
-   
+    $conn = conectar();
     $sql = mysqli_query($conn, "SELECT * FROM cliente WHERE email = '{$emailPostado}'") or print mysql_error();
 
     #Se o retorno for maior do que zero, diz que já existe um.
