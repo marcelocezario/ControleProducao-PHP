@@ -67,7 +67,7 @@
 
 					<div class="text-center p-t-90">
             <div class="zmdi zmdi-account-add">
-              <a class="txt1" href="cliente.php?acao=novo">Criar conta</a>
+              <a class="txt1" href="cadastro.php">Criar conta</a>
             </div>
             <div class="d-flex justify-content-center">
               <a class="txt1" href="#">Esqueceu sua senha?</a>

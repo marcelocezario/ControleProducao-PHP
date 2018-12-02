@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <?php    
 include_once("default/header.php");
-if(!empty($_SESSION['cliente'])){
-	$cliente = $_SESSION['cliente'];
+if(empty($_SESSION['cliente'])){
+	header("location: produtos.php");
 }
 date_default_timezone_set('America/Sao_Paulo');
 require_once "funcoes/funcaoCliente.php";
@@ -22,12 +22,10 @@ $email = "";
 $senha = "";
 $acesso = "";
 
-if(empty($_GET)){	 
-	if (!empty($_SESSION['cliente'])) {
-		$valida = $_SESSION['cliente'];
-		$retorno =  buscarCliente($valida['id']);
-		$_SESSION['cliente'] = $retorno;
-		$cliente = $_SESSION['cliente'];
+if (!empty($_GET)) {
+	$id = $_GET['id'];
+	if ($_GET['acao'] == 'carregar') {
+		$cliente =  buscarCliente($id);
 
 		$id = $cliente['id'];
 		$nome = $cliente['nome'];
@@ -42,8 +40,6 @@ if(empty($_GET)){
 		$email = $cliente['email'];
 		$acesso = $cliente['acesso'];
 	}
-}else if ($_GET['acao'] != 'novo'){
-	$id = $_GET['id'];
 	if ($_GET['acao'] == 'excluir') {		
 		excluirCliente($id);
 	}
@@ -52,9 +48,7 @@ if(!empty($_POST)) {
 
 	if (!empty($_POST['id'])){
 		editarCliente($_POST);
-	} else {
-		salvarCliente($_POST);
-	}
+	} 
 }
 ?>
 <body>
@@ -63,7 +57,7 @@ if(!empty($_POST)) {
 ?>
 <div id="main" class="container-fluid">
   
-  <h3 class="page-header">Area de Cadastro</h3>
+  <h3 class="page-header">Area do Cliente</h3>
   <form action="cliente.php" method="POST">
   <input type="hidden" id="id" name="id" value="<?=$id?>"/>
   	<div class="row">

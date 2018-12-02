@@ -13,7 +13,6 @@
                 <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Busca</button>
               </form>
             </li>
-
             <li class="nav-item">
               <a class="nav-link" href="index.php">Home</a>
             </li>
@@ -51,7 +50,7 @@
             if(!empty($_SESSION['cliente'])){
           ?>   
             <li class="nav-item">
-              <label class="nav-link" href="cliente.php">Ola <?=$_SESSION['cliente']['nome']?></label>
+              <label class="nav-link" href="cliente.php?">Ola <?=$cliente['nome']?></label>
               
             </li>
 
