@@ -3,7 +3,7 @@
 <?php    
 include_once("default/header.php");
 if(empty($_SESSION['cliente'])){
-	header("location: produtos.php");
+	header("location: erro.php");
 }
 date_default_timezone_set('America/Sao_Paulo');
 require_once "funcoes/funcaoCliente.php";

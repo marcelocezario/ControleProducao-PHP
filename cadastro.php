@@ -18,6 +18,9 @@
         <!-- Main css -->
         <link rel="stylesheet" href="css/style.css">
 
+        <!-- Main css -->
+        <link rel="stylesheet" href="css/bootstrap.css">
+
     </head>
     <?php
         session_start();
@@ -40,11 +43,26 @@ $bairro = "";
 $id_estado = "";
 $email = "";
 $senha = "";
-$acesso = "";
 
 if(!empty($_POST)) {
-    salvarCliente($_POST);
-    header("location: login.php");
+
+    $retorno = validarEmail($_POST['email']);
+
+    if($retorno){
+        $nome = $_POST['nome'];
+        $dtNascimento = $_POST['dtNascimento'];
+        $cpf = $_POST['cpf'];
+        $telefone = $_POST['telefone'];
+        $cep = $_POST['cep'];
+        $rua = $_POST['rua'];
+        $numero = $_POST['numero'];
+        $bairro = $_POST['bairro'];
+        $id_estado = $_POST['id_estado'];
+        $email = $_POST['email'];
+    }else{
+        salvarCliente($_POST);
+        header("location: login.php");
+    }
 }
 ?>
 <body>
@@ -124,13 +142,29 @@ if(!empty($_POST)) {
                             </div>
                         </div>
                         <div class="form-group">
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
                             <label for="email">E-mail</label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite o e-mail" required value="<?=$email?>">
+                            <input type="email" class="email" id="email" name="email" placeholder="Digite o e-mail" required value="<?=$email?>">
                             <div id='resposta'></div>
+                            <script language="javascript">
+                                var email = $("#email"); 
+                                        email.blur(function() { 
+                                            $.ajax({ 
+                                                url: 'verificaEmail.php', 
+                                                type: 'POST', 
+                                                data:{"email" : email.val()}, 
+                                                success: function(data) { 
+                                                console.log(data); 
+                                                data = $.parseJSON(data); 
+                                                $("#resposta").text(data.email);
+                                            } 
+                                        }); 
+                                    }); 
+                                </script>
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha</label>
-                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite a senha" required value="<?=$senha?>">
+                            <input type="password" id="senha" name="senha" placeholder="Digite a senha" required value="<?=$senha?>">
                         </div>
                         <div class="form-submit">
                             <button type="submit" class="btn btn-primary">Cadastrar</button>
@@ -147,6 +181,7 @@ if(!empty($_POST)) {
     include_once("default/footer.php");
 ?>
  <script type="text/javascript" src="js/main.js"></script>
+
 <script type="text/javascript">
 	/* Máscaras ER */
 	function mascara(o,f){
@@ -171,18 +206,18 @@ if(!empty($_POST)) {
 			mascara( this, mtel );
 		}
     }
-    var email = $("#email"); 
+    var email = $('#email'); 
     email.blur(function() { 
         $.ajax({ 
-            url: 'funcoes/verificaEmail.php', 
+            url: 'verificarEmail.php', 
             type: 'POST', 
-            data:{"email" : email.val()}, 
+            data:{'email' : email.val()}, 
             success: function(data) { 
-            console.log(data); 
-            data = $.parseJSON(data); 
-            $("#resposta").text(data.email);
-        } 
-    }); 
+                console.log(data); 
+                data = $.parseJSON(data); 
+                $('#resposta').text(data.email);
+            } 
+        }); 
     }); 
 	$('#cpf').mask('000.000.000-00');
     $('#cep').mask('00000-000');
