@@ -115,6 +115,15 @@ function validarLogin($email,$senha) {
     $stmt->execute();    
     return $stmt->fetch(PDO::FETCH_ASSOC);    
 }
+function validarEmail($email){
+    $conn = conectar();
+    $ativo = true;
 
+    $stmt = $conn->prepare("select id from cliente where email = :email and ativo = :ativo");
 
+    $stmt->bindParam(':email',$email);
+    $stmt->bindParam(':ativo',$ativo);
+    $stmt->execute();    
+    return $stmt->fetch(PDO::FETCH_ASSOC);    
+}
 ?>

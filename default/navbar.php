@@ -48,8 +48,7 @@
             if(!empty($_SESSION['cliente'])){
           ?>   
             <li class="nav-item">
-              <label class="nav-link" href="cliente.php?">Olá <?=$_SESSION['cliente']['nome']?></label>
-              
+              <label class="nav-link" href="cliente.php?acao=carregar&id=<?=$cliente['id']?>">Ola <?=$cliente['nome']?></label>
             </li>
 
             
