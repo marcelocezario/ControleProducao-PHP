@@ -94,7 +94,6 @@
             <?php          
                 }
             ?>
-
             </ol>
 
              <div class="carousel-inner" role="listbox">
@@ -112,7 +111,7 @@
                 <a href="detalhesProduto.php?acao=carregar&idProduto=<?=$produtos[$i]['id']?>">
                   <img class="d-block img-fluid" src="<?=$produtos[$i]['url'].' w'.$larguraImagem.'xh'.$alturaImagem.'.jpg'?>" alt="slide <?= $i ?>">
                 </a>
-                <div class="carousel-caption d-none d-md-block">
+                <div class="carousel-caption d-none d-md-block text-right">
                     <h2 class="display-6"><?=$produtos[$i]['nomeProduto']?></h2>
                     <h4><span class="badge badge-light">R$ <?=$produtos[$i]['valor']?></span></h4>
                 
