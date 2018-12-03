@@ -4,7 +4,6 @@
     include_once("default/header.php");
 
 
-    
 
     if (!empty($_GET)) {
 
@@ -30,6 +29,8 @@
     }
 
     $categorias = listarCategorias();
+
+    $_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
 
     ?>
 

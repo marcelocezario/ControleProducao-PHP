@@ -35,6 +35,9 @@
         }
     }
     $categorias = listarCategorias();
+
+    $_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
+
 ?>
 
 <body>

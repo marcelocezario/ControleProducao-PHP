@@ -10,7 +10,8 @@
           $produto = buscarProduto($idProduto);
       }
     }
-   
+
+    $_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
 ?>
 
 <!DOCTYPE html>

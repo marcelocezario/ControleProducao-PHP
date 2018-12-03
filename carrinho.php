@@ -62,6 +62,7 @@ if (!empty($_SESSION['cliente'])){
 
     $totalCarrinho = $totalCarrinho + $totalFrete;
 
+    $_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
 
 
 ?>
@@ -120,7 +121,7 @@ if (!empty($_SESSION['cliente'])){
                         <div class="col-2">
 
                             <form action="finalizarPedido.php" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="urlAnterior" value="<?=$_SERVER['REQUEST_URI']?>">
+                                <input type="hidden" name="finalizarPedido" value="<?=$_SERVER['REQUEST_URI']?>">
                                 <button type="submit" class="btn btn-primary btn-lg">Finalizar Pedido</button>
                             </form>
 
@@ -193,7 +194,7 @@ if (!empty($_SESSION['cliente'])){
                      $idTemp++;
                     }
                 ?>
-                        <td colspan="5">
+                        <td colspan="4">
                             <div class="text-right">
 
                             <form action="carrinho.php" method="POST" enctype="multipart/form-data">
@@ -203,7 +204,7 @@ if (!empty($_SESSION['cliente'])){
 
                             </div>
                         </td>
-                        <td colspan="6">
+                        <td colspan="4">
                             <div class="text-right">
 
                                 <h6>Valor do frete: <?=$totalFrete?></h6>

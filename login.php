@@ -1,3 +1,11 @@
+<?php
+
+
+
+$_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -28,6 +36,10 @@
 <!--===============================================================================================-->
 </head>
 <body>
+
+<?php    
+    include_once("default/navbar.php");
+?>
 
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">

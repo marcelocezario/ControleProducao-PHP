@@ -3,6 +3,9 @@ include_once("default/header.php");
 
 if (!empty($_SESSION['cliente'])){
     $cliente = $_SESSION['cliente'];
+    if(empty($_SESSION['carrinho'])){
+        header("location: carrinho.php");
+    }
 } else {
     $_SESSION['urlAnterior'] = "finalizarPedido.php";
     header("location: login.php");

@@ -69,6 +69,9 @@
     }
 
     $produtos = listarProdutos();
+
+    $_SESSION('urlAnterior') = $_SERVER['REQUEST_URI'];
+
 ?>
 <!DOCTYPE html>
 <body>

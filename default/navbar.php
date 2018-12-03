@@ -53,7 +53,6 @@
 
             
             <form action="opcoes.php?acao=sair" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="urlAnterior" value="<?=$_SERVER['REQUEST_URI']?>">
                 <button type="submit" class="btn btn-outline-dark">Sair
                 </button>
             </form>
@@ -63,7 +62,6 @@
           ?>   
 
             <form action="login.php" method="POST" enctype="multipart/form-data">
-                <input type="hidden" name="urlAnterior" value="<?=$_SERVER['REQUEST_URI']?>">
                 <button type="submit" class="btn btn-outline-dark">Login
                 </button>
             </form>
