@@ -11,7 +11,6 @@ if (!empty($_SESSION['cliente'])){
     require_once "funcoes/calculoFrete.php";
     include_once("default/header.php");
 
-    
     if (!empty($_GET)) {
       $idProduto = $_GET['idProduto'];
 
@@ -27,11 +26,24 @@ if (!empty($_SESSION['cliente'])){
     }
 
     $totalCarrinho = 0;
+    $totalFrete = 0;
 
     foreach($carrinho as $item){
-        $totalCarrinho += $item['valorTotal'];
+        $totalCarrinho += $item['valorTotal']
+        
+        if (!empty($_POST['cep'])){
+            $cepOrigem = 83030580;
+            $cepDestino = $_POST['cep'];
+
+            $frete = calcularFrete($cepOrigem, $cepDestino, $item['valorTotal']);
+            $totalFrete = $totalFrete + $frete['Valor'];
+
+        }
     }
 
+    
+
+    
 
 ?>
 
@@ -57,7 +69,7 @@ if (!empty($_SESSION['cliente'])){
                 <?php
                     if (!empty($cliente)){
                 ?>
-                    <h1 class="display-4">Olá Sr(a) <?=$cliente['nome']?>,</h1>
+                    <h1 class="display-4">Olá Sr(a) <?=$cliente['apelido']?>,</h1>
                 <?php
                     } else {
                 ?>
@@ -152,6 +164,16 @@ if (!empty($_SESSION['cliente'])){
                      $idTemp++;
                     }
                 ?>
+                        <td colspan="5">
+                            <div class="text-right">
+
+                            <form action="carrinho.php" method="POST" enctype="multipart/form-data">
+                                <input type="number" name="cep" value="<?=$_POST['cep']?>">
+                                <button type="submit" class="badge badge-light">Calcular Frete </button>
+                            </form>
+
+                            </div>
+                        </td>
                         <td colspan="6">
                             <div class="text-right">
 
