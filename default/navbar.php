@@ -34,7 +34,7 @@
                     <a class="dropdown-item" href="cadastroCategorias.php">Categorias</a>
                     <a class="dropdown-item" href="cadastroProdutos.php">Produtos</a>
                     <a class="dropdown-item" href="cadastroMarcas.php">Marcas</a>
-                    <a class="dropdown-item" href="cadastroMeioPagamento.php">Meios de Pagamento</a>
+                    <a class="dropdown-item" href="cadastroMeiosPagamento.php">Meios de Pagamento</a>
                     </div>
           </li>
                   <?php
@@ -46,8 +46,15 @@
             <?php
             if(!empty($_SESSION['cliente'])){
           ?>   
-            <li class="nav-item">
-            <label class="nav-link" href="cliente.php?">Olá <?=$_SESSION['cliente']['apelido']?></label>
+                <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdownCliente" href="cliente.php?" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" href="#">
+                Olá <?=$_SESSION['cliente']['apelido']?>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownCliente">
+                <a class="dropdown-item" href="meusPedidos.php">Meus Pedidos</a>
+
+
             </li>
 
             

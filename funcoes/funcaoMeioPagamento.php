@@ -9,7 +9,7 @@ function salvarMeioPagamento($meioPagamento)  {
 
     $stmt->bindParam(':formaPagamento',$meioPagamento['formaPagamento']);
     $stmt->bindParam(':nrMaxParcelas',$meioPagamento['nrMaxParcelas']);
-    $stmt->bindParam(':txJurosParcelamento',$meioPagamento['txJuros Parcelamento']);
+    $stmt->bindParam(':txJurosParcelamento',$meioPagamento['txJurosParcelamento']);
    
     if ($stmt->execute()){
         return "Meio de pagamento adicionado com sucesso!";

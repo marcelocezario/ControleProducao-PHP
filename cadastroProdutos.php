@@ -10,7 +10,7 @@
 
     $id = "";
     $descricaoResumida = ""; 
-    $descricaoCompleta = ""; 
+    $descricaoDetalhada = ""; 
     $idCategoria = "";
     $idMarca = "";
     $nomeProduto = "";
@@ -25,7 +25,7 @@
             
             $produto = buscarProduto($id);
             $descricaoResumida = $produto['descricaoResumida'];
-            $descricaoCompleta = $produto['descricaoCompleta'];
+            $descricaoDetalhada = $produto['descricaoDetalhada'];
             $idCategoria = $produto['idCategoria'];
             $idMarca = $produto['idMarca'];
             $nomeProduto = $produto['nomeProduto'];
@@ -106,8 +106,7 @@
 
                 <div class="form-group col-md-8">
                 <label for="descricaoDetalhada">Descrição Detalhada</label>
-                <textarea class="form-control" maxlength="2000" id="descricaoDetalhada" name="descricaoDetalhada"
-                placeholder="Descrição detalhada do produto" required rows="4"></textarea>
+                <textarea type="text" class="form-control" maxlength="2000" id="descricaoDetalhada" name="descricaoDetalhada" placeholder="Descrição detalhada do produto" required rows="4"><?=$descricaoDetalhada?></textarea>
                 </div> 
                 </div> 
 
@@ -201,7 +200,7 @@
                             <td><?=$produto['id']?></td>
                             <td><?=$produto['nomeProduto']?></td>
                             <td><?=$produto['valor']?></td>
-                            <td><?=$produto['qtdeEstoqueEstoque']?></td>
+                            <td><?=$produto['qtdeEstoque']?></td>
                             <td>
                             <?php
                                 if(!empty($produto['url'])){                                 

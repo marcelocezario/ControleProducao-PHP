@@ -11,12 +11,15 @@ function salvarProduto($produto)  {
     $conn = conectar();
     $ativo = true;
 
-    $stmt = $conn->prepare('INSERT INTO produto (ativo, descricaoResumida, descricaoCompleta, idCategoria, idMarca, nomeProduto, qtdeEstoque, url, valor)
-        VALUES(:ativo, :descricaoResumida, :descricaoCompleta, :idCategoria, :idMarca, :nomeProduto, :qtdeEstoque, :url, :valor)');
+    $stmt = $conn->prepare('INSERT INTO produto (
+        ativo, descricaoResumida, descricaoDetalhada, idCategoria, idMarca,
+        nomeProduto, qtdeEstoque, url, valor)
+        VALUES(
+        :ativo, :descricaoResumida, :descricaoDetalhada, :idCategoria, :idMarca, :nomeProduto, :qtdeEstoque, :url, :valor)');
  
     $stmt->bindParam(':ativo',$ativo);
     $stmt->bindParam(':descricaoResumida',$produto['descricaoResumida']);
-    $stmt->bindParam(':descricaoCompleta',$produto['descricaoCompleta']);
+    $stmt->bindParam(':descricaoDetalhada',$produto['descricaoDetalhada']);
     $stmt->bindParam(':idCategoria',$produto['idCategoria']);
     $stmt->bindParam(':idMarca',$produto['idMarca']);
     $stmt->bindParam(':nomeProduto',$produto['nomeProduto']);
@@ -35,7 +38,7 @@ function salvarProduto($produto)  {
 function listarProdutos() {
     $conn = conectar();
 
-    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria from produto order by nomeProduto");
+    $stmt = $conn->prepare("SELECT id, nomeProduto, descricaoResumida, descricaoDetalhada, url, valor, qtdeEstoque, idCategoria from produto order by nomeProduto");
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $retorno;
@@ -44,7 +47,7 @@ function listarProdutos() {
 function listarProdutosPorCategoria($idCategoria) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria from produto where id_categoria = :idCategoria order by nomeProduto");
+    $stmt = $conn->prepare("SELECT id, nomeProduto, descricaoResumida, url, valor, qtdeEstoque, idCategoria from produto where idCategoria = :idCategoria order by nomeProduto");
     $stmt->bindParam(':idCategoria',$idCategoria);
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -56,7 +59,7 @@ function pesquisaProdutos($palavraChave) {
 
     $pesquisa = "%$palavraChave%";
 
-    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtde, id_categoria
+    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtdeEstoque, idCategoria
     from produto
     where nomeProduto like :pesquisa    
     order by nomeProduto");
@@ -70,7 +73,7 @@ function pesquisaProdutos($palavraChave) {
 function buscarProduto($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select id, nomeProduto, descricao, url, valor, qtde, id_categoria from produto where id = :id");
+    $stmt = $conn->prepare("select descricaoResumida, descricaoDetalhada, idCategoria, idMarca, nomeProduto, qtdeEstoque, url, valor from produto where id = :id");
     $stmt->bindParam(':id',$id);
 
     $stmt->execute();
@@ -80,15 +83,17 @@ function buscarProduto($id) {
 function editarProduto($produto){
     $conn = conectar();
 
-    $stmt = $conn->prepare('UPDATE produto set nomeProduto = :nomeProduto, descricao = :descricao, url = :url, valor = :valor, qtde = :qtde, id_categoria = :id_categoria where id = :id');
+    $stmt = $conn->prepare('UPDATE produto set nomeProduto = :nomeProduto, descricaoResumida = :descricaoResumida, descricaoDetalhada = :descricaoDetalhada, url = :url, valor = :valor, qtdeEstoque = :qtdeEstoque, idCategoria = :idCategoria, idMarca = :idMarca where id = :id');
     $stmt->bindParam(':id',$produto['id']);
 
     $stmt->bindParam(':nomeProduto',$produto['nomeProduto']);
-    $stmt->bindParam(':descricao',$produto['descricao']);
+    $stmt->bindParam(':descricaoResumida',$produto['descricaoResumida']);
+    $stmt->bindParam(':descricaoDetalhada',$produto['descricaoDetalhada']);
     $stmt->bindParam(':url',$produto['url']);
     $stmt->bindParam(':valor',$produto['valor']);
-    $stmt->bindParam(':qtde',$produto['qtde']);
-    $stmt->bindParam(':id_categoria',$produto['id_categoria']);
+    $stmt->bindParam(':qtdeEstoque',$produto['qtdeEstoque']);
+    $stmt->bindParam(':idCategoria',$produto['idCategoria']);
+    $stmt->bindParam(':idMarca',$produto['idMarca']);
 
     if ($stmt->execute()){
         return "Produto alterado com sucesso!";

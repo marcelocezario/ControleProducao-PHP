@@ -113,7 +113,7 @@
                   <img class="d-block img-fluid" src="<?=$produtos[$i]['url'].' w'.$larguraImagem.'xh'.$alturaImagem.'.jpg'?>" alt="slide <?= $i ?>">
                 </a>
                 <div class="carousel-caption d-none d-md-block">
-                    <h1 class="display-4"><?=$produtos[$i]['nomeProduto']?></h1>
+                    <h2 class="display-6"><?=$produtos[$i]['nomeProduto']?></h2>
                     <h4><span class="badge badge-light">R$ <?=$produtos[$i]['valor']?></span></h4>
                 
                 </div>
@@ -157,7 +157,7 @@
                     <a href="detalhesProduto.php?acao=carregar&idProduto=<?=$produto['id']?>"><?=$produto['nomeProduto']?></a>
                   </h4>
                   <h5><?='R$ '.$produto['valor']?></h5>
-                  <p class="card-text"><?=$produto['descricao']?></p>
+                  <p class="card-text"><?=$produto['descricaoResumida']?></p>
                 </div>
                 <div class="card-footer text-center">
                   <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small><br/>

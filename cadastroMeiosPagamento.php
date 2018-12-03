@@ -77,7 +77,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Forma Pagamento</th>
-                    <th>Númemro máximo de Parcelas</th>
+                    <th>Número máximo de Parcelas</th>
                     <th>Taxa de juros parcelamento</th>
                 </tr>
             </thead>

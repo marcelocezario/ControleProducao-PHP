@@ -75,7 +75,7 @@ create table produto(
 id int not null PRIMARY KEY AUTO_INCREMENT,
 ativo boolean,
 descricaoResumida varchar(200),
-descricaoCompleta varchar(2000),
+descricaoDetalhada varchar(2000),
 idCategoria INTEGER,
 idMarca INTEGER,
 nomeProduto varchar(80),
