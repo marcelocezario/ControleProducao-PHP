@@ -15,11 +15,15 @@
         if ($_GET['acao'] == 'carregar') {
             $produtos = listarProdutosPorCategoria($idCategoria);
         }
+      } else {
+          // filtra pela pesquisa
+          if(!empty($_GET['pesquisa'] && $_GET['pesquisa'] != "")){
+            $produtos = pesquisaProdutos($_GET['pesquisa']);
+          } else {
+            $produtos = array();
+          }
       }
 
-      if(!empty($_GET['pesquisa'])){
-            $produtos = pesquisaProdutos($_GET['pesquisa']);
-      }
     }
     else {
       $produtos = listarProdutos();
@@ -62,6 +66,18 @@
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
+
+          <?php
+              if (empty($produtos)){
+          ?>
+                <div class="jumbotron-fluid">
+                    <div class="container">
+                      <h1 class="display-4">Sua pesquisa não retornou nenhum resultado =(</h1>
+                    </div>
+                </div>
+          <?php
+              }
+          ?>
 
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">

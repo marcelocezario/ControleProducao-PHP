@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="#">New Submarino</a>
+        <a class="navbar-brand" href="index.php">New Submarino</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -13,9 +13,7 @@
                 <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Busca</button>
               </form>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="index.php">Home</a>
-            </li>
+            
 
 
 
@@ -51,7 +49,6 @@
           ?>   
             <li class="nav-item">
               <label class="nav-link" href="cliente.php?acao=carregar&id=<?=$cliente['id']?>">Ola <?=$cliente['nome']?></label>
-              
             </li>
 
             
@@ -78,7 +75,7 @@
                     <li class="nav-item">
                   <a class="btn btn-link" href="carrinho.php">
                     <span class="badge badge-pill badge-light">
-                      Itens no carrinho 
+                      Meu carrinho 
                       <?php
                       if(!empty($_SESSION['carrinho'])){
                         ?>

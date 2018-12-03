@@ -15,7 +15,6 @@
         $_SESSION['cliente'] = $cliente;
 
         header("location: ".$_POST['urlAnterior']);
-        //header("location: produtos.php");
     } else {
         echo "Login ou senha inválido(s)";
     }
