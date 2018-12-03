@@ -137,7 +137,7 @@ if(!empty($_POST)) {
                             <label for="course">Estado</label>
                             <div class="form-select">
                             <input type="hidden" name="ufRetorno" id="ufRetorno" value="">
-                            <select id="id_uf" name="id_uf">
+                            <select id="idEstado" name="idEstado">
                                 <option value="" disabled selected>Uf</option>
                                 <?php
                                     $estados = listarEstados(); 

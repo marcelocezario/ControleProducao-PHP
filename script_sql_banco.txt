@@ -22,11 +22,20 @@ define("SENHA","");
 define("BANCODEDADOS","ecommerce");
 
 
-/************* Cliente *************\
+/************* Gerar Tabelas Banco *************\
+
+CREATE TABLE estado (
+
+id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+sigla VARCHAR(2) NOT NULL,
+descricao VARCHAR(30) NOT NULL
+
+);
 
 CREATE TABLE cliente (
 
-acesso decimal(1)
+id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+acesso decimal(1),
 apelido varchar(80),
 ativo boolean,
 bairro varchar(80),
@@ -36,25 +45,23 @@ complemento varchar(80),
 cpf varchar(17),
 dtNascimento varchar(11),
 email varchar(80),
-id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-id_estado int,
+idEstado int,
 logradouro varchar(80),
 nome varchar(80),
 numero varchar(6),
 senha varchar(20),
 telefone varchar(15),
+FOREIGN KEY (idEstado) REFERENCES estado (id)
 );
 
-/************* Categoria *************\
 create table categoria(
 
-descricao varchar(150)
 id int not null PRIMARY KEY AUTO_INCREMENT,
-nomeCategoria varchar(80),
+descricao varchar(150),
+nomeCategoria varchar(80)
 
 );
 
-/************* Marca *************\
 create table marca(
 
 id int not null PRIMARY KEY AUTO_INCREMENT,
@@ -63,7 +70,6 @@ fornecedor varchar(150)
 
 );
 
-/************* Produto *************\
 create table produto(
 
 id int not null PRIMARY KEY AUTO_INCREMENT,
@@ -81,41 +87,41 @@ FOREIGN KEY (idMarca) REFERENCES marca (id)
 
 );
 
-
-/************* Formas de Pagamento *************\
-create table formaPagamento(
+create table meioPagamento(
 
 id int not null PRIMARY KEY AUTO_INCREMENT,
 formaPagamento varchar (80),
-nrParcelas integer,
+nrMaxParcelas integer,
 txJurosParcelamento decimal(10,2)
 
 );
 
-/************* Venda *************\
 create table venda(
+
 id int not null PRIMARY KEY AUTO_INCREMENT,
+bairro varchar(80),
+cep varchar(10),
+cidade varchar (80),
+complemento varchar(80),
 data date,
 idCliente integer,
-idFormaPagamento integer,
-cep varchar(10),
+idEstado int,
+idMeioPagamento integer,
 logradouro varchar(80),
-numero varchar(6),
-complemento varchar(80),
-bairro varchar(80),
-cidade varchar (80),
-id_estado int,,
 nomeCliente varchar (80),
+nrParcelas integer,
+nrPedido varchar(80),
+numero varchar(6),
 valorFrete decimal(10,2),
 valorTotal decimal(10,2),
-nrParcelas integer,
 valorParcela decimal (10,2),
 FOREIGN KEY (idCliente) REFERENCES cliente (id),
-FOREIGN KEY (idFormaPagamento) REFERENCES formapagamento (id)
+FOREIGN KEY (idEstado) REFERENCES estado (id),
+FOREIGN KEY (idMeioPagamento) REFERENCES meiopagamento (id)
+
 );
 
 
-/************* Item Venda *************\
 create table itemVenda(	
 
 id int not null PRIMARY KEY AUTO_INCREMENT,
@@ -127,18 +133,14 @@ qtde INTEGER,
 valorTotal decimal(10,2),
 foreign key (idProduto) references produto (id),
 foreign key (idVenda) references venda (id)
-);
-
-
-/************* Estado *************\
-
-CREATE TABLE estado (
-
-id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
-sigla VARCHAR(2) NOT NULL,
-descricao VARCHAR(30) NOT NULL
 
 );
+
+
+
+
+
+/************* Gerar Dados Banco *************\
  
 INSERT INTO estado (`sigla`, `descricao`) VALUES ('AC', 'Acre');
 INSERT INTO estado (`sigla`, `descricao`) VALUES ('AL', 'Alagoas');
@@ -167,6 +169,8 @@ INSERT INTO estado (`sigla`, `descricao`) VALUES ('SC', 'Santa Catarina');
 INSERT INTO estado (`sigla`, `descricao`) VALUES ('SP', 'São Paulo');
 INSERT INTO estado (`sigla`, `descricao`) VALUES ('SE', 'Sergipe');
 INSERT INTO estado (`sigla`, `descricao`) VALUES ('TO', 'Tocantins');
+
+
 
 /******************** Corigir UTF8 ******************/
 add na my.ini

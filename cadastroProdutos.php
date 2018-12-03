@@ -90,38 +90,41 @@
         <div class="row">
         <div class="form-group col-md-4">
                 <label for="nomeProduto">Nome do Produto</label>
-                <input type="text" class="form-control" maxlength="40" requered name="nomeProduto" id="nomeProduto" placeholder="Digite o nome do produto" value="<?=$nomeProduto?>">
+                <input type="text" class="form-control" maxlength="40" requered name="nomeProduto" id="nomeProduto"
+                placeholder="Nome do produto"value="<?=$nomeProduto?>">
             </div>
 
             <div class="form-group col-md-4">
-                <label for="descricaoResumida">Descrição </label>
-                <input type="text" maxlength="50" class="form-control" id="descricaoResumida" name="descricaoResumida" placeholder="Digite a Descrição" required value="<?=$descricaoResumida?>">
+                <label for="descricaoResumida">Descrição Resumida</label>
+                <input type="text" maxlength="50" class="form-control" id="descricaoResumida"
+                name="descricaoResumida" placeholder="Descrição resumida do produto" required value="<?=$descricaoResumida?>">
             </div>
 
   
         </div>
         <div class="row">
 
-                <div class="form-group col-md-4">
-                <label for="descricaoResumida">Descrição </label>
-                <input type="text" maxlength="50" class="form-control" id="descricaoResumida" name="descricaoResumida" placeholder="Digite a Descrição" required value="<?=$descricaoResumida?>">
+                <div class="form-group col-md-8">
+                <label for="descricaoDetalhada">Descrição Detalhada</label>
+                <textarea class="form-control" maxlength="2000" id="descricaoDetalhada" name="descricaoDetalhada"
+                placeholder="Descrição detalhada do produto" required rows="4"></textarea>
                 </div> 
                 </div> 
 
         <div class="row">
-            <div class="form-group col-md-3">
-                <label for="valor">Valor</label>
-                <input type="text" class="cpf form-control" name="valor" id="valor" placeholder="Digite o valor do Produto" value="<?=$valor?>">
+            <div class="form-group col-md-2">
+                <label for="valor"><br>Valor</label>
+                <input type="text" class="cpf form-control" name="valor" id="valor" required placeholder="Valor do Produto" value="<?=$valor?>">
             </div>
-            <div class="form-group col-md-3">
+            <div class="form-group col-md-2">
                 <label for="qtdeEstoque">Quantidade em estoque</label>
-                    <input type="number" class="sp_celphones form-control" id="qtdeEstoque" name="qtdeEstoque" placeholder="Quantidade Estoque" maxlength="15 " required value="<?=$qtdeEstoque?>">
+                    <input type="number" class="sp_celphones form-control" id="qtdeEstoque" required min="0"
+                    name="qtdeEstoque" placeholder="Estoque" maxlength="15" required value="<?=$qtdeEstoque?>">
             </div>
-        </div>
 
-        <div class="row">
-            <div class="form-group col-md-3">
-                <label for="idCategoria">Categoria</label>
+
+            <div class="form-group col-md-4">
+                <label for="idCategoria"><br>Categoria</label>
                 <select class="form-control" id="idCategoria" name="idCategoria">
                     <option value="" disabled selected>Selecione uma Categoria </option>
                     <?php
@@ -142,6 +145,12 @@
                     ?>
                 </select>
             </div>
+
+
+
+        </div>
+
+        <div class="row">
 
             <div class="form-group col-md-3">
                 <label for="idMarca">Marca</label>
@@ -165,24 +174,15 @@
                     ?>
                 </select>
             </div>
-        </div>
 
-
-
-        <div class="row">
-        <div class="form-group col-md-5">
+            <div class="form-group col-md-5">
                 <label for="imagem">Imagem</label>
                 <input type="file" class="form-control" name="image"
                 id="imagem" >
             </div >
-            </div>
-        
+        </div>
 
-
-
-
-
-        <button type="submit" class="btn btn-primary">Salvar</button>
+<button type="submit" class="btn btn-primary">Salvar</button>
     </form>
         <table class="table table-dark">
                 <thead>

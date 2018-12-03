@@ -51,14 +51,15 @@
 
         <div class="form-group">
             <label for="nomeCategoria">Nome da Categoria</label>
-            <input type="text" class="form-control" maxlength="40" requered name="nomeCategoria" id="nomeCategoria" placeholder="Digite o nome da Categoria" value="<?=$nomeCategoria?>">
+            <input type="text" class="form-control" maxlength="40" required name="nomeCategoria" id="nomeCategoria" placeholder="Digite o nome da Categoria" value="<?=$nomeCategoria?>">
         </div>
 
         <div class="form-group">
             <label for="descricao">Descrição</label>
-            <input type="text"  maxlength="200" class="form-control" name="descricao" id="descricao" placeholder="Digite a descrição da categoria" value="<?=$descricao?>">
+            <input type="text" required maxlength="200" class="form-control" name="descricao" id="descricao"
+            placeholder="Digite a descrição da categoria" value="<?=$descricao?>">
         </div>
-        <input type="submit" value="Salvar" class="btn btn-primary" /> 
+        <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
         <table class="table table-dark">
             <thead>
@@ -95,6 +96,10 @@
             ?>
         </table>
     
-</main>
+        </main>
+
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

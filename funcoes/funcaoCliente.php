@@ -13,8 +13,8 @@ function salvarCliente($cliente){
     $ativo = true;
     $acesso = 1;
     $conn = conectar();    
-    $stmt = $conn->prepare('INSERT INTO cliente (nome, apelido, dtNascimento, cpf, telefone, cep, logradouro, numero, complemento, bairro, cidade, id_estado, email, senha, ativo, acesso)
-    VALUES(:nome, :apelido, :dtNascimento, :cpf, :telefone, :cep, :logradouro, :numero, :complemento, :bairro, :cidade, :id_estado, :email, :senha, :ativo, :acesso)');
+    $stmt = $conn->prepare('INSERT INTO cliente (nome, apelido, dtNascimento, cpf, telefone, cep, logradouro, numero, complemento, bairro, cidade, idEstado, email, senha, ativo, acesso)
+    VALUES(:nome, :apelido, :dtNascimento, :cpf, :telefone, :cep, :logradouro, :numero, :complemento, :bairro, :cidade, :idEstado, :email, :senha, :ativo, :acesso)');
     
     $stmt->bindParam(':nome',$cliente['nome']);
     $stmt->bindParam(':apelido',$cliente['apelido']);
@@ -27,7 +27,7 @@ function salvarCliente($cliente){
     $stmt->bindParam(':complemento',$cliente['complemento']);
     $stmt->bindParam(':bairro',$cliente['bairro']);
     $stmt->bindParam(':cidade',$cliente['cidade']);
-    $stmt->bindParam(':id_estado',$cliente['id_estado']);
+    $stmt->bindParam(':idEstado',$cliente['idEstado']);
     $stmt->bindParam(':email',$cliente['email']);
     $stmt->bindParam(':senha',$cliente['senha']);
     $stmt->bindParam(':ativo',$ativo);
@@ -54,7 +54,7 @@ function editarCliente($cliente){
 
     $stmt = $conn->prepare('UPDATE cliente SET nome = :nome, apelido = :apelido, dtNascimento = :dtNascimento, cpf = :cpf, 
     telefone = :telefone, cep = :cep , logradouro = :logradouro, numero = :numero, complemento = :complemento, bairro = :bairro, 
-    id_estado = :id_estado, email = :email, senha = :senha, ativo = :ativo  WHERE id = :id');
+    idEstado = :idEstado, email = :email, senha = :senha, ativo = :ativo  WHERE id = :id');
 
     $stmt->bindParam(':nome',$cliente['nome']);
     $stmt->bindParam(':apelido',$cliente['apelido']);
@@ -67,7 +67,7 @@ function editarCliente($cliente){
     $stmt->bindParam(':complemento',$cliente['complemento']);
     $stmt->bindParam(':bairro',$cliente['bairro']);
     $stmt->bindParam(':cidade',$cliente['cidade']);
-    $stmt->bindParam(':id_estado',$cliente['id_estado']);
+    $stmt->bindParam(':idEstado',$cliente['idEstado']);
     $stmt->bindParam(':email',$cliente['email']);
     $stmt->bindParam(':senha',$cliente['senha']);
     $stmt->bindParam(':ativo',$ativo);
@@ -97,7 +97,7 @@ function excluirCliente($id){
 
 function buscarCliente($id){
     $conn = conectar();    
-    $stmt = $conn->prepare('SELECT id, nome, apelido, dtNascimento, cpf, telefone, cep, logradouro, numero, complemento, bairro, cidade, id_estado, email, senha, ativo, acesso from cliente where id = :id');
+    $stmt = $conn->prepare('SELECT id, acesso, apelido, ativo, bairro, cep, cidade, complemento, cpf, dtNascimento, email, idEstado, logradouro, nome, numero, telefone from cliente where id = :id');
     $stmt->bindParam(':id',$id);
     $stmt->execute();    
     return $stmt->fetch(PDO::FETCH_ASSOC); 

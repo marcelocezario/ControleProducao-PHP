@@ -3,8 +3,6 @@
     require_once "funcoes/funcaoCompra.php";
     include_once("default/header.php");
 
-
-
     if (!empty($_GET)) {
 
       // filtra por categoria

@@ -13,36 +13,35 @@
                 <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Busca</button>
               </form>
             </li>
+ 
             
 
 
 
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="navbarDropdownProdutos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="produtos.php">
-                Produtos
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProdutos">
-
-                <a class="dropdown-item" href="produtos.php">Lista de Produtos</a>
-                <a class="dropdown-item" href="cadastroProdutos.php">Cadastro de Produtos</a>
-                <a class="dropdown-item" href="cadastroCategorias.php">Cadastro de Categorias</a>
-                <a class="dropdown-item" href="cadastroMarcas.php">Cadastro de Marcas</a>
-                
+            
                 <?php
                     if(!empty($_SESSION['cliente'])){
                       if($_SESSION['cliente']['acesso'] == 2){
-                  ?>                       
+                ?>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownProdutos" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false" href="#">
+                Cadastros
+                </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProdutos">
+                     
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="cadastroCategorias.php">Cadastro de Categorias</a>
-                    <a class="dropdown-item" href="cadastroProdutos.php">Cadastro de Produtos</a>
-                    <a class="dropdown-item" href="cadastroMarcas.php">Cadastro de Marcas</a>
+                    <a class="dropdown-item" href="cadastroCategorias.php">Categorias</a>
+                    <a class="dropdown-item" href="cadastroProdutos.php">Produtos</a>
+                    <a class="dropdown-item" href="cadastroMarcas.php">Marcas</a>
+                    <a class="dropdown-item" href="cadastroMeioPagamento.php">Meios de Pagamento</a>
+                    </div>
+          </li>
                   <?php
                       }
                     }
-
                   ?>
-              </div>
-          </li>
+
            
             <?php
             if(!empty($_SESSION['cliente'])){
