@@ -75,7 +75,8 @@
                     <li class="nav-item">
                   <a class="btn btn-link" href="carrinho.php">
                     <span class="badge badge-pill badge-light">
-                      Meu carrinho 
+                      Meu carrinho
+                      <span class="badge badge-pill badge-success">
                       <?php
                       if(!empty($_SESSION['carrinho'])){
                         ?>
@@ -87,7 +88,9 @@
                         <?php
                       }
                       ?>
-                    </span>
+
+</span>
+</span>
                     </a>
             </li>
 
