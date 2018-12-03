@@ -17,7 +17,9 @@
                 $idProduto = $_GET['idProduto'];
                 
                 $produto = buscarProduto($idProduto);
-                $itemVenda['idTemp'] = count($_SESSION['carrinho'])+1;
+                $ultimoItem = end($_SESSION['carrinho']);
+
+                $itemVenda['idTemp'] = $ultimoItem['idTemp']+1;
                 $itemVenda['idProduto'] = $idProduto;
                 $itemVenda['idVenda'] = 0;
                 $itemVenda['nomeProduto'] = $produto['nomeProduto'];

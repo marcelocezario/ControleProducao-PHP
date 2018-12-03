@@ -27,23 +27,42 @@ if (!empty($_SESSION['cliente'])){
 
     $totalCarrinho = 0;
     $totalFrete = 0;
+    $prazoEntrega = 0;
+
+    $idTemp = 0;
 
     foreach($carrinho as $item){
-        $totalCarrinho += $item['valorTotal']
+        $totalCarrinho += $item['valorTotal'];
+    }
+
+    if (!empty($_POST['cep'])){
+        $cepOrigem = 83030580;
+        $cepDestino = $_POST['cep'];
+
+        $valorDeclarado = $totalCarrinho;
+
+        if ($valorDeclarado < 50){
+            $valorDeclarado = 50;
+        } elseif ($valorDeclarado > 10000){
+            $valorDeclarado = 10000;
+        }
+
+        $frete = consultaFrete($cepOrigem, $cepDestino, $valorDeclarado);
         
-        if (!empty($_POST['cep'])){
-            $cepOrigem = 83030580;
-            $cepDestino = $_POST['cep'];
-
-            $frete = calcularFrete($cepOrigem, $cepDestino, $item['valorTotal']);
-            $totalFrete = $totalFrete + $frete['Valor'];
-
+        if($totalCarrinho > 10000){
+            $totalFrete = $frete['Valor'] * ($totalCarrinho / $valorDeclarado);
+        } else {
+            $totalFrete = $frete['Valor'];
+        }
+        
+        if($prazoEntrega < $frete['PrazoEntrega']){
+            $prazoEntrega = $frete['PrazoEntrega'];
         }
     }
 
-    
+    $totalCarrinho = $totalCarrinho + $totalFrete;
 
-    
+
 
 ?>
 
@@ -54,7 +73,6 @@ if (!empty($_SESSION['cliente'])){
   <body>
         <?php    
             include_once("default/navbar.php");
-
         ?>
         <div>
 <br/>
@@ -69,7 +87,7 @@ if (!empty($_SESSION['cliente'])){
                 <?php
                     if (!empty($cliente)){
                 ?>
-                    <h1 class="display-4">Olá Sr(a) <?=$cliente['apelido']?>,</h1>
+                    <h1 class="display-4">Olá <?=$cliente['apelido']?>,</h1>
                 <?php
                     } else {
                 ?>
@@ -78,8 +96,24 @@ if (!empty($_SESSION['cliente'])){
                     }
                 ?>
                     <?php
-                        if(count($carrinho)>0){
-                    ?>            
+                        if(!count($carrinho)>0){
+                    ?>
+
+                    <p class="lead">Parece que não tem nenhum produto no seu carrinho =(
+                    <br>Não perca tempo e aproveite nossas ofertas</p>
+
+
+
+
+
+
+                    <?php
+                            } else {
+                    ?>
+                    
+                    
+                    
+                    
                     <p class="lead">esse é seu carrinho de compras, clique em Finalizar Pedido para garantir essas ofertas</p>
 
                     </div>
@@ -93,14 +127,9 @@ if (!empty($_SESSION['cliente'])){
                         </div>
                     </div>
                     
-                    <?php
-                            } else {
-                    ?>
-                    <p class="lead">Parece que não tem nenhum produto no seu carrinho =(
-                    <br>Não perca tempo e aproveite nossas ofertas</p>
-                    <?php
-                            }
-                    ?>
+
+                    
+                    
 
                 </div>
 
@@ -138,19 +167,19 @@ if (!empty($_SESSION['cliente'])){
                             
                             
                             <td>
-                            <a class="btn btn-link" href="adicionarCarrinho.php?qtde=diminuir&id=<?=$idTemp?>">
+                            <a class="btn btn-link" href="adicionarCarrinho.php?qtde=diminuir&id=<?=$item['idTemp']-1?>">
                                 <span class="badge badge-pill badge-danger">-</span>
                             </a>
                             
                             <?=$item['qtde']?>
-                            <a class="btn btn-link" href="adicionarCarrinho.php?qtde=aumentar&id=<?=$idTemp?>">
+                            <a class="btn btn-link" href="adicionarCarrinho.php?qtde=aumentar&id=<?=$item['idTemp']-1?>">
                                 <span class="badge badge-pill badge-success">+</span>
                             </a>
                             </td>
 
                             <td><?=$item['valorTotal']?></td>
                             <td>
-                                <a href="adicionarCarrinho.php?acao=remover&id=<?=$idTemp?>" 
+                                <a href="adicionarCarrinho.php?acao=remover&id=<?=$item['idTemp']-1?>" 
                                     class="btn btn-primary"
                                     onclick="return confirm('Você está certo disso?');">
                                     Remover
@@ -168,7 +197,7 @@ if (!empty($_SESSION['cliente'])){
                             <div class="text-right">
 
                             <form action="carrinho.php" method="POST" enctype="multipart/form-data">
-                                <input type="number" name="cep" value="<?=$_POST['cep']?>">
+                                <input type="number" name="cep" value="">
                                 <button type="submit" class="badge badge-light">Calcular Frete </button>
                             </form>
 
@@ -177,9 +206,9 @@ if (!empty($_SESSION['cliente'])){
                         <td colspan="6">
                             <div class="text-right">
 
-                                <h6>Valor do frete: <?=$totalCarrinho?></h6>
+                                <h6>Valor do frete: <?=$totalFrete?></h6>
                                 <br>
-                                <h6>Prazo para entrega: <?=$totalCarrinho?> dias</h6>
+                                <h6>Prazo para entrega: <?=$prazoEntrega?> dias</h6>
                             </div>
                                </td>
                                </tr>
@@ -199,6 +228,11 @@ if (!empty($_SESSION['cliente'])){
                     <button type="submit" class="badge badge-danger">Limpar carrinho
                     </button>
                  </form>
+
+                                     <?php
+                            }
+                    ?>
+
                 </div>
 
                 </div>
