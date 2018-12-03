@@ -14,7 +14,7 @@ function salvarCliente($cliente){
     $acesso = 1;
     $conn = conectar();    
     $stmt = $conn->prepare('INSERT INTO cliente (nome, apelido, dtNascimento, cpf, telefone, cep, logradouro, numero, complemento, bairro, cidade, id_estado, email, senha, ativo, acesso)
-    VALUES(:nome, :dtNascimento, :cpf, :telefone, :cep, :rua, :numero, :complemento, :bairro, :cidade, :id_estado, :email, :senha, :ativo, :acesso)');
+    VALUES(:nome, :apelido, :dtNascimento, :cpf, :telefone, :cep, :logradouro, :numero, :complemento, :bairro, :cidade, :id_estado, :email, :senha, :ativo, :acesso)');
     
     $stmt->bindParam(':nome',$cliente['nome']);
     $stmt->bindParam(':apelido',$cliente['apelido']);

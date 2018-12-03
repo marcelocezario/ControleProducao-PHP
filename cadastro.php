@@ -57,10 +57,7 @@ if(!empty($_POST)) {
         $cpf = $_POST['cpf'];
         $telefone = $_POST['telefone'];
         $cep = $_POST['cep'];
-        $rua = $_POST['rua'];
-        $numero = $_POST['numero'];
-        $bairro = $_POST['bairro'];
-        $id_estado = $_POST['id_estado'];
+        $id_uf = $_POST['id_uf'];
         $email = $_POST['email'];
     }else{
         salvarCliente($_POST);
@@ -243,10 +240,6 @@ if(!empty($_POST)) {
     $('#cep').mask('00000-000');
 </script>
 
-
-/*
-     * Código de consulta de cep
-     */
     <!-- Adicionando JQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -330,11 +323,5 @@ if(!empty($_POST)) {
         });
 
     </script>
-    /*
-     * Fim do código consulta de cep
-     */
-
-
-
-
+    </body>
 </html>
