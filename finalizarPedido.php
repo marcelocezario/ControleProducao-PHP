@@ -4,6 +4,7 @@ include_once("default/header.php");
 if (!empty($_SESSION['cliente'])){
     $cliente = $_SESSION['cliente'];
 } else {
+    $_SESSION['urlAnterior'] = "finalizarPedido.php";
     header("location: login.php");
 }
 ?>

@@ -24,7 +24,14 @@ if (!empty($_SESSION['cliente'])){
     } else {
         $carrinho = array();
     }
-   
+
+    $totalCarrinho = 0;
+
+    foreach($carrinho as $item){
+        $totalCarrinho += $item['valorTotal'];
+    }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +50,9 @@ if (!empty($_SESSION['cliente'])){
 
         <div class="jumbotron-fluid">
                 <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-10">
+
                 <?php
                     if (!empty($cliente)){
                 ?>
@@ -58,10 +68,18 @@ if (!empty($_SESSION['cliente'])){
                         if(count($carrinho)>0){
                     ?>            
                     <p class="lead">esse é seu carrinho de compras, clique em Finalizar Pedido para garantir essas ofertas</p>
-                    <div class=text-right>
-                        <a class="btn btn-primary btn-lg" href="finalizarPedido.php">Finalizar Pedido</a>
-                        <br><br>
+
+                    </div>
+                        <div class="col-2">
+
+                            <form action="finalizarPedido.php" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="urlAnterior" value="<?=$_SERVER['REQUEST_URI']?>">
+                                <button type="submit" class="btn btn-primary btn-lg">Finalizar Pedido</button>
+                            </form>
+
                         </div>
+                    </div>
+                    
                     <?php
                             } else {
                     ?>
@@ -127,11 +145,18 @@ if (!empty($_SESSION['cliente'])){
                             </td>
 
                         </tr>
+                        
                     </tbody>
                 <?php 
                      $idTemp++;
                     }
                 ?>
+                        <td colspan="6">
+                            <div class="text-right">
+
+                                <h4>Valor total da compra: <?=$totalCarrinho?></h4>
+                            </div>
+                               </td>
             </table>
 
                 <div>
