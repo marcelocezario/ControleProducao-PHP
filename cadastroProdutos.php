@@ -9,12 +9,14 @@
 
 
     $id = "";
+    $descricaoResumida = ""; 
+    $descricaoCompleta = ""; 
+    $idCategoria = "";
+    $idMarca = "";
     $nomeProduto = "";
-    $descricao = ""; 
-    $valor = "";
-    $qtde = "";
-    $id_categoria = "";
+    $qtdeEstoque = "";
     $url = "";
+    $valor = "";
 
     if (!empty($_GET)) {
         $id = $_GET['id'];
@@ -22,12 +24,14 @@
         if ($_GET['acao'] == 'carregar') {
             
             $produto = buscarProduto($id);
+            $descricaoResumida = $produto['descricaoResumida'];
+            $descricaoCompleta = $produto['descricaoCompleta'];
+            $idCategoria = $produto['idCategoria'];
+            $idMarca = $produto['idMarca'];
             $nomeProduto = $produto['nomeProduto'];
-            $descricao = $produto['descricao'];
-            $valor = $produto['valor'];
-            $qtde = $produto['qtde'];
-            $id_categoria = $produto['id_categoria'];
+            $qtdeEstoque = $produto['qtdeEstoque'];
             $url = $produto['url'];
+            $valor = $produto['valor'];
         }
         if ($_GET['acao'] == 'excluir') {
             excluirProduto($id);
@@ -70,7 +74,7 @@
 
     $produtos = listarProdutos();
 
-    $_SESSION('urlAnterior') = $_SERVER['REQUEST_URI'];
+    $_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
 
 ?>
 <!DOCTYPE html>
@@ -84,37 +88,41 @@
         <form action="cadastroProdutos.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" id="id" name="id" value="<?=$id?>"/>
         <div class="row">
-            <div class="form-group col-md-3">
+        <div class="form-group col-md-4">
                 <label for="nomeProduto">Nome do Produto</label>
                 <input type="text" class="form-control" maxlength="40" requered name="nomeProduto" id="nomeProduto" placeholder="Digite o nome do produto" value="<?=$nomeProduto?>">
             </div>
 
             <div class="form-group col-md-4">
-                <label for="descricao">Descrição </label>
-                <input type="text" maxlength="50" class="form-control" id="descricao" name="descricao" placeholder="Digite a Descrição" required value="<?=$descricao?>">
-            </div>  
+                <label for="descricaoResumida">Descrição </label>
+                <input type="text" maxlength="50" class="form-control" id="descricaoResumida" name="descricaoResumida" placeholder="Digite a Descrição" required value="<?=$descricaoResumida?>">
+            </div>
+
+  
         </div>
+        <div class="row">
+
+                <div class="form-group col-md-4">
+                <label for="descricaoResumida">Descrição </label>
+                <input type="text" maxlength="50" class="form-control" id="descricaoResumida" name="descricaoResumida" placeholder="Digite a Descrição" required value="<?=$descricaoResumida?>">
+                </div> 
+                </div> 
 
         <div class="row">
             <div class="form-group col-md-3">
                 <label for="valor">Valor</label>
                 <input type="text" class="cpf form-control" name="valor" id="valor" placeholder="Digite o valor do Produto" value="<?=$valor?>">
             </div>
-            <div class="form-group col-md-4">
-                <label for="qtde">Quantidade</label>
-                    <input type="text" class="sp_celphones form-control" id="qtde" name="qtde" placeholder="Digite a quantidade de produto" maxlength="15 " required value="<?=$qtde?>">
+            <div class="form-group col-md-3">
+                <label for="qtdeEstoque">Quantidade em estoque</label>
+                    <input type="number" class="sp_celphones form-control" id="qtdeEstoque" name="qtdeEstoque" placeholder="Quantidade Estoque" maxlength="15 " required value="<?=$qtdeEstoque?>">
             </div>
         </div>
-        <div class="row">
-            <div class="form-group">
-                <label for="imagem">Imagem</label>
-                <input type="file" class="form-control" name="image"
-                id="imagem" >
-            </div >
 
+        <div class="row">
             <div class="form-group col-md-3">
-                <label for="id_categoria">Categoria</label>
-                <select class="form-control" id="id_categoria" name="id_categoria">
+                <label for="idCategoria">Categoria</label>
+                <select class="form-control" id="idCategoria" name="idCategoria">
                     <option value="" disabled selected>Selecione uma Categoria </option>
                     <?php
                         $categorias = listarCategorias();
@@ -123,7 +131,7 @@
                         
                             foreach ($categorias as $categoria) {
                                 $selected = "";
-                                if($categoria['id'] == $id_categoria){
+                                if($categoria['id'] == $idCategoria){
                                     $selected = "selected";
                                 }
                             ?>                                             
@@ -134,7 +142,46 @@
                     ?>
                 </select>
             </div>
+
+            <div class="form-group col-md-3">
+                <label for="idMarca">Marca</label>
+                <select class="form-control" id="idMarca" name="idMarca">
+                    <option value="" disabled selected>Selecione uma Marca</option>
+                    <?php
+                        $marcas = listarMarcas();
+                        
+                        if(!empty($marcas)){
+                        
+                            foreach ($marcas as $marca) {
+                                $selected = "";
+                                if($marca['id'] == $idMarca){
+                                    $selected = "selected";
+                                }
+                            ?>                                             
+                                <option <?=$selected?> value="<?=$marca['id'];?>"> <?=$marca['nomeMarca']?></option> 
+                            <?php      
+                            }
+                        }
+                    ?>
+                </select>
+            </div>
         </div>
+
+
+
+        <div class="row">
+        <div class="form-group col-md-5">
+                <label for="imagem">Imagem</label>
+                <input type="file" class="form-control" name="image"
+                id="imagem" >
+            </div >
+            </div>
+        
+
+
+
+
+
         <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
         <table class="table table-dark">
@@ -142,8 +189,8 @@
                     <tr>
                         <th>Id</th>
                         <th>Produto</th>
-                        <th>Descrição</th>
-                        <th>Imagem</th>
+                        <th>Valor</th>
+                        <th>Quantidade em Estoque</th>
                     </tr>
                 </thead>
                 <?php
@@ -153,7 +200,8 @@
                         <tr>
                             <td><?=$produto['id']?></td>
                             <td><?=$produto['nomeProduto']?></td>
-                            <td><?=$produto['descricao']?></td>
+                            <td><?=$produto['valor']?></td>
+                            <td><?=$produto['qtdeEstoqueEstoque']?></td>
                             <td>
                             <?php
                                 if(!empty($produto['url'])){                                 

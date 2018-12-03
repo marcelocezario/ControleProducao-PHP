@@ -65,6 +65,7 @@ if (!empty($_SESSION['cliente'])){
     $_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +82,24 @@ if (!empty($_SESSION['cliente'])){
 </div>
 
         <div class="jumbotron-fluid">
+        
                 <div class="container">
+                <?php
+                        if(!count($carrinho)>0){
+                ?>
+                                <div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+                <?php
+                        } else{
+                ?>
+                                <div class="progress">
+  <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+                <?php
+                        }
+                ?>
+
                     <div class="row justify-content-between">
                         <div class="col-10">
 
@@ -119,12 +137,14 @@ if (!empty($_SESSION['cliente'])){
 
                     </div>
                         <div class="col-2">
-
-                            <form action="finalizarPedido.php" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="finalizarPedido" value="<?=$_SERVER['REQUEST_URI']?>">
+                        <br/>
+<br/>
+                            <form action="confirmarPedido.php" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="cep" value="<?=$_POST['cep']?>">
+                                <input type="hidden" name="valorFrete" value="<?=$totalFrete?>">
+                                <input type="hidden" name="valorTotalCarrinho" value="<?=$totalCarrinho?>">
                                 <button type="submit" class="btn btn-primary btn-lg">Finalizar Pedido</button>
                             </form>
-
                         </div>
                     </div>
                     
@@ -198,8 +218,14 @@ if (!empty($_SESSION['cliente'])){
                             <div class="text-right">
 
                             <form action="carrinho.php" method="POST" enctype="multipart/form-data">
-                                <input type="number" name="cep" value="">
-                                <button type="submit" class="badge badge-light">Calcular Frete </button>
+                                <div class="col-5">
+                                    <div class="input-group">
+                                        <input type="number" class="form-control" name="cep" placeholder="Cep" value="<?=$_POST['cep']?>">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-outline-secondary" id="calcularFrete">Calcular Frete</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </form>
 
                             </div>
@@ -223,12 +249,7 @@ if (!empty($_SESSION['cliente'])){
 
                 <div>
 
-
-                <form action="opcoes.php?acao=limpar" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="urlAnterior" value="<?=$_SERVER['REQUEST_URI']?>">
-                    <button type="submit" class="badge badge-danger">Limpar carrinho
-                    </button>
-                 </form>
+                    <a href="opcoes.php?acao=limpar" class="badge badge-danger">Limpar carrinho</a>
 
                                      <?php
                             }

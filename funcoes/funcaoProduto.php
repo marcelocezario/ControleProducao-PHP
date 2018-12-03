@@ -11,16 +11,18 @@ function salvarProduto($produto)  {
     $conn = conectar();
     $ativo = true;
 
-    $stmt = $conn->prepare('INSERT INTO produto (nomeProduto, descricao, url, valor, qtde, id_categoria, ativo)
-        VALUES(:nomeProduto, :descricao, :url, :valor, :qtde, :id_categoria, :ativo)');
+    $stmt = $conn->prepare('INSERT INTO produto (ativo, descricaoResumida, descricaoCompleta, idCategoria, idMarca, nomeProduto, qtdeEstoque, url, valor)
+        VALUES(:ativo, :descricaoResumida, :descricaoCompleta, :idCategoria, :idMarca, :nomeProduto, :qtdeEstoque, :url, :valor)');
  
+    $stmt->bindParam(':ativo',$ativo);
+    $stmt->bindParam(':descricaoResumida',$produto['descricaoResumida']);
+    $stmt->bindParam(':descricaoCompleta',$produto['descricaoCompleta']);
+    $stmt->bindParam(':idCategoria',$produto['idCategoria']);
+    $stmt->bindParam(':idMarca',$produto['idMarca']);
     $stmt->bindParam(':nomeProduto',$produto['nomeProduto']);
-    $stmt->bindParam(':descricao',$produto['descricao']);
+    $stmt->bindParam(':qtdeEstoque',$produto['qtdeEstoque']);
     $stmt->bindParam(':url',$produto['url']);
     $stmt->bindParam(':valor',$produto['valor']);
-    $stmt->bindParam(':qtde',$produto['qtde']);
-    $stmt->bindParam(':id_categoria',$produto['id_categoria']);
-    $stmt->bindParam(':ativo',$ativo);
    
     if ($stmt->execute()){
         return "Produto inserido com sucesso!";
