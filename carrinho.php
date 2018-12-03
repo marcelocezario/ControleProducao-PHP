@@ -8,6 +8,7 @@ if (!empty($_SESSION['cliente'])){
 
 <?php 
     require_once "funcoes/funcaoProduto.php";
+    require_once "funcoes/calculoFrete.php";
     include_once("default/header.php");
 
     
@@ -151,6 +152,15 @@ if (!empty($_SESSION['cliente'])){
                      $idTemp++;
                     }
                 ?>
+                        <td colspan="6">
+                            <div class="text-right">
+
+                                <h6>Valor do frete: <?=$totalCarrinho?></h6>
+                                <br>
+                                <h6>Prazo para entrega: <?=$totalCarrinho?> dias</h6>
+                            </div>
+                               </td>
+                               </tr>
                         <td colspan="6">
                             <div class="text-right">
 

@@ -21,6 +21,8 @@
         } else{
             if(!empty($_POST['urlAnterior'])){
                 header("location: ".$_POST['urlAnterior']);
+
+                print_r($_POST['urlAnterior']);
             } else{
                 header("location: produtos.php");
             }
