@@ -1,33 +1,49 @@
 <?php
 require_once "funcoes/funcaoProduto.php";
 require_once "funcoes/calculoFrete.php";
+require_once "funcoes/funcaoMeioPagamento.php";
 include_once("default/header.php");
 
+$cupom = "";
+$nrCupom = "";
+$percentualDesconto = "";
+
+
 if (!empty($_SESSION['cliente'])){
+
     $cliente = $_SESSION['cliente'];
-    if(empty($_POST)){
-        header("location: carrinho.php");
+
+    if (!empty($_POST)){
+
+
+
     }
-} else {
+    else {
+        if(!empty($_SESSION['cupom'])){
+
+            $cupom = $_SESSION['cupom'];
+            if ($cupom == "Cupom inválido"){
+
+            } else{
+                $nrCupom = $cupom['nrCupom'];
+                $percentualDesconto = $cupom['percentualDesconto'];
+            }
+        }
+        else {
+            header("location: teste.php");
+        }
+    }
+} 
+else{
     $_SESSION['urlAnterior'] = "confirmarPedido.php";
     header("location: login.php");
 }
 
+if (!empty($_POST)){
+    $_SESSION['endereco'] = $_POST;
 
-$cep = "";
-$logradouro = "";
-$numero = "";
-$complemento = "";
-$bairro = "";
-$cidade = "";
-$uf = "";
-
-if (!empty($_POST['cep'])){
-    $cep = $_POST['cep'];
+    $endereco = $_POST;
 }
-
-print_r($_POST);
-
 
 if (!empty($_SESSION['carrinho'])){
     $carrinho = $_SESSION['carrinho'];
@@ -37,6 +53,7 @@ if (!empty($_SESSION['carrinho'])){
     $totalCarrinho = 0;
     $totalFrete = 0;
     $prazoEntrega = 0;
+    $desconto = 0;
 
     $idTemp = 0;
 
@@ -46,7 +63,7 @@ if (!empty($_SESSION['carrinho'])){
 
     if (!empty($_POST['cep'])){
         $cepOrigem = 83030580;
-        $cepDestino = $_POST['cep'];
+        $cepDestino = $endereco['cep'];
 
         $valorDeclarado = $totalCarrinho;
 
@@ -67,9 +84,23 @@ if (!empty($_SESSION['carrinho'])){
         if($prazoEntrega < $frete['PrazoEntrega']){
             $prazoEntrega = $frete['PrazoEntrega'];
         }
+
+        $_SESSION['frete'] = $totalFrete;
+    } else{
+        $totalFrete = $_SESSION['frete'];
     }
 
-    $totalCarrinho = $totalCarrinho + $totalFrete;
+
+    if (!empty($_SESSION['cupom'])){
+        if($_SESSION['cupom'] == "Cupom inválido"){
+            $desconto = 0;
+
+        } else{
+            $desconto = $totalCarrinho * ($_SESSION['cupom']['percentualDesconto'] / 100);
+        }
+    }
+
+    $totalPedido = $totalCarrinho + $totalFrete - $desconto;
 
     $_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
 ?>
@@ -105,54 +136,63 @@ if (!empty($_SESSION['carrinho'])){
 
 <div class="row">
     <div class="col-5">
-            <form action="finalizarPedido.php" method="POST">
-            <input type="hidden" id="id" name="id" value="<?=$id?>"/>
+    <div class="form-group">
 
-            <div class="form-group">
+            <form action="validarCupom.php" method="POST">
                 <div>
-                    <label for="cep">Cep</label>
+                    <label for="cupomDesconto">Cupom desconto</label>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite o cep" value="<?=$cep?>">
+                    <input type="text" class="form-control" id="cupomDesconto" name="cupomDesconto" required placeholder="Digite o cupom de desconto" value="<?=$nrCupom?>">
+                    
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="consultaCep">Consultar</button>
+                        <button type="submit" class="btn btn-outline-secondary" type="button" id="validarCupom">Validar Cupom</button>
                     </div>
                 </div>
             </div>
-            
-            <h3>Endereço</h3>
-                            <div class="form-group">
-                               <label for="logradouro">Logradouro</label>
-                                <input class="form-control" type="text" id="logradouro" requered name="logradouro" placeholder="Logradouro" maxlength="80">
-                            </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="numero">Número</label>
-			                    <input class="form-control" type="text" id="numero" requered name="numero" placeholder="Número" maxlength="10">
-                            </div>
-                            <div class="form-group">
-                                <label for="Complemento">Complemento</label>
-                                <input class="form-control" type="text" id="complemento" name="complemento" maxlength="80" placeholder="Complemento">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                                <label for="Bairro">Bairro</label>
-                                <input class="form-control" type="text" id="bairro" requered name="bairro" maxlength="80" placeholder="Bairro">
-                            </div>
-                            <div class="form-row">
+            </form>
+
+
+
+                <div class="form-row">
+                <div class="form-group">
+
+            <label for="idMarca">Meio de pagamento</label>
+                <select class="form-control" id="idMeioPagamento" name="idMeioPagamento">
+                    <option value="" disabled selected>Selecione um meio de pagamento</option>
+                    <?php
+                        $meiosPagamento = listarMeiosPagamento();
+                        
+                        if(!empty($meiosPagamento)){
+                        
+                            foreach ($meiosPagamento as $meiosPagamento) {
+                                $selected = "";
+                                if($marca['id'] == $idMeioPagamento){
+                                    $selected = "selected";
+                                }
+                            ?>                                             
+                                <option <?=$selected?> value="<?=$meiosPagamento['id'];?>"> <?=$meiosPagamento['formaPagamento']?></option> 
+                            <?php      
+                            }
+                        }
+                    ?>
+                </select>
+                </div>
+
+                <div class="form-row">
 
                             <div class="form-group">
-                                <label for="Cidade">Cidade</label>
-                                <input class="form-control" type="text" id="cidade" requered name="cidade" maxlength="80" placeholder="Cidade">
-                            </div>
-                        <div class="form-group">
-                            <label for="course">Estado</label>
-                            <input class="form-control" type="text" id="uf" name="uf" requered maxlength="2" placeholder="Uf">
-                                </div>
-                        </div>
 
-                        <button type="submit" class="btn btn-primary">Informar dados de pagamento</button>
+                <ul class="list-group">
+                    <li class="list-group-item">Total de produtos: R$ <?=number_format($totalCarrinho,2,",",".")?></li>
+                    <li class="list-group-item">Desconto Cupom: R$ <?=number_format($desconto,2,",",".")?></li>
+                    <li class="list-group-item">Valor do Frete: R$ <?=number_format($totalFrete,2,",",".")?></li>
+                    <li class="list-group-item active">TOTAL DO PEDIDO: R$ <?=number_format($totalPedido,2,",",".")?></li>
 
+                </ul>
+
+                </div>
+</div>
                         
                     </form>
                 </div>

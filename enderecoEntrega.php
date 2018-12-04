@@ -15,62 +15,17 @@ if (!empty($_SESSION['cliente'])){
 
 
 $cep = "";
-$logradouro = "";
-$numero = "";
-$complemento = "";
-$bairro = "";
-$cidade = "";
-$uf = "";
 
 if (!empty($_POST['cep'])){
     $cep = $_POST['cep'];
 }
-
-print_r($_POST);
-
 
 if (!empty($_SESSION['carrinho'])){
     $carrinho = $_SESSION['carrinho'];
 } else {
     $carrinho = array();
 }
-    $totalCarrinho = 0;
-    $totalFrete = 0;
-    $prazoEntrega = 0;
-
-    $idTemp = 0;
-
-    foreach($carrinho as $item){
-        $totalCarrinho += $item['valorTotal'];
-    }
-
-    if (!empty($_POST['cep'])){
-        $cepOrigem = 83030580;
-        $cepDestino = $_POST['cep'];
-
-        $valorDeclarado = $totalCarrinho;
-
-        if ($valorDeclarado < 50){
-            $valorDeclarado = 50;
-        } elseif ($valorDeclarado > 10000){
-            $valorDeclarado = 10000;
-        }
-
-        $frete = consultaFrete($cepOrigem, $cepDestino, $valorDeclarado);
-        
-        if($totalCarrinho > 10000){
-            $totalFrete = round($frete['Valor'] * ($totalCarrinho / $valorDeclarado));
-        } else {
-            $totalFrete = $frete['Valor'];
-        }
-        
-        if($prazoEntrega < $frete['PrazoEntrega']){
-            $prazoEntrega = $frete['PrazoEntrega'];
-        }
-    }
-
-    $totalCarrinho = $totalCarrinho + $totalFrete;
-
+   
     $_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
 ?>
 
@@ -106,14 +61,13 @@ if (!empty($_SESSION['carrinho'])){
 <div class="row">
     <div class="col-5">
             <form action="dadosPagamento.php" method="POST">
-            <input type="hidden" id="id" name="id" value="<?=$id?>"/>
 
             <div class="form-group">
                 <div>
                     <label for="cep">Cep</label>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite o cep" value="<?=$cep?>">
+                    <input type="text" class="form-control" id="cep" name="cep" required placeholder="Digite o cep" value="<?=$cep?>">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="consultaCep">Consultar</button>
                     </div>
@@ -123,31 +77,31 @@ if (!empty($_SESSION['carrinho'])){
             <h3>Endereço</h3>
                             <div class="form-group">
                                <label for="logradouro">Logradouro</label>
-                                <input class="form-control" type="text" id="logradouro" requered name="logradouro" placeholder="Logradouro" maxlength="80">
+                                <input class="form-control" type="text" id="logradouro" required name="logradouro" placeholder="Logradouro" maxlength="80">
                             </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="numero">Número</label>
-			                    <input class="form-control" type="text" id="numero" requered name="numero" placeholder="Número" maxlength="10">
+			                    <input class="form-control" type="text" id="numero" required name="numero" placeholder="Número" maxlength="10">
                             </div>
                             <div class="form-group">
                                 <label for="Complemento">Complemento</label>
-                                <input class="form-control" type="text" id="complemento" name="complemento" maxlength="80" placeholder="Complemento">
+                                <input class="form-control" type="text" id="complemento" required name="complemento" maxlength="80" placeholder="Complemento">
                             </div>
                         </div>
                         <div class="form-group">
                                 <label for="Bairro">Bairro</label>
-                                <input class="form-control" type="text" id="bairro" requered name="bairro" maxlength="80" placeholder="Bairro">
+                                <input class="form-control" type="text" id="bairro" required name="bairro" maxlength="80" placeholder="Bairro">
                             </div>
                             <div class="form-row">
 
                             <div class="form-group">
                                 <label for="Cidade">Cidade</label>
-                                <input class="form-control" type="text" id="cidade" requered name="cidade" maxlength="80" placeholder="Cidade">
+                                <input class="form-control" type="text" id="cidade" required name="cidade" maxlength="80" placeholder="Cidade">
                             </div>
                         <div class="form-group">
                             <label for="course">Estado</label>
-                            <input class="form-control" type="text" id="uf" name="uf" requered maxlength="2" placeholder="Uf">
+                            <input class="form-control" type="text" id="uf" name="uf" required maxlength="2" placeholder="Uf">
                                 </div>
                         </div>
 
