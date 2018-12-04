@@ -159,7 +159,7 @@
                   <p class="card-text"><?=$produto['descricaoResumida']?></p>
                 </div>
                 <div class="card-footer text-center">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small><br/>
+                  <!--<small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small><br/>-->
                   
                   <div class="btn-group" role="group" aria-label="Basic example">
                     <a class="btn btn-primary btn-sm" href="detalhesProduto.php?acao=carregar&idProduto=<?=$produto['id']?>">Detalhes</a>

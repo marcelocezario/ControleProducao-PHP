@@ -43,24 +43,29 @@
         $stmt->bindParam(':valorDesconto',$valores['valorDesconto']);
         $stmt->bindParam(':valorFrete',$valores['valorFrete']);
 
-
-
         $stmt->bindParam(':totalPedido',$valores['totalPedido']);
-
-/*
-        if ($stmt->execute()) {
-            return "Cliente inserido com sucesso!";
-        } else {
-            return "erro! ";
-        } 
-              
-        print_r($stmt);
-    */
+        
         $stmt->execute();
+
+   
+        $id_pedido = $stmt->mysql_insert_id(); 
+
+        foreach ($carrinho as $item) {
+            $stmt = $conn->prepare("insert into itemvenda (idProduto, idVenda, nomeProduto,
+            valorProduto, qtde, valorTotal) values (:idProduto,:idVenda,:nomeProduto, :valorProduto,
+            :qtde, :valorTotal)");
+            $stmt->bindParam(':idProduto',$item['idProduto']);
+            $stmt->bindParam(':nomeProduto', $item['nomeProduto']);
+            $stmt->bindParam(':valorProduto', $item['valor']);
+            $stmt->bindParam(':qtde', $item['qtde']);
+            $stmt->bindParam(':valorTotal', $item['valorTotal']);
+            $stmt->bindParam(':idVenda', $id_pedido);
+            $stmt->execute();
+         }
+
+   /*         
         $id_pedido = $stmt->lastInsertId(); 
-    
-
-
+   
         foreach ($carrinho as $item) {
             $stmt = $conn->prepare("insert into itemvenda (idProduto, idVenda, nomeProduto,
             valorProduto, qtde, valorTotal) values (:idProduto,:idVenda,:nomeProduto, :valorProduto,
@@ -73,7 +78,7 @@
             $stmt->bindParam(':valorTotal', $item['valorTotal']);
             $stmt->execute();
          }
-
+*/
          
     }
 ?>

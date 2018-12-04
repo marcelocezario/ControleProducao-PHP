@@ -131,7 +131,7 @@ if (!empty($_SESSION['carrinho'])){
 
 
     <h1 class="display-4">Você está quase lá</h1>
-    <p class="lead">Os produtos já são quase seus <?=$_SESSION['cliente']['apelido']?>, falta só um poquinho, confira os dados do seu pedido:</p>
+    <p class="lead">Sua compra está quase concluída <?=$_SESSION['cliente']['apelido']?>, falta só um poquinho, confira os dados do seu pedido</p>
 
 
 <div class="row">

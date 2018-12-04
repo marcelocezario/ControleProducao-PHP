@@ -54,8 +54,8 @@ if (!empty($_SESSION['carrinho'])){
 </div>
 
 
-    <h1 class="display-4">Você está quase lá</h1>
-    <p class="lead">Os produtos já são quase seus <?=$_SESSION['cliente']['apelido']?>, falta só um poquinho, confira os dados do seu pedido:</p>
+    <h1 class="display-4">Endereço de entrega</h1>
+    <p class="lead"><?=$_SESSION['cliente']['apelido']?>, insira os dados para entrega dos produtos</p>
 
 
 <div class="row">
