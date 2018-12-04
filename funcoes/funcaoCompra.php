@@ -18,6 +18,7 @@
 
     function salvarPedido($cliente, $endereco, $carrinho, $idFormaPagamento, $valores) {
         $conn = conectar();
+        $conn ->beginTransaction();
 
         $nrPedido = uniqid();
 
@@ -46,9 +47,7 @@
         $stmt->bindParam(':totalPedido',$valores['totalPedido']);
         
         $stmt->execute();
-
-   
-        $id_pedido = $stmt->mysql_insert_id(); 
+        $id_pedido = $conn->lastInsertId(); 
 
         foreach ($carrinho as $item) {
             $stmt = $conn->prepare("insert into itemvenda (idProduto, idVenda, nomeProduto,
@@ -62,23 +61,7 @@
             $stmt->bindParam(':idVenda', $id_pedido);
             $stmt->execute();
          }
-
-   /*         
-        $id_pedido = $stmt->lastInsertId(); 
-   
-        foreach ($carrinho as $item) {
-            $stmt = $conn->prepare("insert into itemvenda (idProduto, idVenda, nomeProduto,
-            valorProduto, qtde, valorTotal) values (:idProduto,:idVenda,:nomeProduto, :valorProduto,
-            :qtde, :valorTotal)");
-            $stmt->bindParam(':idProduto',$item['id']);
-            $stmt->bindParam(':idVenda', $$id_pedido);
-            $stmt->bindParam(':nomeProduto', $item['nomeProduto']);
-            $stmt->bindParam(':valorProduto', $item['valorProduto']);
-            $stmt->bindParam(':qtde', $item['qtde']);
-            $stmt->bindParam(':valorTotal', $item['valorTotal']);
-            $stmt->execute();
-         }
-*/
+         $conn -> commit();
          
     }
 ?>
