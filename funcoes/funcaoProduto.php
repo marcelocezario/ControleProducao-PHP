@@ -56,14 +56,12 @@ function listarProdutosPorCategoria($idCategoria) {
 
 function pesquisaProdutos($palavraChave) {
     $conn = conectar();
-
     $pesquisa = "%$palavraChave%";
-
-    $stmt = $conn->prepare("SELECT id, nomeProduto, descricao, url, valor, qtdeEstoque, idCategoria
+    $stmt = $conn->prepare("SELECT id, nomeProduto, descricaoResumida, url, valor, qtdeEstoque, idCategoria, idMarca
     from produto
-    where nomeProduto like :pesquisa    
+    where nomeProduto like :pesquisa
     order by nomeProduto");
-  
+
     $stmt->bindParam(':pesquisa',$pesquisa);
     $stmt->execute();
     $retorno = $stmt->fetchAll(PDO::FETCH_ASSOC);

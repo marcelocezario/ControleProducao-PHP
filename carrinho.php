@@ -157,7 +157,7 @@ if (!empty($_SESSION['cliente'])){
 
 
                 <div class="container">
-                    <table class="table table-dark">
+                    <table class="table table-striped">
                 <thead>
                     <tr>
                         <th></th>
