@@ -35,6 +35,8 @@ if (!empty($_SESSION['cliente'])){
         $totalCarrinho += $item['valorTotal'];
     }
 
+    $cepDestino = "";
+
     if (!empty($_POST['cep'])){
         $cepOrigem = 83030580;
         $cepDestino = $_POST['cep'];
@@ -50,7 +52,7 @@ if (!empty($_SESSION['cliente'])){
         $frete = consultaFrete($cepOrigem, $cepDestino, $valorDeclarado);
         
         if($totalCarrinho > 10000){
-            $totalFrete = $frete['Valor'] * ($totalCarrinho / $valorDeclarado);
+            $totalFrete = round($frete['Valor'] * ($totalCarrinho / $valorDeclarado));
         } else {
             $totalFrete = $frete['Valor'];
         }
@@ -139,19 +141,14 @@ if (!empty($_SESSION['cliente'])){
                         <div class="col-2">
                         <br/>
 <br/>
-                            <form action="confirmarPedido.php" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="cep" value="<?=$_POST['cep']?>">
-                                <input type="hidden" name="valorFrete" value="<?=$totalFrete?>">
-                                <input type="hidden" name="valorTotalCarrinho" value="<?=$totalCarrinho?>">
-                                <button type="submit" class="btn btn-primary btn-lg">Finalizar Pedido</button>
-                            </form>
+                            <form action="enderecoEntrega.php" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="cep" value="<?=$cepDestino?>">
+                            <button type="submit" class="btn btn-primary btn-lg" >Finalizar Pedido</button>
+<!--                            <button type="submit" class="btn btn-primary btn-lg" <?php //if(empty($_POST['cep'])):?>disabled<?php //endif;?>>Finalizar Pedido</button>
+-->                            </form>
                         </div>
                     </div>
                     
-
-                    
-                    
-
                 </div>
 
 
@@ -184,7 +181,7 @@ if (!empty($_SESSION['cliente'])){
                             ?>
                             </td> 
                             <td><?=$item['nomeProduto']?></td>
-                            <td><?=$item['valor']?></td>
+                            <td><?=number_format($item['valor'],2,",",".")?></td>
                             
                             
                             <td>
@@ -198,7 +195,7 @@ if (!empty($_SESSION['cliente'])){
                             </a>
                             </td>
 
-                            <td><?=$item['valorTotal']?></td>
+                            <td><?=number_format($item['valorTotal'],2,",",".")?></td>
                             <td>
                                 <a href="adicionarCarrinho.php?acao=remover&id=<?=$item['idTemp']-1?>" 
                                     class="btn btn-primary"
@@ -222,7 +219,7 @@ if (!empty($_SESSION['cliente'])){
                                     <div class="input-group">
                                         <input type="number" class="form-control" name="cep" placeholder="Cep" value="<?=$_POST['cep']?>">
                                         <div class="input-group-append">
-                                            <button type="submit" class="btn btn-outline-secondary" id="calcularFrete">Calcular Frete</button>
+                                            <button type="submit" class="btn btn-outline-secondary" id="calcularFrete">Simular Frete</button>
                                         </div>
                                     </div>
                                 </div>
@@ -233,16 +230,16 @@ if (!empty($_SESSION['cliente'])){
                         <td colspan="4">
                             <div class="text-right">
 
-                                <h6>Valor do frete: <?=$totalFrete?></h6>
+                                <h6>Valor do frete: <?=number_format($totalFrete,2,",",".")?></h6>
                                 <br>
-                                <h6>Prazo para entrega: <?=$prazoEntrega?> dias</h6>
+                                <h6>Prazo para entrega: <?=$prazoEntrega?> dias úteis</h6>
                             </div>
                                </td>
                                </tr>
                         <td colspan="6">
                             <div class="text-right">
 
-                                <h4>Valor total da compra: <?=$totalCarrinho?></h4>
+                                <h4>Valor total da compra: R$ <?=number_format($totalCarrinho,2,",",".");?></h4>
                             </div>
                                </td>
             </table>

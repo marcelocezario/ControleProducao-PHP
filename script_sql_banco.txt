@@ -136,6 +136,15 @@ foreign key (idVenda) references venda (id)
 
 );
 
+create table cupomDesconto(	
+
+id int not null PRIMARY KEY AUTO_INCREMENT,
+nomeCupom varchar(80),
+percentualDesconto decimal(10,2),
+dataValidade date
+
+);
+
 
 
 

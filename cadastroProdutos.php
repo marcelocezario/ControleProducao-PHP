@@ -113,7 +113,7 @@
         <div class="row">
             <div class="form-group col-md-2">
                 <label for="valor"><br>Valor</label>
-                <input type="text" class="cpf form-control" name="valor" id="valor" required placeholder="Valor do Produto" value="<?=$valor?>">
+                <input type="text" class="form-control" name="valor" id="valor" required placeholder="Valor do Produto" value="<?=$valor?>">
             </div>
             <div class="form-group col-md-2">
                 <label for="qtdeEstoque">Quantidade em estoque</label>
@@ -183,7 +183,7 @@
 
 <button type="submit" class="btn btn-primary">Salvar</button>
     </form>
-        <table class="table table-dark">
+        <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -199,7 +199,7 @@
                         <tr>
                             <td><?=$produto['id']?></td>
                             <td><?=$produto['nomeProduto']?></td>
-                            <td><?=$produto['valor']?></td>
+                            <td><?=number_format($produto['valor'],2,",",".")?></td>
                             <td><?=$produto['qtdeEstoque']?></td>
                             <td>
                             <?php

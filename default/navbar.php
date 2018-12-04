@@ -1,6 +1,6 @@
 <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="index.php">Ecommerce</a>
+        <a class="navbar-brand" href="index.php"><h4>Ecommerce</h4></a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,9 +9,12 @@
 
             <li class="nav-item">
               <form action="produtos.php" class="form-inline" method="GET">
-                <input class="form-control mr-sm-2" type="search" placeholder="Pesquisa" name="pesquisa" aria-label="buscaPersonalizada">
-                <button class="btn btn btn-dark my-2 my-sm-0" type="submit">Busca</button>
-              </form>
+              <div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Pesquisa" name="pesquisa">
+  <div class="input-group-append">
+    <button class="btn btn-dark" type="submit" id="pesquisa">Pesquisa</button>
+  </div>
+</div>              </form>
             </li>
  
             

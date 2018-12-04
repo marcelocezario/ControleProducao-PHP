@@ -1,4 +1,6 @@
 <?php
+require_once "funcoes/funcaoProduto.php";
+require_once "funcoes/calculoFrete.php";
 include_once("default/header.php");
 
 if (!empty($_SESSION['cliente'])){
@@ -6,13 +8,11 @@ if (!empty($_SESSION['cliente'])){
     if(empty($_SESSION['carrinho'])){
         header("location: carrinho.php");
     }
-    if (empty($_POST['cep'])){
-        header("location: carrinho.php");
-    }
 } else {
     $_SESSION['urlAnterior'] = "confirmarPedido.php";
     header("location: login.php");
 }
+
 
 $cep = "";
 $logradouro = "";
@@ -22,6 +22,56 @@ $bairro = "";
 $cidade = "";
 $uf = "";
 
+if (!empty($_POST['cep'])){
+    $cep = $_POST['cep'];
+}
+
+print_r($_POST);
+
+
+if (!empty($_SESSION['carrinho'])){
+    $carrinho = $_SESSION['carrinho'];
+} else {
+    $carrinho = array();
+}
+    $totalCarrinho = 0;
+    $totalFrete = 0;
+    $prazoEntrega = 0;
+
+    $idTemp = 0;
+
+    foreach($carrinho as $item){
+        $totalCarrinho += $item['valorTotal'];
+    }
+
+    if (!empty($_POST['cep'])){
+        $cepOrigem = 83030580;
+        $cepDestino = $_POST['cep'];
+
+        $valorDeclarado = $totalCarrinho;
+
+        if ($valorDeclarado < 50){
+            $valorDeclarado = 50;
+        } elseif ($valorDeclarado > 10000){
+            $valorDeclarado = 10000;
+        }
+
+        $frete = consultaFrete($cepOrigem, $cepDestino, $valorDeclarado);
+        
+        if($totalCarrinho > 10000){
+            $totalFrete = round($frete['Valor'] * ($totalCarrinho / $valorDeclarado));
+        } else {
+            $totalFrete = $frete['Valor'];
+        }
+        
+        if($prazoEntrega < $frete['PrazoEntrega']){
+            $prazoEntrega = $frete['PrazoEntrega'];
+        }
+    }
+
+    $totalCarrinho = $totalCarrinho + $totalFrete;
+
+    $_SESSION['urlAnterior'] = $_SERVER['REQUEST_URI'];
 ?>
 
 <?php 
@@ -52,42 +102,10 @@ $uf = "";
     <h1 class="display-4">Você está quase lá</h1>
     <p class="lead">Os produtos já são quase seus <?=$_SESSION['cliente']['apelido']?>, falta só um poquinho, confira os dados do seu pedido:</p>
 
-    <div class="col-8">
-    <table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Item</th>
-      <th scope="col">Produto</th>
-      <th scope="col">Quantidade</th>
-      <th scope="col">Valor total</th>
-    </tr>
-  </thead>
-  <?php
-        $i = 0;
-                foreach($_SESSION['carrinho'] as $item){
-        ?>
-  <tbody>
-    <tr>
-        
-        <td><?=$i+=1?></td>
-        <td><?=$item['nomeProduto']?></td>
-        <td><?=$item['qtde']?></td>
-        <td><?=number_format($item['valorTotal'],2,",",".")?></td>
-
-
-
-        <?php
-                }
-        ?>
-    </tr>
-
-  </tbody>
-</table>
-</div>
 
 <div class="row">
     <div class="col-5">
-            <form action="finalizarPedido.php" method="POST">
+            <form action="dadosPagamento.php" method="POST">
             <input type="hidden" id="id" name="id" value="<?=$id?>"/>
 
             <div class="form-group">
@@ -95,7 +113,7 @@ $uf = "";
                     <label for="cep">Cep</label>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite o cep" value="<?=$_POST['cep']?>">
+                    <input type="text" class="form-control" id="cep" name="cep" placeholder="Digite o cep" value="<?=$cep?>">
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" id="consultaCep">Consultar</button>
                     </div>
@@ -110,7 +128,7 @@ $uf = "";
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="numero">Número</label>
-			                    <input class="form-control" type="text" id="numero" name="numero" placeholder="Número" maxlength="10">
+			                    <input class="form-control" type="text" id="numero" requered name="numero" placeholder="Número" maxlength="10">
                             </div>
                             <div class="form-group">
                                 <label for="Complemento">Complemento</label>
@@ -119,31 +137,22 @@ $uf = "";
                         </div>
                         <div class="form-group">
                                 <label for="Bairro">Bairro</label>
-                                <input class="form-control" type="text" id="bairro" name="bairro" maxlength="80" placeholder="Bairro">
+                                <input class="form-control" type="text" id="bairro" requered name="bairro" maxlength="80" placeholder="Bairro">
                             </div>
                             <div class="form-row">
 
                             <div class="form-group">
                                 <label for="Cidade">Cidade</label>
-                                <input class="form-control" type="text" id="cidade" name="cidade" maxlength="80" placeholder="Cidade">
+                                <input class="form-control" type="text" id="cidade" requered name="cidade" maxlength="80" placeholder="Cidade">
                             </div>
                         <div class="form-group">
                             <label for="course">Estado</label>
-                            <input class="form-control" type="text" id="uf" name="uf" maxlength="80" placeholder="Uf">
+                            <input class="form-control" type="text" id="uf" name="uf" requered maxlength="2" placeholder="Uf">
                                 </div>
                         </div>
 
-            <div class="form-group">
-                <div>
-                    <label for="cupom">Cupom</label>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" name="cep" placeholder="Digite o cupom">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="cupomDesconto">Consultar</button>
-                    </div>
-                </div>
-            </div>
+                        <button type="submit" class="btn btn-primary">Informar dados de pagamento</button>
+
                         
                     </form>
                 </div>
@@ -176,10 +185,9 @@ $uf = "";
                 jQuery('#id_uf').prop('selectedIndex',0);
 
             }
-            
+
             //Quando clicar em pesquisa cep.
             $("#consultaCep").click(function() {
-
                 //Nova variável "cep" somente com dígitos.
                 var cep = $("#cep").val().replace(/\D/g, '');
 

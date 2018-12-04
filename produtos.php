@@ -113,7 +113,7 @@
                 </a>
                 <div class="carousel-caption d-none d-md-block text-right">
                     <h2 class="display-6"><?=$produtos[$i]['nomeProduto']?></h2>
-                    <h4><span class="badge badge-light">R$ <?=$produtos[$i]['valor']?></span></h4>
+                    <h4><span class="badge badge-light">R$ <?=number_format($produtos[$i]['valor'],2,",",".")?></span></h4>
                 
                 </div>
 
@@ -155,7 +155,7 @@
                   <h4 class="card-title">
                     <a href="detalhesProduto.php?acao=carregar&idProduto=<?=$produto['id']?>"><?=$produto['nomeProduto']?></a>
                   </h4>
-                  <h5><?='R$ '.$produto['valor']?></h5>
+                  <h5><?='R$ '.number_format($produto['valor'],2,",",".")?></h5>
                   <p class="card-text"><?=$produto['descricaoResumida']?></p>
                 </div>
                 <div class="card-footer text-center">
