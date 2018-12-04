@@ -86,22 +86,7 @@ if (!empty($_SESSION['cliente'])){
         <div class="jumbotron-fluid">
         
                 <div class="container">
-                <?php
-                        if(!count($carrinho)>0){
-                ?>
-                                <div class="progress">
-  <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-</div> 
-                <?php
-                        } else{
-                ?>
-                                <div class="progress">
-  <div class="progress-bar" role="progressbar" style="width: 33%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
-                <?php
-                        }
-                ?>
-
+ 
                     <div class="row justify-content-between">
                         <div class="col-10">
 

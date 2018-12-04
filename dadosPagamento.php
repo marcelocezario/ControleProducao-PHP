@@ -126,7 +126,7 @@ if (!empty($_SESSION['carrinho'])){
 
     <main role="main" class="container">
     <div class="progress">
-  <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 
 
@@ -157,6 +157,12 @@ if (!empty($_SESSION['carrinho'])){
                 <div class="form-row">
                 <div class="form-group">
 
+            <form action="finalizarPedido.php" method="POST">
+            <input type="hidden" id="valorCompra" name="valorCompra" value="<?=$totalCarrinho?>"/>
+            <input type="hidden" id="valorFrete" name="valorFrete" value="<?=$totalFrete?>"/>
+            <input type="hidden" id="valorDesconto" name="valorDesconto" value="<?=$desconto?>"/>
+            <input type="hidden" id="totalPedido" name="totalPedido" value="<?=$totalPedido?>"/>
+
             <label for="idMarca">Meio de pagamento</label>
                 <select class="form-control" id="idMeioPagamento" name="idMeioPagamento">
                     <option value="" disabled selected>Selecione um meio de pagamento</option>
@@ -183,6 +189,41 @@ if (!empty($_SESSION['carrinho'])){
 
                             <div class="form-group">
 
+<div class="col-15">
+<table class="table table-striped">
+<thead>
+<tr>
+  <th scope="col">Item</th>
+  <th scope="col">Produto</th>
+  <th scope="col">Quantidade</th>
+  <th scope="col">Valor total</th>
+</tr>
+</thead>
+<?php
+    $i = 0;
+            foreach($_SESSION['carrinho'] as $item){
+    ?>
+<tbody>
+<tr>
+    
+    <td><?=$i+=1?></td>
+    <td><?=$item['nomeProduto']?></td>
+    <td><?=$item['qtde']?></td>
+    <td><?=number_format($item['valorTotal'],2,",",".")?></td>
+
+
+
+    <?php
+            }
+    ?>
+</tr>
+
+</tbody>
+</table>
+
+
+
+
                 <ul class="list-group">
                     <li class="list-group-item">Total de produtos: R$ <?=number_format($totalCarrinho,2,",",".")?></li>
                     <li class="list-group-item">Desconto Cupom: R$ <?=number_format($desconto,2,",",".")?></li>
@@ -194,6 +235,9 @@ if (!empty($_SESSION['carrinho'])){
                 </div>
 </div>
                         
+
+                        <button type="submit" class="btn btn-success">Confirmar pedido</button>
+
                     </form>
                 </div>
             </div>
