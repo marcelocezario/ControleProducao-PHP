@@ -71,7 +71,7 @@ function pesquisaProdutos($palavraChave) {
 function buscarProduto($id) {
     $conn = conectar();
 
-    $stmt = $conn->prepare("select descricaoResumida, descricaoDetalhada, idCategoria, idMarca, nomeProduto, qtdeEstoque, url, valor from produto where id = :id");
+    $stmt = $conn->prepare("select id, descricaoResumida, descricaoDetalhada, idCategoria, idMarca, nomeProduto, qtdeEstoque, url, valor from produto where id = :id");
     $stmt->bindParam(':id',$id);
 
     $stmt->execute();

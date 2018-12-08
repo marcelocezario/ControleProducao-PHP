@@ -15,11 +15,6 @@ if(!empty($_POST)){
     salvarPedido($_SESSION['cliente'], $_SESSION['endereco'], $_SESSION['carrinho'], $idMeioPagamento, $valores);
 
 
-    print_r($_SESSION['cliente']);
+    header("location: pedido.php");
 }
-
-
-
-
-
 ?>

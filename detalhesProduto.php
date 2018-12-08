@@ -23,6 +23,14 @@
             include_once("default/navbar.php");
         ?>
 
+<div class="jumbotron">
+  <h1 class="display-4"><?=$produto['nomeProduto']?></h1>
+  <p class="lead"><h4>Valor R$ <?=number_format($produto['valor'],2,",",".")?></h4></p>
+  <hr class="my-4">
+  <p><?=$produto['descricaoDetalhada']?></p>
+  <a class="btn btn-success btn-sm" href="adicionarCarrinho.php?acao=adicionar&idProduto=<?=$produto['id']?>">Adicionar</a>
+  </div>
+
 
 
 

@@ -47,7 +47,9 @@
         $stmt->bindParam(':totalPedido',$valores['totalPedido']);
         
         $stmt->execute();
-        $id_pedido = $conn->lastInsertId(); 
+        $id_pedido = $conn->lastInsertId();
+        
+        $_SESSION['pedido'] = $id_pedido;
 
         foreach ($carrinho as $item) {
             $stmt = $conn->prepare("insert into itemvenda (idProduto, idVenda, nomeProduto,
@@ -63,5 +65,36 @@
          }
          $conn -> commit();
          
+
+    }
+
+    function buscarVenda($id){
+        $conn = conectar();    
+        $stmt = $conn->prepare('SELECT id, bairro, cep, cidade, complemento, idCliente, uf,
+        idMeioPagamento, logradouro, nomeCliente, numero, valorFrete, valorDesconto, valorCompra,
+        totalPedido, data, nrPedido from venda where id = :id');
+        $stmt->bindParam(':id',$id);
+        $stmt->execute();    
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
+    }
+
+    function buscarPedidosCliente($idCliente){
+        $conn = conectar();    
+        $stmt = $conn->prepare('SELECT v.id as id,
+        v.totalPedido as totalPedido, v.data as data, v.nrPedido as nrPedido, 
+        iv.valorTotal as totalItem, iv.nomeProduto as produto, iv.qtde as qtde from venda v
+        inner join itemvenda as iv on (v.id = iv.idVenda)
+         where v.idCliente = :idCliente');
+        $stmt->bindParam(':idCliente',$idCliente);
+        $stmt->execute();    
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function buscarItensVenda($idVenda){
+        $conn = conectar();    
+        $stmt = $conn->prepare('SELECT id, idProduto, idVenda, nomeProduto, valorProduto, qtde, valorTotal from itemvenda where idVenda = :idVenda');
+        $stmt->bindParam(':idVenda',$idVenda);
+        $stmt->execute();    
+        return $stmt->fetch(PDO::FETCH_ASSOC); 
     }
 ?>

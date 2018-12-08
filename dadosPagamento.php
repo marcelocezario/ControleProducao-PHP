@@ -74,7 +74,8 @@ if (!empty($_SESSION['carrinho'])){
         }
 
         $frete = consultaFrete($cepOrigem, $cepDestino, $valorDeclarado);
-        
+        $_SESSION['prazoEntrega'] = $frete['PrazoEntrega'];
+
         if($totalCarrinho > 10000){
             $totalFrete = round($frete['Valor'] * ($totalCarrinho / $valorDeclarado));
         } else {
